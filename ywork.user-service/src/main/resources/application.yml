@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ywork.user-service
+  port: 9910
+  datasource:
+    url: mysql://localhost:3306/y-work
+    username: root
+    password: lam2002
+security:
+  jwt:
+    secret-key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyOTM2MDc4NywiaWF0IjoxNzI5MzYwNzg3fQ.GQy1lCFm6X72M9CSpC63FO6a9hjovCL2ktT4Mwx7hTY
+    expiration-time: 3600000

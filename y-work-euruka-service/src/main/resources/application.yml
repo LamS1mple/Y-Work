@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: y-work-euruka-service
+
+server:
+  port: 8761
+
+eureka:
+  instrance:
+    statusPageUrlPath: ${server.servletPath}/info
+    healthCheckUrlPath: ${server.serverPath}/health
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instrance.hostname}:${server.port}/eureka/
