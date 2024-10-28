@@ -1,12 +1,17 @@
+server:
+  port: 9910
 spring:
   application:
     name: ywork.user-service
-  port: 9910
   datasource:
-    url: mysql://localhost:3306/y-work
-    username: root
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5432/ywork?escapeSyntaxCallMode=call}
+    username: postgres
     password: lam2002
+  security:
+    user:
+      name: user
+      password: 123
 security:
   jwt:
-    secret-key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyOTM2MDc4NywiaWF0IjoxNzI5MzYwNzg3fQ.GQy1lCFm6X72M9CSpC63FO6a9hjovCL2ktT4Mwx7hTY
+    secret-key: e78d03c253e1df3092d068240d8563b6f30413368b559c5a885ccdd38c4327ea818f6923ed8001ec1037421fbebeb594752a3a371e46463739c52ef0a78a528804fc2d684fca46f94d0a2c81900e8f85cdb38ac6725e7ae1f7e28e3bba03e6e1b83b8fcf3fdd55c18fec5295e08b75a1aad9fa5e798ef4cc1a85163376f600163b2d17190fb189f4e5e48f24c62f28a81f79c339d0a7e2bc1b61615527a8194eeb44350d9cc0a0ec0832d69c65fac412746c5f759a3ee54b1251889c3dc7888af7becd976dae061c0278ba46044054f3d5ff09fc02d0dda762c96145572755015224129592783e6022490d5704eba881fdf1b80a27d5065ac82a68705a160271
     expiration-time: 3600000

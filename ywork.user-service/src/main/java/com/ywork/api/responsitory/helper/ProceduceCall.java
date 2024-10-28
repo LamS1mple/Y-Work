@@ -3,6 +3,7 @@ package com.ywork.api.responsitory.helper;
 
 import jakarta.persistence.ParameterMode;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -11,10 +12,12 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
 import java.util.*;
 
+@Repository
 public class ProceduceCall {
     @Autowired
     private JdbcTemplate jdbcTemplate;

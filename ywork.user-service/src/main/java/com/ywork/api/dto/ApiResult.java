@@ -2,12 +2,12 @@ package com.ywork.api.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@Builder
 @RequiredArgsConstructor
 public class ApiResult {
-    private String messages = "GOOD";
+    private String messages = "ok";
     private Object object;
 }
