@@ -8,8 +8,8 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example.ywork.work-service</groupId>
-	<artifactId>ywork.work-service</artifactId>
+	<groupId>com.example.ywork.company-service</groupId>
+	<artifactId>ywork.company-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ywork.user-service</name>
 	<description>Demo project for Spring Boot</description>
