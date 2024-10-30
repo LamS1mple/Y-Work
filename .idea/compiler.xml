@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ywork.user-service (1)" />
+        <module name="ywork.company-service" />
         <module name="ywork.user-service" />
         <module name="y-work-euruka-service" />
       </profile>
@@ -16,6 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="y-work-euruka-service" options="-parameters" />
+      <module name="ywork.company-service" options="-parameters" />
       <module name="ywork.user-service" options="-parameters" />
       <module name="ywork.user-service (1)" options="-parameters" />
     </option>

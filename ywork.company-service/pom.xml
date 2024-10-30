@@ -11,7 +11,7 @@
 	<groupId>com.example.ywork.company-service</groupId>
 	<artifactId>ywork.company-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ywork.user-service</name>
+	<name>ywork.company-service</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -1,6 +1,7 @@
-package com.ywork.security;
+package com.ywork.filter;
 
 import com.ywork.api.responsitory.UserResponsitory;
+import com.ywork.security.JwtManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
