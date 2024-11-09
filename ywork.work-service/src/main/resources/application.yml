@@ -11,7 +11,15 @@ spring:
     user:
       name: user
       password: 123
+  minio:
+    url: ${MINIO_URL:http://127.0.0.1:9000}
+    bucket: ${MINIO_BUCKET:file-storage}
+    access-key: ${MINIO_ACCESS_KEY:TAwO7a4jXCRCdVnzonpd}
+    secret-key: ${MINIO_SECRET_KEY:4C0kaaTkgGoz2Z00xL1MtbQ1fbMpP7R75RUxXJWR}
 security:
   jwt:
     secret-key: e78d03c253e1df3092d068240d8563b6f30413368b559c5a885ccdd38c4327ea818f6923ed8001ec1037421fbebeb594752a3a371e46463739c52ef0a78a528804fc2d684fca46f94d0a2c81900e8f85cdb38ac6725e7ae1f7e28e3bba03e6e1b83b8fcf3fdd55c18fec5295e08b75a1aad9fa5e798ef4cc1a85163376f600163b2d17190fb189f4e5e48f24c62f28a81f79c339d0a7e2bc1b61615527a8194eeb44350d9cc0a0ec0832d69c65fac412746c5f759a3ee54b1251889c3dc7888af7becd976dae061c0278ba46044054f3d5ff09fc02d0dda762c96145572755015224129592783e6022490d5704eba881fdf1b80a27d5065ac82a68705a160271
     expiration-time: 3600000
+
+
+

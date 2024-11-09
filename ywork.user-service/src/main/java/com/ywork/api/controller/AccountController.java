@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/work")
-public class WorkController {
+@RequestMapping("/account")
+public class AccountController {
     private final UserService userService;
     @PostMapping("/create-user")
     public ResponseEntity<ApiResult> createUser(@RequestBody UserIn userIn){

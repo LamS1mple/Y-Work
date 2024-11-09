@@ -1,0 +1,27 @@
+package com.ywork.api.responsitory;
+
+import com.ywork.api.dto.out.LocationOut;
+import com.ywork.api.responsitory.helper.ProceduceCall;
+import com.ywork.api.responsitory.helper.ProcedureParameter;
+import com.ywork.common.DataStatus.DataStatus;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+@AllArgsConstructor
+public class LocationRepository {
+    private final ProceduceCall proceduceCall;
+    public List<LocationOut>  getLocationsWork(String workId) {
+        var out_put = proceduceCall.callOneRefCursor("location_work_search",
+                List.of(ProcedureParameter.inputParam("in_work_id", String.class, workId),
+                        ProcedureParameter.outputParam("out_result", String.class),
+                        ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
+        String result = (String) out_put.get("out_result");
+        if (!DataStatus.SUCCESS.equals(result)){
+
+        }
+        return (List<LocationOut>) out_put.get("out_cur");
+    }
+}

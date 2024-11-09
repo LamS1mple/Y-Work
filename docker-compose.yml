@@ -1,17 +1,30 @@
 version: '3.8'
 services:
-  db:
-    image: mysql:8.0
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=Y-Work
-      - MYSQL_ROOT_PASSWORD=lam2002
+#  db:
+#    image: mysql:8.0
+#    cap_add:
+#      - SYS_NICE
+#    restart: always
+#    environment:
+#      - MYSQL_DATABASE=Y-Work
+#      - MYSQL_ROOT_PASSWORD=lam2002
+#    ports:
+#      - '3306:3306'
+#    volumes:
+#      - mysql-data:/var/lib/mysql
+  minio:
+    image: minio/minio
+    container_name: minio
     ports:
-      - '3306:3306'
+      - "9000:9000"
+      - "9001:9001"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - storage:/data
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: conglam2002
+    command: server --console-address ":9001" /data
 volumes:
-  mysql-data:
+#  mysql-data:
+  storage:
   

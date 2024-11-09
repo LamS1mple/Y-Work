@@ -18,9 +18,18 @@ public class CompanyController {
     private final CompanyService companyService;
     @PostMapping("/create-company")
     public ResponseEntity<ApiResult> createUser(@RequestBody CompanyIn companyIn){
-        log.info("/accoount/create-user");
+        log.info("/company/create-user");
         companyService.createCompany(companyIn);
         ApiResult apiResult = new ApiResult();
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
+
+    @GetMapping("/list-company")
+    public ResponseEntity<ApiResult> getCompanyList(){
+        log.info("/company/list-company");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(companyService.getAllCompanies());
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }

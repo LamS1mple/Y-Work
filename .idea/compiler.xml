@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ywork.user-service (1)" />
         <module name="ywork.company-service" />
         <module name="ywork.user-service" />
+        <module name="ywork.work-service" />
         <module name="y-work-euruka-service" />
       </profile>
     </annotationProcessing>
@@ -19,7 +19,7 @@
       <module name="y-work-euruka-service" options="-parameters" />
       <module name="ywork.company-service" options="-parameters" />
       <module name="ywork.user-service" options="-parameters" />
-      <module name="ywork.user-service (1)" options="-parameters" />
+      <module name="ywork.work-service" options="-parameters" />
     </option>
   </component>
 </project>
