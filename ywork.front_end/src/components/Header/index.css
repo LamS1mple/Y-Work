@@ -1,0 +1,99 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    font-weight: bold;
+    color: #333;
+    margin-right: 20px;
+}
+
+.header-nav a {
+    margin-right: 15px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+}
+
+.pro-badge {
+    background-color: #f4b400;
+    color: #fff;
+    padding: 2px 5px;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.header-right .btn {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.btn-login {
+    background-color: #fff;
+    color: #00b14f;
+    border: 1px solid #00b14f;
+}
+
+.btn-signup {
+    background-color: #00b14f;
+    color: #fff;
+}
+
+.btn-recruit {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+    border-radius: 8px;
+    padding: 10px 0;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: #00b14f;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.icon {
+    margin-right: 10px;
+}

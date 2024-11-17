@@ -3,7 +3,8 @@ import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
-const CompanyCard = () => {
+const CompanyCard = (props) => {
+    const companyDetail = props.companyDetail
     return (
         <div style={styles.cardContainer}>
             <div style={styles.logoContainer}>
@@ -15,19 +16,23 @@ const CompanyCard = () => {
             </div>
             <div style={styles.content}>
                 <h3 style={styles.title}>
-                    CÔNG TY DỊCH VỤ MOBIFONE KHU VỰC 1 - CHI NHÁNH TỔNG CÔNG...
+                    {companyDetail.nameCompany}
                 </h3>
                 <div style={styles.badge}>Pro Company</div>
                 <div style={styles.info}>
                     <p style={styles.infoItem}>
-                        <PeopleOutlineIcon style={styles.icon} /> Quy mô: 100-499 nhân viên
+                        <PeopleOutlineIcon style={styles.icon}/> <strong>Quy mô
+                        :</strong> {companyDetail.quantityStaff} nhân viên
                     </p>
-                    <p style={styles.infoItem}>
-                        <WorkOutlineIcon style={styles.icon} /> Lĩnh vực: IT - Phần mềm
-                    </p>
-                    <p style={styles.infoItem}>
-                        <LocationOnIcon style={styles.icon} /> Địa điểm: Số 5/82 đường Duy
-                        Tân, Phường Dịch Vọng Hậu, Quận...
+                    {/*<p style={styles.infoItem}>*/}
+                    {/*    <WorkOutlineIcon style={styles.icon}/> Lĩnh vực: IT - Phần mềm*/}
+                    {/*</p>*/}
+                    <p style={styles.infoItem}
+                       title={`Địa điểm: ${companyDetail.locationDetailCompany}, Phường ${companyDetail.nameWard}, Quận ${companyDetail.nameDistrict}, Thành phố ${companyDetail.nameProvince}`}>
+                        <LocationOnIcon style={styles.icon}/>
+                        <strong>Địa điểm:</strong> {companyDetail.locationDetailCompany},
+                        Phường {companyDetail.nameWard}, Quận {companyDetail.nameDistrict},
+                        Thành phố {companyDetail.nameProvince}
                     </p>
                 </div>
                 <a
@@ -82,10 +87,14 @@ const styles = {
         margin: "10px 0",
     },
     infoItem: {
-        marginBottom: "5px",
-        fontSize: "14px",
-        display: "flex",
-        alignItems: "center",
+
+        display: '-webkit-box',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: 2, // Giới hạn 2 dòng
+        overflow: 'hidden', // Ẩn nội dung vượt quá
+        textOverflow: 'ellipsis', // Thêm dấu "..."
+        lineHeight: '1.5', // Chiều cao dòng
+        whiteSpace: 'normal', // Đảm bảo xuống dòng khi cần
     },
     icon: {
         marginRight: "5px",

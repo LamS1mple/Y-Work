@@ -43,4 +43,20 @@ public class CompanyRepository {
         if (!DataStatus.SUCCESS.equals(result)) return null;
         return (List<CompanyOut>) out_put.get("out_cur");
     }
+
+    public CompanyOut detailCompany(String companyId) {
+        var out_put = proceduceCall.callOneRefCursor("company_detail",
+                List.of(ProcedureParameter.inputParam("in_company_id", String.class, companyId ),
+                        ProcedureParameter.outputParam("out_result", String.class),
+                        ProcedureParameter.refCursorParam("out_cur")),
+                CompanyOut.class);
+
+        String result = (String) out_put.get("out_result");
+        if (!DataStatus.SUCCESS.equals(result)) return null;
+        List<CompanyOut> companyOutList =(List<CompanyOut>) out_put.get("out_cur");
+        if (companyOutList.isEmpty()){
+            throw new RuntimeException("Not found company");
+        }
+        return companyOutList.get(0);
+    }
 }

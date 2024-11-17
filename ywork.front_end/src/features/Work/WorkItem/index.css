@@ -1,0 +1,30 @@
+.job-card:hover{
+    cursor: pointer;
+}
+.job-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.job-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Nếu bạn muốn hình ảnh tròn */
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.job-info {
+    display: flex;
+    flex-direction: column;
+}
+.wage-location{
+    font-size: 10px;
+    white-space: nowrap;
+    background: #f4f5f5;
+    border-radius: 10px;
+    padding: 5px;
+}

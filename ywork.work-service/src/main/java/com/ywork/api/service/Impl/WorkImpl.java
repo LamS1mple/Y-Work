@@ -25,4 +25,12 @@ public class WorkImpl implements WorkService {
         }
         return workOutList;
     }
+
+    @Override
+    public Object getDetail(String workId) {
+        WorkOut workOut = workRepository.getDetailWork(workId);
+        workOut.setLocations(locationRepository.getLocationsWork(workOut.getWorkId()));
+        workOut.setSkills(skillFieldRepository.getSkillFieldsWork(workOut.getWorkId()));
+        return workOut;
+    }
 }

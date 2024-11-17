@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface WorkService {
     List<WorkOut> getListWork();
+
+    Object getDetail(String workId);
 }

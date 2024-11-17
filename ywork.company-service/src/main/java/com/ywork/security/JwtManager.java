@@ -35,11 +35,16 @@ public class JwtManager {
     }
 
     public Boolean validateJwtToken(String token){
-        Claims claims = (Claims) Jwts.parserBuilder()
-                .setSigningKey(getKey())
-                .build()
-                .parse(token).getBody();
-        return claims.getExpiration().after(new Date());
+        try {
+            Claims claims = (Claims) Jwts.parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+                    .parse(token).getBody();
+            return claims.getExpiration().after(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     public String  getUsername(String token){

@@ -1,48 +1,74 @@
 import React from 'react';
 import './index.css';
+import {FaDollarSign, FaMapMarkerAlt, FaCalendarAlt, FaClock} from 'react-icons/fa';
+import {AiOutlineCheckCircle, AiOutlineHeart} from 'react-icons/ai';
+import {configColor} from '../../../../ConfigColor'
 
-function JobOverview() {
+function JobOverview(props) {
+    const job = props.workDetail
+
+    const location = new Set(job.locations.map(location => location.provinceName))
+    const listLocation = location.size <= 2 ? [...location].join(',') : `${[...location][0]}&${location.size - 1} nơi khác`
+
+    const onOpen = props.onOpen
     return (
-        <div className="job-overview-container">
+        <div className="job-card-container">
             {/* Job Title */}
-            <h2 className="job-overview-title">Kỹ Thuật Điện / Kỹ Sư Điện (Lương 15-30 Triệu)</h2>
+            <h2 className="job-card-title">
+                {job.nameWork} <AiOutlineCheckCircle className="status-icon"/>
+            </h2>
 
             {/* Job Information Section */}
             <div className="job-info-section">
                 <div className="job-info-item">
-                    <span role="img" aria-label="salary">💵</span>
+                    <div className={'icon-out'}>
+                        <FaDollarSign className={'icon-in'}/>
+                    </div>
                     <div>
                         <strong>Mức lương</strong>
-                        <div>15 - 30 triệu</div>
+                        <div>{job.wage.charAt(0) === 'T' ? job.wage : `${job.wage} triệu`}</div>
                     </div>
                 </div>
                 <div className="job-info-item">
-                    <span role="img" aria-label="location">📍</span>
+                    <div className={'icon-out'}>
+                        <FaMapMarkerAlt className={'icon-in'}/>
+                    </div>
+
                     <div>
                         <strong>Địa điểm</strong>
-                        <div>Hà Nam, Hà Nội</div>
+                        <div>{location}</div>
                     </div>
                 </div>
                 <div className="job-info-item">
-                    <span role="img" aria-label="experience">⏳</span>
+                    <div className={'icon-out'}>
+                        <FaClock className={'icon-in'}/>
+                    </div>
                     <div>
                         <strong>Kinh nghiệm</strong>
-                        <div>2 năm</div>
+                        <div>{job.experience}</div>
                     </div>
                 </div>
-                <div className="job-info-item">
-                    <span role="img" aria-label="deadline">📅</span>
-                    <div>
-                        <strong>Hạn nộp hồ sơ</strong>
-                        <div>12/12/2024</div>
-                    </div>
-                </div>
-            </div>
 
+            </div>
+            <div style={{
+                display: 'inline-flex', alignItems: 'center', background: '#f2f2f2',
+                padding: '5px', borderRadius: '10px',
+            }}>
+                <div>
+                    <FaCalendarAlt style={{color: configColor}}/>
+                </div>
+                <div style={{marginLeft: '10px'}}>
+                    <strong>Hạn nộp hồ sơ</strong> {job.dueDate.split(' ')[0]}
+                </div>
+
+            </div>
             {/* Action Buttons */}
             <div className="button-container">
-                <button className="apply-button">Ứng tuyển ngay</button>
-                <button className="save-button">Lưu tin</button>
+                <button className="apply-button" style={{background: configColor}} onClick={onOpen}>Ứng tuyển ngay
+                </button>
+                <button className="save-button">
+                    <AiOutlineHeart/> Lưu tin
+                </button>
             </div>
         </div>
     );

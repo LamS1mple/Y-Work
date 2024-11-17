@@ -27,4 +27,14 @@ public class WorkController {
         return  ResponseEntity.ok(apiResult);
     }
 
+    @GetMapping("/detail")
+    public ResponseEntity<ApiResult> detailWork(@RequestParam String workId){
+        log.info("/work/detail");
+        var result = workService.getDetail(workId);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(result);
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
+
 }

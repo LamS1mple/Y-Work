@@ -10,6 +10,8 @@ import java.util.List;
 
 @Data
 public class WorkOut {
+    @Col("company_id")
+    private String companyId;
     @Col("name_company")
     private String nameCompany;
     @Col("work_id")

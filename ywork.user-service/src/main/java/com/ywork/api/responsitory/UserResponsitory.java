@@ -27,7 +27,7 @@ public class UserResponsitory  implements UserDetailsService{
                         ProcedureParameter.inputParam("in_email", String.class, userIn.getEmail()),
                         ProcedureParameter.inputParam("in_phone_number", String.class, userIn.getPhoneNumber()),
                         ProcedureParameter.inputParam("in_password", String.class, userIn.getPassword()),
-                        ProcedureParameter.inputParam("in_name_account", String.class, userIn.getName_account()),
+                        ProcedureParameter.inputParam("in_name_account", String.class, userIn.getNameAccount()),
                         ProcedureParameter.inputParam("in_role_status", Integer.class, userIn.getRoleStatus()),
                         ProcedureParameter.outputParam("out_result", String.class)));
         String outResult = (String) out.get("out_result");

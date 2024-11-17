@@ -25,7 +25,6 @@ public class AccountController {
     @PostMapping("/login")
     public  ResponseEntity<ApiResult> infor(@RequestBody UserIn userIn){
         log.info("/account/login");
-
         ApiResult apiResult = new ApiResult();
         apiResult.setObject(userService.getUser(userIn));
         log.info("Success");

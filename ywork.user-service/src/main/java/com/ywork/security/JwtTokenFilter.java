@@ -21,11 +21,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final UserResponsitory userResponsitory;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//        String requestPath = request.getServletPath();
-//        if (requestPath.startsWith("/account/")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
+        String requestPath = request.getServletPath();
+        if (requestPath.startsWith("/account/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         String tokenHeader = request.getHeader("Authorization");
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")){
             String token = tokenHeader.substring(7);
