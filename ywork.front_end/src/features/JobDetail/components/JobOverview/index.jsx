@@ -6,7 +6,8 @@ import {configColor} from '../../../../ConfigColor'
 
 function JobOverview(props) {
     const job = props.workDetail
-
+    if (Object.keys(job).length === 0) return (<div></div>)
+    console.log(job)
     const location = new Set(job.locations.map(location => location.provinceName))
     const listLocation = location.size <= 2 ? [...location].join(',') : `${[...location][0]}&${location.size - 1} nơi khác`
 
@@ -36,7 +37,7 @@ function JobOverview(props) {
 
                     <div>
                         <strong>Địa điểm</strong>
-                        <div>{location}</div>
+                        <div>{listLocation}</div>
                     </div>
                 </div>
                 <div className="job-info-item">

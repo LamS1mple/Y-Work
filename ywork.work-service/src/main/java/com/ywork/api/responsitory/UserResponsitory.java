@@ -1,15 +1,13 @@
 package com.ywork.api.responsitory;
 
 import com.ywork.api.dto.in.UserIn;
-import com.ywork.api.dto.out.RoleOut;
-import com.ywork.api.dto.out.UserOut;
+import com.ywork.api.model.RoleOut;
+import com.ywork.api.model.UserOut;
 import com.ywork.api.responsitory.helper.ProceduceCall;
 import com.ywork.api.responsitory.helper.ProcedureParameter;
 import com.ywork.common.DataStatus.DataStatus;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

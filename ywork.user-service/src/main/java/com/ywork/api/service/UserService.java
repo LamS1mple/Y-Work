@@ -9,4 +9,6 @@ public interface UserService {
     void createUser(UserIn userIn);
 
     Map<String, Object> getUser(UserIn userIn);
+
+    Object getDetailUser();
 }

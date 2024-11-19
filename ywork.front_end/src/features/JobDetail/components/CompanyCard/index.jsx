@@ -9,16 +9,19 @@ const CompanyCard = (props) => {
         <div style={styles.cardContainer}>
             <div style={styles.logoContainer}>
                 <img
-                    src="your-logo-url-here"
+                    src={companyDetail.urlAvatar}
                     alt="Company Logo"
                     style={styles.logo}
                 />
+                <div>
+                    <h3 style={styles.title}>
+                        {companyDetail.nameCompany}
+                    </h3>
+                    <div style={styles.badge}>Pro Company</div>
+                </div>
             </div>
             <div style={styles.content}>
-                <h3 style={styles.title}>
-                    {companyDetail.nameCompany}
-                </h3>
-                <div style={styles.badge}>Pro Company</div>
+
                 <div style={styles.info}>
                     <p style={styles.infoItem}>
                         <PeopleOutlineIcon style={styles.icon}/> <strong>Quy mô
@@ -60,11 +63,14 @@ const styles = {
     logoContainer: {
         backgroundColor: "#f9f9f9",
         padding: "10px",
-        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
     },
     logo: {
+        marginRight: "15px",
         width: "80px",
-        height: "auto",
+        height: "80px",
+        borderRadius: "50%"
     },
     content: {
         padding: "10px",

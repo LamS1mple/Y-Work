@@ -30,4 +30,6 @@ public class AccountController {
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }
+
+
 }

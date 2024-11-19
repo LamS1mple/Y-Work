@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Header from "../../components/Header";
 import JobOverview from "./components/JobOverview";
 import JobDescription from "./components/JobDescription";
@@ -9,12 +8,27 @@ import CompanyCard from "./components/CompanyCard";
 import InfoCard from "./components/InfoCard";
 import workApi from "../../api/workApi";
 import companyApi from "../../api/companyApi";
+import userApi from "../../api/userApi";
 
 JobDetail.propTypes = {};
 
 
-function JobDetail() {
-    const [loading, setLoading] = useState(true);
+function JobDetail(props) {
+    const [isUser, setIsUser] = useState(true);
+    const [userDetail, setUserDetail] = useState({})
+    const navigate = useNavigate()
+    useEffect(() => {
+        userApi.detailUser()
+            .then(data => {
+                setUserDetail(data.object)
+                setIsUser(true)
+            }).catch(error => {
+            setIsUser(false)
+        })
+    }, []);
+
+
+    const [loading, setLoading] = useState(false);
     const {idJob, companyId} = useParams();
 
     const [workDetail, setWorkDetail] = useState({});
@@ -49,13 +63,12 @@ function JobDetail() {
 
     if (loading) {
         return (
-            <div><Header/></div>
+            <div><Header userDetail={userDetail} isUser={isUser}/></div>
         )
     }
-
     return (
         <div>
-            <Header/>
+            <Header userDetail={userDetail} isUser={isUser}/>
             <div className="job-detail-container" style={{
                 padding: '20px', fontFamily: 'Arial, sans-serif',
                 display: 'flex',
@@ -77,7 +90,7 @@ function JobDetail() {
                     <InfoCard workDetail={workDetail}/>
                 </div>
             </div>
-            {isOpen && <JobApply onClose={closeApply}/>}
+            {isOpen ? (isUser ? <JobApply onClose={closeApply} workDetail={workDetail}/> : navigate("/login")) : ""}
         </div>
     );
 }

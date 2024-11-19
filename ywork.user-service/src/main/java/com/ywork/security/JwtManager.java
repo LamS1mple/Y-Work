@@ -1,6 +1,7 @@
 package com.ywork.security;
 
 import com.ywork.api.dto.out.UserOut;
+import com.ywork.api.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,7 +24,7 @@ public class JwtManager {
     @Value("${security.jwt.secret-key}")
     private  String jwtSecret;
     private final long TOKEN_VALIDITY= 24 * 60 * 60 * 1000;
-    public String generateToken(UserOut userOut) {
+    public String generateToken(User userOut) {
         Map<String, Object> claims = Map.of("id", userOut.getUserId());
         return Jwts.builder()
                 .setClaims(claims)

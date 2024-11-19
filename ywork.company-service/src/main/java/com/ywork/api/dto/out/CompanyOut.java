@@ -15,10 +15,16 @@ public class CompanyOut {
     private String locationDetailCompany;
     @Col("quantity_staff")
     private String quantityStaff;
+    @Col("avatar")
+    private String avatar;
+    @Col("cover_photo")
+    private String coverPhoto;
     @Col("name_ward")
     private String nameWard;
     @Col("name_district")
     private String nameDistrict;
     @Col("name_province")
     private String nameProvince;
+    private String urlAvatar;
+    private String urlCoverPhoto;
 }

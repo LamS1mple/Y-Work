@@ -17,6 +17,7 @@ import java.util.List;
 public class CompanyImpl implements CompanyService {
     private final CompanyRepository companyRepository;
     private final LocationRepository locationRepository;
+    private final MinioUtils minioUtils;
     @Override
     public void createCompany(CompanyIn companyIn) {
         UserOut userOut = (UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
@@ -33,6 +34,8 @@ public class CompanyImpl implements CompanyService {
     @Override
     public Object detailCompany(String companyId) {
         CompanyOut companyOut = companyRepository.detailCompany(companyId);
+        String urlAvatar = minioUtils.getUrlFile(companyOut.getIdCompany(),companyOut.getAvatar());
+        companyOut.setUrlAvatar(urlAvatar);
         return companyOut;
     }
 }

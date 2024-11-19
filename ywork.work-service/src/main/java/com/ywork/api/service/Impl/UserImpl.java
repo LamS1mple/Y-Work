@@ -1,7 +1,7 @@
 package com.ywork.api.service.Impl;
 
 import com.ywork.api.dto.in.UserIn;
-import com.ywork.api.dto.out.UserOut;
+import com.ywork.api.model.UserOut;
 import com.ywork.api.responsitory.UserResponsitory;
 import com.ywork.api.service.UserService;
 import com.ywork.security.JwtManager;
@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service

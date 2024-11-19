@@ -1,5 +1,6 @@
-package com.ywork.api.dto.out;
+package com.ywork.api.model;
 
+import com.ywork.api.dto.out.RoleOut;
 import com.ywork.api.responsitory.helper.Col;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-public class UserOut implements UserDetails {
+public class User implements UserDetails {
     @Col("user_id")
     private String userId;
     @Col("username")

@@ -1,4 +1,4 @@
-package com.ywork.api.dto.out;
+package com.ywork.api.model;
 
 import com.ywork.api.responsitory.helper.Col;
 import lombok.Data;

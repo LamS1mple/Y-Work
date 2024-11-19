@@ -15,6 +15,15 @@ const WorkApi = {
                 workId: workId
             }
         })
+    },
+    createCandidate(formData) {
+        const url = urlBase + "/candidate/create";
+        return axiosClient.post(url, formData, {
+            headers: {
+                'x-device-id': 'stuff',
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     }
 }
 

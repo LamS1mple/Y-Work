@@ -1,6 +1,8 @@
-package com.ywork.security;
+package com.ywork.filter;
 
+import com.ywork.api.model.User;
 import com.ywork.api.responsitory.UserResponsitory;
+import com.ywork.security.JwtManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")){
             String token = tokenHeader.substring(7);
             if (jwtManager.validateJwtToken(token)){
-                UserDetails userDetails = userResponsitory.loadUserByUsername(jwtManager.getUsername(token));
+                User userDetails = userResponsitory.loadUserByUsername(jwtManager.getUsername(token));
                 SecurityContextHolder.getContext().setAuthentication(
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
             }

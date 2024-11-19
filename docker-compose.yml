@@ -20,7 +20,10 @@ services:
       - "9001:9001"
     volumes:
       - storage:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     environment:
+      TZ: Asia/Bangkok
       MINIO_ROOT_USER: root
       MINIO_ROOT_PASSWORD: conglam2002
     command: server --console-address ":9001" /data
