@@ -17,5 +17,10 @@ public class LocationOut {
     private String districtName;
     @Col("province_name")
     private String provinceName;
+    // update
+    @Col("code")
+    private String code;
+    @Col("name")
+    private String name;
 
 }

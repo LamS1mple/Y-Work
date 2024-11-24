@@ -16,7 +16,12 @@ const userApi = {
     detailUser() {
         const url = urlBase + "/user/detail"
         return axiosClient.get(url)
-    }
+    },
+
+    loginCompany(user) {
+        const url = urlBase + "/account/login/company"
+        return axiosClient.post(url, user)
+    },
 }
 
 export default userApi;

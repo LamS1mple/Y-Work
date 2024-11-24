@@ -25,6 +25,8 @@ public class CompanyOut {
     private String nameDistrict;
     @Col("name_province")
     private String nameProvince;
+    @Col("status")
+    private int status;
     private String urlAvatar;
     private String urlCoverPhoto;
 }

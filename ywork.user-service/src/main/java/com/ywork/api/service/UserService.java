@@ -1,5 +1,6 @@
 package com.ywork.api.service;
 
+import com.ywork.api.dto.in.RegisterAccount;
 import com.ywork.api.dto.in.UserIn;
 import com.ywork.api.dto.out.UserOut;
 
@@ -11,4 +12,6 @@ public interface UserService {
     Map<String, Object> getUser(UserIn userIn);
 
     Object getDetailUser();
+
+    Map<String, Object> loginCompany(UserIn userIn);
 }

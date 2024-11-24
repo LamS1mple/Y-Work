@@ -22,11 +22,21 @@ public class WorkOut {
     private String description;
     @Col("wage")
     private String wage;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Col("due_date")
     private LocalDateTime dueDate;
     @Col("experience")
     private String experience;
+    @Col("benefits")
+    private String benefits;
+    @Col("requirements")
+    private String requirements;
+    @Col("work_location")
+    private String workLocation;
+    @Col("status")
+    private Integer status;
+    @Col("quantity_candidate")
+    private Long quantityCandidate;
 
     private List<LocationOut> locations;
     private List<SkillFieldOut> skills;

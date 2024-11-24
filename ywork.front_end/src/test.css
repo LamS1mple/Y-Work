@@ -1,0 +1,106 @@
+/* Thêm style cho form */
+form {
+    background-color: #f7f9fc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1976d2;
+}
+
+/* Các trường nhập liệu */
+.MuiTextField-root {
+    margin-bottom: 15px;
+}
+
+/* Style cho select */
+.MuiSelect-root {
+    min-height: 56px;
+}
+
+/* Nút submit */
+.MuiButton-root {
+    background-color: #1976d2;
+    color: #fff;
+
+    &:hover {
+        background-color: #1565c0;
+    }
+}
+
+/* Style cho các ô chọn ngày */
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+input[type="date"]:focus {
+    border-color: #1976d2;
+}
+
+/* Các ô chọn với nhiều lựa chọn (multi select) */
+.react-select__control {
+    min-height: 56px;
+}
+
+/* Cải thiện hiển thị cho select */
+.MuiSelect-root {
+    min-height: 56px; /* Đảm bảo chiều cao đủ lớn */
+    padding: 10px 14px; /* Thêm padding để văn bản không bị đè lên */
+    font-size: 16px; /* Cải thiện kích thước chữ */
+}
+
+.react-select__control {
+    min-height: 56px;
+    font-size: 16px; /* Đảm bảo font size cho React Select */
+}
+
+.react-select__menu {
+    font-size: 16px; /* Font size cho các menu items */
+}
+
+.react-select__option {
+    padding: 8px 14px; /* Cải thiện padding của các option */
+}
+
+/* Khi select được chọn, font-size và padding phải ổn định */
+.react-select__single-value {
+    padding: 8px 14px;
+    font-size: 16px;
+}
+
+/* Style cho input chọn ngày */
+.MuiTextField-root input[type="date"] {
+    padding: 10px 14px;
+    font-size: 16px;
+}
+
+/* Thêm CSS này vào file test.css của bạn */
+.select-container {
+    .react-select__control {
+        min-height: 40px; /* Điều chỉnh chiều cao cho control */
+    }
+
+    .react-select__menu {
+        font-size: 14px; /* Điều chỉnh font-size cho dropdown */
+        line-height: 1.5; /* Điều chỉnh line-height để các dòng không bị chồng lên nhau */
+    }
+
+    .react-select__option {
+        padding: 10px; /* Điều chỉnh padding của các mục trong menu */
+        font-size: 14px; /* Đảm bảo font-size trong menu hợp lý */
+    }
+
+    .react-select__single-value {
+        font-size: 14px; /* Điều chỉnh font-size của giá trị đã chọn */
+    }
+}

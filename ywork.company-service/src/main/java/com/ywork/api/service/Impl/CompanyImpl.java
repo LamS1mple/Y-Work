@@ -6,6 +6,7 @@ import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.responsitory.CompanyRepository;
 import com.ywork.api.responsitory.LocationRepository;
 import com.ywork.api.service.CompanyService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,15 @@ public class CompanyImpl implements CompanyService {
     private final CompanyRepository companyRepository;
     private final LocationRepository locationRepository;
     private final MinioUtils minioUtils;
+    @Transactional
     @Override
     public void createCompany(CompanyIn companyIn) {
         UserOut userOut = (UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
-        companyRepository.createCompany(companyIn, userOut.getUserId());
+        String objectName = System.currentTimeMillis() + companyIn.getAvatar().getOriginalFilename();
+        companyIn.setUrlAvatar(objectName);
+        String companyId = companyRepository.createCompany(companyIn, userOut.getUserId());
+        minioUtils.createBucket(companyId);
+        minioUtils.uploadFile(companyId,objectName ,companyIn.getAvatar() );
     }
 
     @Override

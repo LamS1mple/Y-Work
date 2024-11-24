@@ -17,19 +17,21 @@ import java.util.List;
 public class CompanyRepository {
     private final ProceduceCall proceduceCall;
 
-    public void createCompany(CompanyIn companyIn, String userId){
+    public String createCompany(CompanyIn companyIn, String userId){
         var out_put = proceduceCall.callNoRefCursor("company_created",
-                List.of(ProcedureParameter.inputParam("in_name", String.class, companyIn.getName()),
+                List.of(ProcedureParameter.inputParam("in_name", String.class, companyIn.getCompanyName()),
                         ProcedureParameter.inputParam("in_description", String.class, companyIn.getDescription()),
                         ProcedureParameter.inputParam("in_user_id", String.class, userId),
-                        ProcedureParameter.inputParam("in_ward_code", String.class, companyIn.getWardCode()),
-                        ProcedureParameter.inputParam("in_quanlity_staff", String.class, companyIn.getQuanityStaff()),
-                        ProcedureParameter.inputParam("in_location_detail", String.class, companyIn.getLocationDetail()),
-                        ProcedureParameter.outputParam("out_result", String.class)));
+                        ProcedureParameter.inputParam("in_ward_code", String.class, companyIn.getWard()),
+                        ProcedureParameter.inputParam("in_quantity_staff", String.class, companyIn.getQuantityStaff()),
+                        ProcedureParameter.inputParam("in_location_detail", String.class, companyIn.getAddress()),
+                        ProcedureParameter.inputParam("in_avatar", String.class, companyIn.getUrlAvatar()),
+                        ProcedureParameter.outputParam("out_result", String.class),
+                        ProcedureParameter.outputParam("out_company_id", String.class)));
 
         String result = (String) out_put.get("out_result");
-        if (!DataStatus.SUCCESS.equals(result)) return;
-
+        if (!DataStatus.SUCCESS.equals(result)) throw new RuntimeException("Fail create company");
+        return (String) out_put.get("out_company_id");
     }
 
     public List<CompanyOut> getAllConpaniesUser(UserOut userOut) {

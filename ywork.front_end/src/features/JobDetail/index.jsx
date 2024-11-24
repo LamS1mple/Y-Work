@@ -15,17 +15,17 @@ JobDetail.propTypes = {};
 
 function JobDetail(props) {
     const [isUser, setIsUser] = useState(true);
-    const [userDetail, setUserDetail] = useState({})
+    // const [userDetail, setUserDetail] = useState({})
     const navigate = useNavigate()
-    useEffect(() => {
-        userApi.detailUser()
-            .then(data => {
-                setUserDetail(data.object)
-                setIsUser(true)
-            }).catch(error => {
-            setIsUser(false)
-        })
-    }, []);
+    // useEffect(() => {
+    //     userApi.detailUser()
+    //         .then(data => {
+    //             setUserDetail(data.object)
+    //             setIsUser(true)
+    //         }).catch(error => {
+    //         setIsUser(false)
+    //     })
+    // }, []);
 
 
     const [loading, setLoading] = useState(false);
@@ -63,12 +63,12 @@ function JobDetail(props) {
 
     if (loading) {
         return (
-            <div><Header userDetail={userDetail} isUser={isUser}/></div>
+            <div></div>
         )
     }
     return (
         <div>
-            <Header userDetail={userDetail} isUser={isUser}/>
+            {/*<Header userDetail={userDetail} isUser={isUser}/>*/}
             <div className="job-detail-container" style={{
                 padding: '20px', fontFamily: 'Arial, sans-serif',
                 display: 'flex',

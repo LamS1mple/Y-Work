@@ -11,12 +11,12 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalException {
-    @ExceptionHandler(ForbiddenClassException.class)
-    public ResponseEntity<ApiResult> forbiddenClassException(ForbiddenClassException e) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResult> exception(Exception e) {
         String message = e.getMessage();
         ApiResult apiResult = new ApiResult();
         apiResult.setObject(Map.of("message", message));
-        apiResult.setMessages("forbidden");
-        return  new ResponseEntity<>(apiResult, HttpStatus.FORBIDDEN);
+        apiResult.setMessages("ex");
+        return  new ResponseEntity<>(apiResult, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

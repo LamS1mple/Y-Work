@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './index.css'; // Import file CSS cho styling (tùy chọn)
 import {FaSearch, FaCheckSquare, FaLaptopCode, FaAward, FaBuilding, FaStar} from 'react-icons/fa';
 import {FaBell, FaComments, FaUserCircle} from 'react-icons/fa'; // Import icons
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import userApi from "../../api/userApi";
 import {configColor} from "../../ConfigColor";
 import userAvatar from '../../default.png'
@@ -55,7 +55,12 @@ const Header = (props) => {
                     }}>Đăng nhập
                     </button>
                     <button className="btn btn-signup">Đăng ký</button>
-                    <button className="btn btn-recruit">Đăng tuyển & tìm hồ sơ</button>
+                    <button className="btn btn-recruit">
+                        <Link to={"/login/company"}
+                              style={{color: "white", textAlign: "none"}}>
+                            Đăng tin tuyển dụng
+                        </Link>
+                    </button>
                 </div>
             ) : (
                 <div className="header-right" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -65,7 +70,12 @@ const Header = (props) => {
                             fontWeight: "500", marginLeft: "0",
                             color: "white", backgroundColor: configColor
                         }}
-                                className="btn btn-post-job">Đăng tuyển ngay &raquo;</button>
+                                className="btn btn-post-job">
+                            <Link to={"/login/company"}
+                                  style={{color: "white", textAlign: "none"}}>
+                                Đăng tuyển ngay &raquo;
+                            </Link>
+                        </button>
                     </div>
                     {/*<button className="btn btn-icon notification-icon">*/}
                     {/*    <FaBell/>*/}

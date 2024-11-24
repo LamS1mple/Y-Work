@@ -7,7 +7,8 @@ public class UserIn {
     private String username;
     private String password;
     private String email;
-    private String nameAccount;
-    private String phoneNumber;
+    private String phone;
+    private Integer gender;
+    private String fullName;
     private Integer roleStatus;
 }

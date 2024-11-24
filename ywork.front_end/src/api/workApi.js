@@ -24,6 +24,27 @@ const WorkApi = {
                 'Content-Type': 'multipart/form-data',
             },
         });
+    },
+
+    companyWork(companyId) {
+        const url = urlBase + "/company/job-company";
+        return axiosClient.get(url, {
+            params: {
+                companyId: companyId
+            }
+        })
+    },
+    careerList() {
+        const url = urlBase + "/career/list";
+        return axiosClient.get(url);
+    },
+    skillList(careerId) {
+        const url = urlBase + "/career/skill";
+        return axiosClient.get(url, {
+            params: {
+                careerId: careerId
+            }
+        })
     }
 }
 

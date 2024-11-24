@@ -26,7 +26,7 @@ public class ConfigSecurity  {
                     cors.configurationSource(corsConfigurationSource());
                 })
                 .authorizeHttpRequests(authorize ->{
-                    authorize.requestMatchers("/work/**").permitAll()
+                    authorize.requestMatchers("/work/**","/career/**").permitAll()
                             .anyRequest().authenticated();
                 })
 //                .exceptionHandling(exceptionHandling())

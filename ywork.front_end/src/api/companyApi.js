@@ -7,6 +7,15 @@ const CompanyApi = {
     //     const url = urlBase + "/work/list"
     //     return axiosClient.get(url)
     // },
+    companyCreate(companyCreate) {
+        const url = `${urlBase}/company/create-company`
+        return axiosClient.postForm(url, companyCreate, {
+            headers: {
+                'x-device-id': 'stuff',
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    },
 
     companyDetail(companyId) {
         const url = urlBase + "/company-user/detail";
@@ -15,6 +24,11 @@ const CompanyApi = {
                 companyId: companyId
             }
         })
+    },
+
+    companySearchList(data) {
+        const url = urlBase + "/company-search/get-company"
+        return axiosClient.post(url, data)
     }
 }
 

@@ -1,6 +1,7 @@
 package com.ywork.api.controller;
 
 import com.ywork.api.dto.ApiResult;
+import com.ywork.api.dto.in.RegisterAccount;
 import com.ywork.api.dto.in.UserIn;
 import com.ywork.api.service.UserService;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class AccountController {
     private final UserService userService;
     @PostMapping("/create-user")
     public ResponseEntity<ApiResult> createUser(@RequestBody UserIn userIn){
-        log.info("/accoount/create-user");
+        log.info("/account/create-user");
         userService.createUser(userIn);
         ApiResult apiResult = new ApiResult();
         log.info("Success");
@@ -27,6 +28,14 @@ public class AccountController {
         log.info("/account/login");
         ApiResult apiResult = new ApiResult();
         apiResult.setObject(userService.getUser(userIn));
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
+    @PostMapping("/login/company")
+    public  ResponseEntity<ApiResult> getUserCompany(@RequestBody UserIn userIn){
+        log.info("/account/login/company");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(userService.loginCompany(userIn));
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }

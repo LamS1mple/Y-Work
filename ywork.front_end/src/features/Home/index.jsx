@@ -3,6 +3,7 @@ import ProTypes from "prop-types"
 import Header from "../../components/Header";
 import WorkList from "../Work/WorkList";
 import userApi from "../../api/userApi";
+import {Outlet} from "react-router-dom";
 
 HomeUser.prototype = {
     workList: ProTypes.array,
@@ -29,7 +30,7 @@ function HomeUser() {
     return (
         <div>
             <Header isUser={isUser} userDetail={userDetail}/>
-            <WorkList/>
+            <Outlet/>
         </div>
     )
 }

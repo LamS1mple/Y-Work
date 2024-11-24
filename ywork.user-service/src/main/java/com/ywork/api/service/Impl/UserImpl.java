@@ -1,5 +1,6 @@
 package com.ywork.api.service.Impl;
 
+import com.ywork.api.dto.in.RegisterAccount;
 import com.ywork.api.dto.in.UserIn;
 import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.model.User;
@@ -32,6 +33,9 @@ public class UserImpl implements UserService {
     @Override
     public Map<String, Object> getUser(UserIn userIn) {
         User userOut = userResponsitory.loadUserByUsername(userIn.getUsername());
+        if (userOut.getRoles().stream().noneMatch(roleOut -> roleOut.getName().equals("user"))){
+            throw new RuntimeException("Fail login");
+        }
         if (userOut != null && userIn.getPassword().equals(userOut.getPassword())) {
             String token = jwtManager.generateToken(userOut);
             return Map.of("token", token);
@@ -46,6 +50,21 @@ public class UserImpl implements UserService {
         UserOut userOut = userResponsitory.detailUser(userDetails.getUserId());
         userOut.setUrlAvatar(minioUtils.getUrlFile(MinioConfig.bucket, userOut.getAvatar()));
         return userOut;
+    }
+
+
+
+    @Override
+    public Map<String, Object> loginCompany(UserIn userIn) {
+        User userOut = userResponsitory.loadUserByUsername(userIn.getUsername());
+        if (userOut.getRoles().stream().noneMatch(roleOut -> roleOut.getName().equals("owner"))){
+            throw new RuntimeException("Faile login company");
+        }
+        if (userOut != null && userIn.getPassword().equals(userOut.getPassword())) {
+            String token = jwtManager.generateToken(userOut);
+            return Map.of("token", token);
+        }
+        return Map.of();
     }
 
 

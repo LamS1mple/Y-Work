@@ -24,8 +24,14 @@ public class MinioUtils {
 
     @SneakyThrows(Exception.class)
     public void createBucket(String bucketName) {
-        minioClient.makeBucket(MakeBucketArgs.builder()
-                .bucket(bucketName).build());
+        if (!checkBucket(bucketName)) {
+            minioClient.makeBucket(MakeBucketArgs.builder()
+                    .bucket(bucketName).build());
+        }
+    }
+    @SneakyThrows(Exception.class)
+    private boolean checkBucket(String bucketName) {
+        return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
     }
 
     private boolean isObjectExists(String bucketName, String objectName) {
@@ -60,7 +66,8 @@ public class MinioUtils {
                     .method(Method.GET).build());
             return url;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.info(e.getMessage());
+            return "";
         }
 
     }
