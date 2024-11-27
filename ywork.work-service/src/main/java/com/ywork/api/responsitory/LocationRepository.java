@@ -13,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class LocationRepository {
     private final ProceduceCall proceduceCall;
-    public List<LocationOut>  getLocationsWork(String workId) {
-        var out_put = proceduceCall.callOneRefCursor("location_work_search",
-                List.of(ProcedureParameter.inputParam("in_work_id", String.class, workId),
+    public List<LocationOut>  getLocationsWork(String locationId) {
+        var out_put = proceduceCall.callOneRefCursor("location_search_province_district",
+                List.of(ProcedureParameter.inputParam("in_location", String.class, locationId),
                         ProcedureParameter.outputParam("out_result", String.class),
                         ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
         String result = (String) out_put.get("out_result");

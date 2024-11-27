@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 public class CareerOut {
-    @Col("careerId")
+    @Col("career_id")
     private String careerId;
     @Col("career_name")
     private String careerName;
 
     @Col("skill_id")
     private String skillId;
-    @Col("name_skill")
+    @Col("skill_name")
     private String skillName;
 }

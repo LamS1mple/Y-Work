@@ -19,6 +19,7 @@ import CompanyCandidate from "./features/CompanyInManager/Components/CompanyCand
 import CompanyInManager from "./features/CompanyInManager";
 import Test from "./test";
 import CompanyPostJob from "./features/CompanyInManager/Components/CompanyPostJob";
+import CandidateCV from "./features/CompanyInManager/Components/CandidateCV";
 
 // import { Switch } from '@mui/material';
 
@@ -48,6 +49,7 @@ function App() {
                     <Route path={"staff"} element={<CompanyStaff/>}/>
                     <Route path={"candidate"} element={<CompanyCandidate/>}/>
                     <Route path={"post"} element={<CompanyPostJob/>}/>
+                    <Route path={"cv/:id"} element={<CandidateCV />} />
                 </Route>
                 <Route path={"/test"} Component={Test}/>
             </Routes>

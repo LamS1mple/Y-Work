@@ -45,6 +45,20 @@ const WorkApi = {
                 careerId: careerId
             }
         })
+    },
+
+    jobCreate(data){
+        const url = urlBase + "/company/job/create"
+        return axiosClient.post(url, data)
+    },
+
+    workChangeStatus(workId){
+        const url = urlBase + "/work/status"
+        return axiosClient.get(url, {
+            params:{
+                workId: workId
+            }
+        })
     }
 }
 

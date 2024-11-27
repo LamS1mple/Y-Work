@@ -5,26 +5,27 @@ import PersonIcon from "@mui/icons-material/Person";
 import TimerIcon from "@mui/icons-material/Timer";
 import WcIcon from "@mui/icons-material/Wc";
 
-const InfoCard = () => {
+const InfoCard = (props) => {
+    const job = props.workDetail
     return (
         <div style={styles.cardContainer}>
             <h3 style={styles.title}>Thông tin chung</h3>
             <div style={styles.infoItem}>
                 <HomeIcon style={styles.icon}/>
                 <span>
-          <strong>Cấp bậc:</strong> Nhân viên
+          <strong>Cấp bậc:</strong> {job.position}
         </span>
             </div>
             <div style={styles.infoItem}>
                 <TimerIcon style={styles.icon}/>
                 <span>
-          <strong>Kinh nghiệm:</strong> 2 năm
+          <strong>Kinh nghiệm:</strong> {job.experience}
         </span>
             </div>
             <div style={styles.infoItem}>
                 <PersonIcon style={styles.icon}/>
                 <span>
-          <strong>Số lượng tuyển:</strong> 1 người
+          <strong>Số lượng tuyển:</strong> {job.quantity} người
         </span>
             </div>
             <div style={styles.infoItem}>
@@ -36,7 +37,7 @@ const InfoCard = () => {
             <div style={styles.infoItem}>
                 <WcIcon style={styles.icon}/>
                 <span>
-          <strong>Giới tính:</strong> Không yêu cầu
+          <strong>Giới tính:</strong> {job.sex}
         </span>
             </div>
         </div>

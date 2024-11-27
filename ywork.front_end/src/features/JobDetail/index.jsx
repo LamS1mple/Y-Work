@@ -37,6 +37,8 @@ function JobDetail(props) {
     useEffect(() => {
         const fetchDataWork = async () => {
             const data = await workApi.workDetail(idJob);
+            console.log(123123123)
+            console.log(data.object)
             setWorkDetail(data.object)
             setLoading(false)
         }

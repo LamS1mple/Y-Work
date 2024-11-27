@@ -19,7 +19,7 @@ public class CareerRepository {
     }
 
     public List<CareerOut> getListCareer(String careerId){
-        var out_put = proceduceCall.callOneRefCursor("career_list",
+        var out_put = proceduceCall.callOneRefCursor("career_skill_list",
                 List.of(ProcedureParameter.inputParam("in_career_id", String.class, careerId),
                         ProcedureParameter.refCursorParam("out_cur")), CareerOut.class);
         return (List<CareerOut>) out_put.get("out_cur");

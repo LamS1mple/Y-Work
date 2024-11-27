@@ -43,9 +43,6 @@ const Header = (props) => {
                     <a href="#hoso">Hồ sơ & CV</a>
                     <a href="#congcu">Công cụ</a>
                     <a href="#camnang">Cẩm nang nghề nghiệp</a>
-                    <a href="#topcv">
-                        TopCV <span className="pro-badge">Pro</span>
-                    </a>
                 </nav>
             </div>
             {!isUser ? (

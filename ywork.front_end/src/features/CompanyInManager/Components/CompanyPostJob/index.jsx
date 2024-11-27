@@ -3,11 +3,13 @@ import {useForm, Controller} from 'react-hook-form';
 import Select from 'react-select';
 import {TextField, Button, Box, Typography, Grid} from '@mui/material';
 import workApi from "../../../../api/workApi";
+import userApi from "../../../../api/userApi";
+import {useNavigate, useParams} from "react-router-dom";
 
 const CompanyPostJob = () => {
     const {register, setValue, watch, handleSubmit, control} = useForm();
     const [showSalaryRange, setShowSalaryRange] = useState(false);
-
+    const {companyId} = useParams()
     const [formattedSalaryMin, setFormattedSalaryMin] = useState('');
     const [formattedSalaryMax, setFormattedSalaryMax] = useState('');
 
@@ -20,8 +22,8 @@ const CompanyPostJob = () => {
         setFormatted(formatPrice(value)); // Cập nhật giá trị hiển thị
         setValue(field, value.replace(/[^0-9]/g, '')); // Lưu giá trị gốc vào react-hook-form
     };
-
-    const {mainIndustry, setMainIndustry} = useState([]);
+    const navigate = useNavigate();
+    const [mainIndustry, setMainIndustry] = useState([]);
     useEffect(() => {
         workApi.careerList()
             .then(response => {
@@ -29,6 +31,7 @@ const CompanyPostJob = () => {
                     value: career.careerId,
                     label: career.careerName
                 }));
+                console.log(data)
                 setMainIndustry(data);
             })
             .catch(error => console.log(error));
@@ -56,7 +59,7 @@ const CompanyPostJob = () => {
         {value: 'hcm', label: 'TP. Hồ Chí Minh'},
         {value: 'danang', label: 'Đà Nẵng'},
     ];
-    const {subIndustry, setSubIndustry} = useState([])
+    const [subIndustry, setSubIndustry] = useState([])
     const handleChangeMainIndustry = async (selectedOption) => {
         workApi.skillList(selectedOption.value)
             .then(res => {
@@ -68,6 +71,34 @@ const CompanyPostJob = () => {
             })
         console.log('Selected option:', selectedOption);
     }
+    const [locations, setlocations] = useState([])
+    const experiences = [
+        { value: 1, label: 'Dưới 1 năm' },
+        { value: 2, label: '1-2 năm' },
+        { value: 3, label: '2 năm' },
+        { value: 4, label: '2-3 năm' },
+        { value: 5, label: '3 năm' },
+        { value: 6, label: '3-4 năm' },
+        { value: 7, label: '4 năm' },
+        { value: 8, label: '4-5 năm' },
+        { value: 9, label: 'Trên 5 năm' },
+        { value: 10, label: 'Không yêu cầu kinh nghiêm' },
+
+
+
+    ];
+    useEffect(() => {
+        userApi.locationProvinceDistrict()
+            .then(res => {
+                const data = res.object.map(location => ({
+                    value: location.code,
+                    label: location.name
+                }));
+                setlocations(data);
+            })
+            .catch(error=>{console.log(error)})
+    }, []);
+
     const onSubmit = (data) => {
         if (data.salaryType.value === 1) {
             data = {
@@ -79,8 +110,14 @@ const CompanyPostJob = () => {
         data = {
             ...data,
             salaryMin: Number(data.salaryMin.replace(/[^0-9]/g, '')),
-            salaryMax: Number(data.salaryMax.replace(/[^0-9]/g, ''))
+            salaryMax: Number(data.salaryMax.replace(/[^0-9]/g, '')),
+            companyId: companyId
         }
+        workApi.jobCreate(data)
+            .then(response =>{
+                navigate("/company/manager/" + companyId)
+            })
+            .catch(error => {console.log(error)})
 
         console.log(data);
     };
@@ -140,9 +177,38 @@ const CompanyPostJob = () => {
                             )}
                         />
                     </Grid>
-
-                    {/* Ngành nghề phụ */}
                     <Grid item xs={12} sm={6}>
+                        <Controller
+                            name="experience"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    options={experiences}
+                                    {...field}
+                                    placeholder="Chọn kinh nghiệm"
+                                    styles={{
+                                        control: (base) => ({
+                                            ...base,
+                                            minHeight: '56px',
+                                            padding: '10px 14px',
+                                            fontSize: '16px',
+                                        }),
+                                        option: (base) => ({
+                                            ...base,
+                                            fontSize: '16px',
+                                            padding: '8px 14px',
+                                        }),
+                                        menu: (base) => ({
+                                            ...base,
+                                            zIndex: '100',
+                                        }),
+                                    }}
+                                />
+                            )}
+                        />
+                    </Grid>
+                    {/* Ngành nghề phụ */}
+                    <Grid item xs={12} sm={12}>
                         <Controller
                             name="subIndustry"
                             control={control}
@@ -352,7 +418,7 @@ const CompanyPostJob = () => {
                             control={control}
                             render={({field}) => (
                                 <Select
-                                    options={areas}
+                                    options={locations}
                                     {...field}
                                     isMulti
                                     placeholder="Chọn khu vực"
@@ -422,7 +488,7 @@ const CompanyPostJob = () => {
                     <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            rows={3}
+                            rows={4}
                             label="Địa điểm làm việc"
                             {...register('workLocation')}
                             placeholder="Nhập địa điểm làm việc"

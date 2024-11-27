@@ -1,4 +1,4 @@
-package com.ywork.api.service.Impl;
+package com.ywork.api.service;
 
 import com.ywork.api.dto.out.CareerOut;
 

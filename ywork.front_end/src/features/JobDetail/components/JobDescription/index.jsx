@@ -3,7 +3,13 @@ import './index.css';
 import {configColor} from "../../../../ConfigColor";
 
 function JobDescription(props) {
+    const job = props.workDetail
+    console.log(job)
     const onOpen = props.onOpen
+    const li = (data) => data && data.split("\n") // Tách từng dòng
+        .map((line) => line.trim()) // Loại bỏ khoảng trắng thừa
+        .filter((line) => line.length > 0) // Loại bỏ dòng trống
+        .map((line, index) => <li key={index}>{line}</li>);
     return (
         <div className="job-details-container">
             <div className="job-details-header">
@@ -21,54 +27,61 @@ function JobDescription(props) {
             {/* Job Description */}
             <div className="job-section">
                 <h3>Mô tả công việc</h3>
+                <p style={{whiteSpace:"pre"}}>
+
+                </p>
                 <ul>
-                    <li>Xuất hoá đơn tài chính.</li>
-                    <li>Quản lý và theo dõi các hợp đồng dịch vụ.</li>
-                    <li>Theo dõi công nợ.</li>
-                    <li>Thực hiện các lệnh thanh toán, vay ngân hàng.</li>
-                    <li>Kiểm tra chi tiết và tổng hợp các tài khoản.</li>
-                    <li>Các công việc được phân công của Trưởng nhóm/ Kế toán trưởng.</li>
+                    {li(job.description)}
                 </ul>
             </div>
 
             {/* Candidate Requirements */}
             <div className="job-section">
                 <h3>Yêu cầu ứng viên</h3>
+
+
                 <ul>
-                    <li>Tốt nghiệp chuyên ngành kế toán.</li>
-                    <li>Ít nhất 1 năm kinh nghiệm lĩnh vực Logistics.</li>
-                    <li>Cẩn thận, chăm chỉ, không ngại khó.</li>
+                    {li(job.requirements)}
+
                 </ul>
             </div>
 
             {/* Benefits */}
             <div className="job-section">
                 <h3>Quyền lợi</h3>
+                <p style={{whiteSpace: "pre"}}>
+
+                </p>
                 <ul>
-                    <li>Lương: 9 - 12 triệu</li>
-                    <li>Thưởng theo Quý, Lễ, Tết, thưởng bất ngờ theo kết quả,…</li>
-                    <li>Nghỉ phép, BHXH, các chế độ theo Luật lao động.</li>
-                    <li>Môi trường làm việc vui vẻ, năng động.</li>
+                    {li(job.benefits)}
+                    {/*<li>Lương: 9 - 12 triệu</li>*/}
+                    {/*<li>Thưởng theo Quý, Lễ, Tết, thưởng bất ngờ theo kết quả,…</li>*/}
+                    {/*<li>Nghỉ phép, BHXH, các chế độ theo Luật lao động.</li>*/}
+                    {/*<li>Môi trường làm việc vui vẻ, năng động.</li>*/}
                 </ul>
             </div>
 
             {/* Location */}
             <div className="job-section">
                 <h3>Địa điểm làm việc</h3>
-                <p>Hồ Chí Minh: Lầu 04, Tòa nhà Đinh Lễ, số 01 Đinh Lễ, P.13, Quận 4</p>
+
+                <ul>
+                    {li(job.workLocation)}
+                </ul>
             </div>
 
             {/* Working Hours */}
-            <div className="job-section">
-                <h3>Thời gian làm việc</h3>
-                <p>Thứ 2 - Thứ 6 (từ 08:00 đến 17:30)</p>
-            </div>
+            {/*<div className="job-section">*/}
+            {/*<h3>Thời gian làm việc</h3>*/}
+            {/*    */}
+            {/*    <p>Thứ 2 - Thứ 6 (từ 08:00 đến 17:30)</p>*/}
+            {/*</div>*/}
 
             {/* Application Instructions */}
             <div className="job-section">
                 <h3>Cách thức ứng tuyển</h3>
                 <p>Ứng viên nộp hồ sơ trực tuyến bằng cách bấm Ứng tuyển ngay dưới đây.</p>
-                <p><strong>Hạn nộp hồ sơ:</strong> 29/11/2024</p>
+                <p><strong>Hạn nộp hồ sơ:</strong> {job.dueDate}</p>
             </div>
 
             {/* Action Buttons */}

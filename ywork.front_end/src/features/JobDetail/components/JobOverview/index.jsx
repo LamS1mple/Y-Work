@@ -8,12 +8,12 @@ function JobOverview(props) {
     const job = props.workDetail
     if (Object.keys(job).length === 0) return (<div></div>)
     console.log(job)
-    const location = new Set(job.locations.map(location => location.provinceName))
-    const listLocation = location.size <= 2 ? [...location].join(',') : `${[...location][0]}&${location.size - 1} nơi khác`
+    const location = new Set(job.locations.map(location => location.name))
+    const listLocation = location.size <= 2 ? [...location].join(',') : `${[...location][0]} & ${location.size - 1} nơi khác`
 
     const onOpen = props.onOpen
     return (
-        <div className="job-card-container">
+        <div className="job-card-container" style={{maxWidth:"700px"}}>
             {/* Job Title */}
             <h2 className="job-card-title">
                 {job.nameWork} <AiOutlineCheckCircle className="status-icon"/>
@@ -27,7 +27,7 @@ function JobOverview(props) {
                     </div>
                     <div>
                         <strong>Mức lương</strong>
-                        <div>{job.wage.charAt(0) === 'T' ? job.wage : `${job.wage} triệu`}</div>
+                        <div>{job.convertSalary}</div>
                     </div>
                 </div>
                 <div className="job-info-item">

@@ -1,6 +1,10 @@
 package com.ywork.common;
 
+import com.ywork.api.dto.in.KeyValue;
+
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Common {
     public static Object converterBigDecimal(Class<?> t, Object resFromDb) {
@@ -21,5 +25,8 @@ public class Common {
         } else {
             return null;
         }
+    }
+    public static String subString(List<KeyValue> keyValues){
+        return keyValues.stream().map(KeyValue::getValue).collect(Collectors.joining(","));
     }
 }

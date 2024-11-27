@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import {
@@ -124,7 +124,7 @@ function LoginFeature(props) {
                     />
 
                     <Typography variant="body2" align="center" style={{marginTop: '1rem'}}>
-                        Bạn chưa có tài khoản? <Button color="primary">Đăng ký ngay</Button>
+                        Bạn chưa có tài khoản? <Link to={'/register/company'}><Button color="primary">Đăng ký ngay</Button></Link>
                     </Typography>
 
                     <Typography variant="body2" align="center" color="textSecondary" style={{marginTop: '1rem'}}>

@@ -74,7 +74,7 @@ const RegistrationFormCompany = () => {
         if (!hasErrors) {
             userApi.createAccount(formValues)
                 .then(response => {
-                    const data = response.object
+                    const data = response
                     if (data.messages === 'ok') {
                         navigate("/login/company")
                     }

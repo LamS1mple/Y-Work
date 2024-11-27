@@ -37,4 +37,11 @@ public class WorkController {
         return  ResponseEntity.ok(apiResult);
     }
 
+    @GetMapping("/status")
+    public ResponseEntity<ApiResult> updateWorkStatus(@RequestParam String workId){
+        log.info("/work/status");
+        workService.changeStatus(workId);
+        log.info("Success");
+        return  ResponseEntity.ok(new ApiResult());
+    }
 }

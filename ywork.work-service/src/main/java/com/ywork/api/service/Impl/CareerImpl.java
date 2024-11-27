@@ -2,13 +2,14 @@ package com.ywork.api.service.Impl;
 
 import com.ywork.api.dto.out.CareerOut;
 import com.ywork.api.responsitory.CareerRepository;
+import com.ywork.api.service.CareerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
-public class CareerController implements CareerService{
+public class CareerImpl implements CareerService {
     private final CareerRepository careerRepository;
     @Override
     public List<CareerOut> getListCareer() {

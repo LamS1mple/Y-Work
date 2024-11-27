@@ -22,6 +22,10 @@ const userApi = {
         const url = urlBase + "/account/login/company"
         return axiosClient.post(url, user)
     },
+    locationProvinceDistrict() {
+        const url = urlBase + "/location/list-province-district"
+        return axiosClient.get(url)
+    }
 }
 
 export default userApi;

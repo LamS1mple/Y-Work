@@ -4,10 +4,10 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/ywork.user-service/pom.xml" />
         <option value="$PROJECT_DIR$/y-work-euruka-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ywork.work-service/pom.xml" />
         <option value="$PROJECT_DIR$/ywork.company-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ywork.work-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ywork.user-service/pom.xml" />
       </list>
     </option>
   </component>

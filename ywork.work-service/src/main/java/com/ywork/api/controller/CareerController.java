@@ -1,13 +1,11 @@
 package com.ywork.api.controller;
 
 import com.ywork.api.dto.ApiResult;
-import com.ywork.api.service.CandidateService;
-import com.ywork.api.service.Impl.CareerService;
+import com.ywork.api.service.CareerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @AllArgsConstructor
@@ -15,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/career")
 public class CareerController {
     private final CareerService careerService;
-    @PostMapping("/list")
+    @GetMapping("/list")
     public ResponseEntity<ApiResult> getListCareer() {
         log.info("/career/list");
         var listCareer =  careerService.getListCareer();

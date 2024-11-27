@@ -37,7 +37,23 @@ public class WorkOut {
     private Integer status;
     @Col("quantity_candidate")
     private Long quantityCandidate;
-
+    @Col("location")
+    private String location;
+    @Col("salary_min")
+    private long salaryMin;
+    @Col("salary_max")
+    private long salaryMax;
+    @Col("avatar")
+    private String avatar;
     private List<LocationOut> locations;
     private List<SkillFieldOut> skills;
+    private String urlAvatar;
+    private int typeSalary;
+    @Col("quantity")
+    private String quantity;
+    @Col("position")
+    private String position;
+    private String convertSalary;
+    @Col("sex")
+    private String sex;
 }

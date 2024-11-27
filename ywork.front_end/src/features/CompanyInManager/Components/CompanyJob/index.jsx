@@ -46,6 +46,10 @@ const CompanyJob = () => {
         //     scoutStatus: "Chưa kích hoạt CV Scout",
         // },
     ]);
+    const navigatar = useNavigate();
+    const handleOnClickSeeCv = (workId) =>{
+        navigatar("")
+    }
 
     // Hàm xử lý thay đổi trạng thái Switch
     const handleSwitchChange = (workId) => {
@@ -56,6 +60,10 @@ const CompanyJob = () => {
                     : job
             )
         );
+
+        workApi.workChangeStatus(workId)
+            .then(res =>{})
+            .catch(error => console.log(error));
         console.log(`Campaign ID: ${workId} status changed`);
     };
 
@@ -92,7 +100,9 @@ const CompanyJob = () => {
                                 >
                                     {job.quantityCandidate} CV ứng tuyển
                                 </Typography>
-                                <Button size="small" style={{marginRight: "10px"}}>
+                                <Button size="small" style={{marginRight: "10px"}} onClick={() =>{
+                                    handleOnClickSeeCv(job.workId)
+                                }}>
                                     Xem CV ứng viên
                                 </Button>
                                 {/*<Button size="small">Xem báo cáo</Button>*/}
