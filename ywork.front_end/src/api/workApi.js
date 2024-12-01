@@ -4,12 +4,12 @@ const urlBase = "http://localhost:9911"
 
 const WorkApi = {
     workListAll() {
-        const url = urlBase + "/work/list"
+        const url = urlBase + "/public/work/list"
         return axiosClient.get(url)
     },
 
     workDetail(workId) {
-        const url = urlBase + "/work/detail";
+        const url = urlBase + "/public/work/detail";
         return axiosClient.get(url, {
             params: {
                 workId: workId
@@ -35,11 +35,11 @@ const WorkApi = {
         })
     },
     careerList() {
-        const url = urlBase + "/career/list";
+        const url = urlBase + "/public/career/list";
         return axiosClient.get(url);
     },
     skillList(careerId) {
-        const url = urlBase + "/career/skill";
+        const url = urlBase + "/public/career/skill";
         return axiosClient.get(url, {
             params: {
                 careerId: careerId

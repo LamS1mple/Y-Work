@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
 import {
     TextField,
     Button,
@@ -14,43 +13,47 @@ import {
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import userApi from "../../api/userApi";
-// eslint-disable-next-line no-undef
-LoginFeature.propTypes = {};
+import userApi from '../../api/userApi';
 
-function LoginFeature(props) {
+function LoginFeature() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
+
     const handleEmail = (event) => {
         setUsername(event.target.value);
     };
+
     const handlePassword = (event) => {
         setPassword(event.target.value);
-    }
+    };
 
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         const user = {
             username: username,
-            password: password
-        }
+            password: password,
+        };
+
         try {
             const data = await userApi.loginCompany(user);
             if (data.messages === 'ok') {
-                localStorage.setItem('access_token', data.object.token)
-                navigate("/company/search")
+                localStorage.setItem('access_token', data.object.token);
+                navigate('/company/search');
+            } else {
+                setErrorMessage('Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.');
             }
-            console.log(data);
         } catch (error) {
-            console.error("Lỗi đăng nhập")
+            console.error('Lỗi đăng nhập:', error);
+            setErrorMessage('Có lỗi xảy ra. Vui lòng thử lại sau.');
         }
-    }
+    };
 
     return (
         <div>
-            <Grid container style={{minHeight: '100vh'}}>
-                <Grid item xs={12} md={6} style={{padding: '2rem', background: '#fff'}}>
+            <Grid container style={{ minHeight: '100vh' }}>
+                <Grid item xs={12} md={6} style={{ padding: '2rem', background: '#fff' }}>
                     <Box textAlign="center" mb={4}>
                         <Typography variant="h5" color="green">
                             Chào mừng bạn đã quay trở lại
@@ -81,16 +84,19 @@ function LoginFeature(props) {
                         />
                     </Box>
 
-                    <Box display="flex" justifyContent="space-between" mb={2}>
-                        <Button variant="text" color="primary">
-                            Quên mật khẩu
-                        </Button>
+                    <Box mb={2}>
+                        {errorMessage && (
+                            <Typography color="error" align="center">
+                                {errorMessage}
+                            </Typography>
+                        )}
                     </Box>
 
                     <Button
-                        fullWidth variant="contained"
+                        fullWidth
+                        variant="contained"
                         color="success"
-                        style={{marginBottom: '1rem'}}
+                        style={{ marginBottom: '1rem' }}
                         onClick={handleSubmitForm}
                     >
                         Đăng nhập
@@ -102,32 +108,35 @@ function LoginFeature(props) {
 
                     <Grid container spacing={1} justifyContent="center">
                         <Grid item>
-                            <Button variant="outlined" startIcon={<GoogleIcon/>} color="error">
+                            <Button variant="outlined" startIcon={<GoogleIcon />} color="error">
                                 Google
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" startIcon={<FacebookIcon/>} style={{color: '#3b5998'}}>
+                            <Button variant="outlined" startIcon={<FacebookIcon />} style={{ color: '#3b5998' }}>
                                 Facebook
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" startIcon={<LinkedInIcon/>} style={{color: '#0077b5'}}>
+                            <Button variant="outlined" startIcon={<LinkedInIcon />} style={{ color: '#0077b5' }}>
                                 LinkedIn
                             </Button>
                         </Grid>
                     </Grid>
 
                     <FormControlLabel
-                        control={<Checkbox color="primary"/>}
+                        control={<Checkbox color="primary" />}
                         label="Bằng việc đăng nhập bằng tài khoản mạng xã hội, tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của YWork"
                     />
 
-                    <Typography variant="body2" align="center" style={{marginTop: '1rem'}}>
-                        Bạn chưa có tài khoản? <Link to={'/register/company'}><Button color="primary">Đăng ký ngay</Button></Link>
+                    <Typography variant="body2" align="center" style={{ marginTop: '1rem' }}>
+                        Bạn chưa có tài khoản?{' '}
+                        <Link to={'/register/company'}>
+                            <Button color="primary">Đăng ký ngay</Button>
+                        </Link>
                     </Typography>
 
-                    <Typography variant="body2" align="center" color="textSecondary" style={{marginTop: '1rem'}}>
+                    <Typography variant="body2" align="center" color="textSecondary" style={{ marginTop: '1rem' }}>
                         Bạn gặp khó khăn khi tạo tài khoản? Vui lòng gọi tới số (024) 6680 5588 (giờ hành chính).
                     </Typography>
                 </Grid>
@@ -147,13 +156,13 @@ function LoginFeature(props) {
                 >
                     <Box textAlign="center">
                         <Typography variant="h4">YWork</Typography>
-                        <Typography variant="h5" style={{fontWeight: 'bold'}}>
+                        <Typography variant="h5" style={{ fontWeight: 'bold' }}>
                             Tiếp lợi thế
                         </Typography>
-                        <Typography variant="h5" style={{fontWeight: 'bold'}}>
+                        <Typography variant="h5" style={{ fontWeight: 'bold' }}>
                             Nối thành công
                         </Typography>
-                        <Typography variant="subtitle1" style={{marginTop: '1rem'}}>
+                        <Typography variant="subtitle1" style={{ marginTop: '1rem' }}>
                             YWork - Hệ sinh thái nhân sự tiên phong ứng dụng công nghệ tại Việt Nam
                         </Typography>
                     </Box>

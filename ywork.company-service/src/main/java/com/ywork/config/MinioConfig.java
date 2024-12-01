@@ -15,6 +15,8 @@ public class MinioConfig {
     @Value("${spring.minio.access-key}")
     private String secretKey = "minioadmin";
 
+    public static final String BUCKET_USER = "user";
+
     @Bean
     public MinioClient getMinioClient() {
         return MinioClient.builder()

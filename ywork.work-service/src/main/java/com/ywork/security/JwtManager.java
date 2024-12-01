@@ -36,7 +36,8 @@ public class JwtManager {
                     .build()
                     .parse(token)
                     .getBody();
-            return claims.getExpiration().after(new Date());
+            Date date = claims.getExpiration();
+            return date.after(new Date());
 
 
     }

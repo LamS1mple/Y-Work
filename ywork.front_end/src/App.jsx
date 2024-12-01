@@ -49,7 +49,7 @@ function App() {
                     <Route path={"staff"} element={<CompanyStaff/>}/>
                     <Route path={"candidate"} element={<CompanyCandidate/>}/>
                     <Route path={"post"} element={<CompanyPostJob/>}/>
-                    <Route path={"cv/:id"} element={<CandidateCV />} />
+                    <Route path={"cv/:workId"} element={<CandidateCV />} />
                 </Route>
                 <Route path={"/test"} Component={Test}/>
             </Routes>

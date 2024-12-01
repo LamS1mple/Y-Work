@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/company-user")
+@RequestMapping("/public/company-user")
 public class CompanyUserController {
     private CompanyService companyService;
     @GetMapping("/detail")

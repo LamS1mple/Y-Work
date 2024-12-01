@@ -12,7 +12,7 @@ import {
     Paper,
 } from "@mui/material";
 import workApi from "../../../../api/workApi";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const CompanyJob = () => {
     const {companyId} = useParams();
@@ -46,9 +46,9 @@ const CompanyJob = () => {
         //     scoutStatus: "Chưa kích hoạt CV Scout",
         // },
     ]);
-    const navigatar = useNavigate();
+    const navigate = useNavigate();
     const handleOnClickSeeCv = (workId) =>{
-        navigatar("")
+        navigate("cv/" + workId)
     }
 
     // Hàm xử lý thay đổi trạng thái Switch

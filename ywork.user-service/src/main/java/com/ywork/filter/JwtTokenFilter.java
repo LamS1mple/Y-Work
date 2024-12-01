@@ -24,7 +24,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestPath = request.getServletPath();
-        if (requestPath.startsWith("/account/")) {
+        if (requestPath.startsWith("/public/")) {
             filterChain.doFilter(request, response);
             return;
         }

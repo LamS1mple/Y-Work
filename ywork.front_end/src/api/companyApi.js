@@ -18,7 +18,7 @@ const CompanyApi = {
     },
 
     companyDetail(companyId) {
-        const url = urlBase + "/company-user/detail";
+        const url = urlBase + "/public/company-user/detail";
         return axiosClient.get(url, {
             params: {
                 companyId: companyId
@@ -28,6 +28,15 @@ const CompanyApi = {
 
     companySearchList(data) {
         const url = urlBase + "/company-search/get-company"
+        return axiosClient.post(url, data)
+    },
+
+    candidateList(data){
+        const url = urlBase + "/candidate/list"
+        return axiosClient.post(url, data);
+    },
+    candidateChangeStatus(data){
+        const url = urlBase + "/candidate/status"
         return axiosClient.post(url, data)
     }
 }

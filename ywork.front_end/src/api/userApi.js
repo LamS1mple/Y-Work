@@ -4,12 +4,12 @@ const urlBase = "http://localhost:9910"
 
 const userApi = {
     createAccount(user) {
-        const url = urlBase + "/account/create-user"
+        const url = urlBase + "/public/account/create-user"
         return axiosClient.post(url, user)
     },
 
     login(user) {
-        const url = urlBase + "/account/login"
+        const url = urlBase + "/public/account/login"
         return axiosClient.post(url, user)
     },
 
@@ -19,11 +19,11 @@ const userApi = {
     },
 
     loginCompany(user) {
-        const url = urlBase + "/account/login/company"
+        const url = urlBase + "/public/account/login/company"
         return axiosClient.post(url, user)
     },
     locationProvinceDistrict() {
-        const url = urlBase + "/location/list-province-district"
+        const url = urlBase + "/public/location/list-province-district"
         return axiosClient.get(url)
     }
 }

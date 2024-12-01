@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/career")
+@RequestMapping("/public/career")
 public class CareerController {
     private final CareerService careerService;
     @GetMapping("/list")

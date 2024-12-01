@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/work")
+@RequestMapping("/public/work")
 public class WorkController {
     private final WorkService workService;
     @GetMapping("/list")
