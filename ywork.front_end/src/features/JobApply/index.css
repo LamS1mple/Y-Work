@@ -1,0 +1,166 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1890ff;
+    cursor: pointer;
+}
+
+/* Navigation */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+}
+
+.header-nav a:hover {
+    color: #1890ff;
+}
+
+.header-nav .dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-nav .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.header-nav .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f8ff;
+    color: #1890ff;
+}
+
+.icon {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Header Right */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-login {
+    background-color: #1890ff;
+    color: #ffffff;
+}
+
+.btn-login:hover {
+    background-color: #176fcd;
+}
+
+.btn-signup {
+    background-color: #ffffff;
+    color: #1890ff;
+    border: 1px solid #1890ff;
+}
+
+.btn-signup:hover {
+    background-color: #f0f8ff;
+    color: #176fcd;
+}
+
+.btn-recruit {
+    background-color: #f56c6c;
+    color: #ffffff;
+}
+
+.btn-recruit:hover {
+    background-color: #d25454;
+}
+
+.profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1890ff;
+}
+
+.employer-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.btn-post-job {
+    background-color: #1890ff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-post-job:hover {
+    background-color: #176fcd;
+}
