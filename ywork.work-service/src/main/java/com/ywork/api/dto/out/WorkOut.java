@@ -56,4 +56,11 @@ public class WorkOut {
     private String convertSalary;
     @Col("sex")
     private String sex;
+    @Col("date_created")
+    private String dateCreatedApply;
+    @Col("date_update")
+    private String dateUpdateApply;
+    @Col("file")
+    private String file;
+    private String urlFile;
 }

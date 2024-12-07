@@ -1,5 +1,6 @@
 package com.ywork;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +13,10 @@ public class YworkUserService {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YworkUserService.class, args);
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC +7"));
+	}
+	@PostConstruct
+	public void init() {
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+7"));
 	}
 
 }

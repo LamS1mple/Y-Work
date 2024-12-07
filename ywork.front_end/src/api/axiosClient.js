@@ -31,8 +31,16 @@ axiosClient.interceptors.response.use(function (response) {
     // Do something with response data
     return response.data;
 }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+    if (error.response) {
+        // Phản hồi từ server
+        console.error("Lỗi từ server:", error.response.data);
+    } else if (error.request) {
+        // Không nhận được phản hồi từ server
+        console.error("Không nhận được phản hồi từ server:", error.request);
+    } else {
+        // Các lỗi khác
+        console.error("Lỗi khác:", error.message);
+    }
     return Promise.reject(error);
 });
 

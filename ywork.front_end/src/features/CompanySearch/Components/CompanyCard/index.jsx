@@ -3,9 +3,33 @@ import PropTypes from 'prop-types';
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Stack, Typography} from "@mui/material";
 import backgroundLogo from '../../../../background.png'
 import {Link} from "react-router-dom";
+import companyApi from "../../../../api/companyApi";
 
 const CompanyCard = props => {
     const company = props.company
+    const handleChangeStatus = props.handleChangeStatus
+    const handleApplyCompany = (status, companyId)=>{
+        switch (status) {
+            case 1:
+                return;
+            case 2:
+                return;
+            case 3:
+                companyApi.companyChangeStatusApply({companyId, status: 2})
+                    .then(res => {
+                        handleChangeStatus(companyId);
+                    })
+                    .catch(error =>console.log(error))
+                return;
+            default:
+                companyApi.applyCompany({companyId})
+                    .then(res => {
+                        handleChangeStatus(companyId)
+                    })
+                    .catch(error =>console.log(error))
+
+        }
+    }
     return (
         <Card sx={{maxWidth: 400, boxShadow: 3, borderRadius: 2}}>
             {/* Banner Image */}
@@ -74,7 +98,7 @@ const CompanyCard = props => {
                             variant="contained"
                             color="primary"
                             fullWidth
-
+                            onClick={() => handleApplyCompany(company.status, company.idCompany)}
                             sx={{textTransform: 'none', fontWeight: 'bold'}}
                         >
                             {
@@ -84,11 +108,11 @@ const CompanyCard = props => {
                                             return <Link to={`/company/manager/${company.idCompany}`}
                                                          style={{color: "white"}}>Vào ngay</Link>;
                                         case 2:
-                                            return <Link style={{color: "white"}} to={''}>Đang chờ duyệt</Link>;
+                                            return "Đang chờ duyệt"
                                         case 3:
-                                            return <Link style={{color: "white"}} to={''}>Xin lại</Link>;
+                                            return "Xin lại"
                                         default:
-                                            return <Link style={{color: "white"}} to={''}>Xin vào</Link>;
+                                            return "Xin vào"
                                     }
                                 })()
                             }

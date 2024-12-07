@@ -1,136 +1,149 @@
-import React, {useState} from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Switch,
-    Button,
-    Typography,
-    Paper,
-} from "@mui/material";
+// App.js
+import React, { useState } from 'react';
+import './App.css';
 
-const RecruitmentDashboard = () => {
-    // State quản lý trạng thái bật/tắt của từng row
-    const [campaigns, setCampaigns] = useState([
-        // {
-        //     id: 1,
-        //     name: "Nhân viên kinh doanh phát triển thị trường",
-        //     status: true,
-        //     cvCount: "Chưa có CV nào",
-        //     optimization: "50%",
-        //     jobTitle: "Nhân Viên Kinh Doanh Thị Trường",
-        //     approvalStatus: "Đang xét duyệt",
-        //     scoutStatus: "Chưa kích hoạt CV Scout",
-        // },
-        // {
-        //     id: 2,
-        //     name: "Nhân viên tư vấn dịch vụ khách hàng",
-        //     status: false,
-        //     cvCount: "Đang tuyển dụng",
-        //     optimization: "70%",
-        //     jobTitle: "Tư Vấn Viên Dịch Vụ Khách Hàng",
-        //     approvalStatus: "Đã duyệt",
-        //     scoutStatus: "Chưa kích hoạt CV Scout",
-        // },
-    ]);
+function Test() {
+    const [userData, setUserData] = useState({
+        name: 'SAMANTHA BEE',
+        position: 'Software Developer',
+        aboutMe: 'Diligent software designer with 8+ years of experience in business application development...',
+        email: 'samantha@job.com',
+        phone: '+44 707 555 22 11',
+        address: 'Lily St 44, 6000 Luzern',
+        linkedin: 'linkedin.com/in/samanthabee',
+        languages: ['English', 'Spanish', 'French'],
+        skills: ['JavaScript', 'ReactJS', 'Node.js', 'Docker', 'AWS'],
+        profile: 'Flexible to adapt to priorities, change and ambiguity...',
+        experiences: [
+            {
+                company: 'AwesomeDreem Ltd',
+                period: '2020 - present',
+                details: 'Member of Agile Scrum developing team. Architect and design software solutions...'
+            },
+            {
+                company: 'WellModern Gists Ltd',
+                period: '2015 - 2019',
+                details: 'Using a variety of programming languages in developing big-scale tools...'
+            }
+        ],
+        education: [
+            { school: 'Lontecnica University', period: '2019', degree: 'Course on system architecture and design' },
+            { school: 'Stisou University', period: '2010-2014', degree: 'BSc in Computer Science' },
+            { school: 'Liceo Bon Colegio', period: '2010', degree: 'Baccalaureate' }
+        ]
+    });
 
-    // Hàm xử lý thay đổi trạng thái Switch
-    const handleSwitchChange = (id) => {
-        setCampaigns((prevCampaigns) =>
-            prevCampaigns.map((campaign) =>
-                campaign.id === id
-                    ? {...campaign, status: !campaign.status}
-                    : campaign
-            )
-        );
-        console.log(`Campaign ID: ${id} status changed`);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
     };
 
     return (
-        <TableContainer component={Paper} style={{padding: "20px"}}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Chiến dịch tuyển dụng</TableCell>
-                        <TableCell>Tối ưu</TableCell>
-                        <TableCell>Tin tuyển dụng</TableCell>
-                        <TableCell>CV Scout</TableCell>
-                        <TableCell>Lọc CV</TableCell>
-                        <TableCell>Dịch vụ đang chạy</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {campaigns.map((campaign) => (
-                        <TableRow key={campaign.id}>
-                            <TableCell>
-                                <div
-                                    style={{display: "flex", alignItems: "center", gap: "10px"}}
-                                >
-                                    <Switch
-                                        checked={campaign.status}
-                                        onChange={() => handleSwitchChange(campaign.id)}
-                                    />
-                                    <Typography variant="body1">{campaign.name}</Typography>
-                                </div>
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                    style={{marginTop: "5px"}}
-                                >
-                                    {campaign.cvCount}
-                                </Typography>
-                                <Button size="small" style={{marginRight: "10px"}}>
-                                    Sửa chiến dịch
-                                </Button>
-                                <Button size="small">Xem báo cáo</Button>
-                            </TableCell>
-                            <TableCell>{campaign.optimization}</TableCell>
-                            <TableCell>
-                                <Typography variant="body1">{campaign.jobTitle}</Typography>
-                                <Typography
-                                    variant="body2"
-                                    style={{
-                                        color: campaign.approvalStatus === "Đã duyệt" ? "green" : "orange",
-                                        marginTop: "5px",
-                                    }}
-                                >
-                                    {campaign.approvalStatus}
-                                </Typography>
-                                <Button size="small">Chỉnh sửa</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="body2" color="textSecondary">
-                                    {campaign.scoutStatus}
-                                </Typography>
-                                <Button size="small">Xem chi tiết</Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    style={{backgroundColor: "#28a745", color: "#fff"}}
-                                >
-                                    Tìm CV
-                                </Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="contained"
-                                    size="small"
-                                    style={{backgroundColor: "#28a745", color: "#fff"}}
-                                >
-                                    Thêm
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
-};
+        <div className="app-container">
+            <header className="header">
+                <h1>Editable CV Template:</h1>
+            </header>
 
-export default RecruitmentDashboard;
+            <section className="profile-section">
+                <img src="avatar-placeholder.png" alt="Avatar" className="avatar" />
+                <div className="profile-details">
+                    <h2>{userData.name}</h2>
+                    <p>{userData.position}</p>
+                    <textarea
+                        name="aboutMe"
+                        value={userData.aboutMe}
+                        onChange={handleChange}
+                        placeholder="About me"
+                    />
+                </div>
+            </section>
+
+            <section className="contact-section">
+                <h2>Contact</h2>
+                <p>Email: <input type="email" name="email" value={userData.email} onChange={handleChange} /></p>
+                <p>Phone: <input type="text" name="phone" value={userData.phone} onChange={handleChange} /></p>
+                <p>Address: <input type="text" name="address" value={userData.address} onChange={handleChange} /></p>
+                <p>LinkedIn: <input type="text" name="linkedin" value={userData.linkedin} onChange={handleChange} /></p>
+            </section>
+
+            <section className="languages-section">
+                <h2>Languages</h2>
+                <ul>
+                    {userData.languages.map((lang, index) => (
+                        <li key={index}>{lang}</li>
+                    ))}
+                </ul>
+            </section>
+
+            <section className="skills-section">
+                <h2>Skills</h2>
+                <ul>
+                    {userData.skills.map((skill, index) => (
+                        <li key={index}>{skill}</li>
+                    ))}
+                </ul>
+            </section>
+
+            <section className="profile-summary">
+                <h2>Profile</h2>
+                <textarea
+                    name="profile"
+                    value={userData.profile}
+                    onChange={handleChange}
+                    placeholder="Profile summary"
+                />
+            </section>
+
+            <section className="experience-section">
+                <h2>Experience</h2>
+                {userData.experiences.map((exp, index) => (
+                    <div className="experience" key={index}>
+                        <h3>{exp.company}</h3>
+                        <p>{exp.period}</p>
+                        <textarea
+                            name={`experience_${index}`}
+                            value={exp.details}
+                            onChange={(e) => {
+                                const updatedExperiences = [...userData.experiences];
+                                updatedExperiences[index].details = e.target.value;
+                                setUserData((prevData) => ({ ...prevData, experiences: updatedExperiences }));
+                            }}
+                            placeholder="Details"
+                        />
+                    </div>
+                ))}
+            </section>
+
+            <section className="education-section">
+                <h2>Education</h2>
+                {userData.education.map((edu, index) => (
+                    <div className="education" key={index}>
+                        <h3>{edu.school}</h3>
+                        <p>{edu.period}</p>
+                        <input
+                            type="text"
+                            name={`education_${index}`}
+                            value={edu.degree}
+                            onChange={(e) => {
+                                const updatedEducation = [...userData.education];
+                                updatedEducation[index].degree = e.target.value;
+                                setUserData((prevData) => ({ ...prevData, education: updatedEducation }));
+                            }}
+                            placeholder="Degree"
+                        />
+                    </div>
+                ))}
+            </section>
+
+            <footer className="footer">
+                <p>Customize and save your CV</p>
+                <button>Save</button>
+            </footer>
+        </div>
+    );
+}
+
+export default Test;

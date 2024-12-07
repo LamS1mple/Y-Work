@@ -3,11 +3,13 @@ package com.ywork.security;
 import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.model.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -36,12 +38,16 @@ public class JwtManager {
     }
 
     public Boolean validateJwtToken(String token){
+        try {
             Claims claims = (Claims) Jwts.parserBuilder()
                     .setSigningKey(getKey())
                     .build()
                     .parse(token).getBody();
             return claims.getExpiration().after(new Date());
 
+        } catch (Exception e) {
+            throw new AccessDeniedException(e.getMessage());
+        }
 
     }
 

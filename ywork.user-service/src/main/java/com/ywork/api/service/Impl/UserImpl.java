@@ -60,11 +60,11 @@ public class UserImpl implements UserService {
         if (userOut.getRoles().stream().noneMatch(roleOut -> roleOut.getName().equals("owner"))){
             throw new RuntimeException("Faile login company");
         }
-        if (userOut != null && userIn.getPassword().equals(userOut.getPassword())) {
-            String token = jwtManager.generateToken(userOut);
-            return Map.of("token", token);
+        if (!userIn.getPassword().equals(userOut.getPassword())) {
+            throw new RuntimeException("Faile login company");
         }
-        return Map.of();
+        String token = jwtManager.generateToken(userOut);
+        return Map.of("token", token);
     }
 
 

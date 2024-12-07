@@ -26,4 +26,13 @@ public class CandidateController {
         return  ResponseEntity.ok(apiResult);
     }
 
+    @GetMapping("/list/apply-job")
+    public ResponseEntity<ApiResult> getListApplyJob() {
+        log.info("/candidate/list/apply-job");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(candidateService.getListApplyJob());
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
+
 }

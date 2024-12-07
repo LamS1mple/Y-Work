@@ -7,6 +7,7 @@ import com.ywork.api.responsitory.LocationRepository;
 import com.ywork.api.responsitory.SkillFieldRepository;
 import com.ywork.api.responsitory.WorkRepository;
 import com.ywork.api.service.WorkService;
+import com.ywork.common.Common;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class WorkImpl implements WorkService {
             if (workOut.getSalaryMax() != 0 || workOut.getSalaryMin() != 0) {
                 workOut.setTypeSalary(1);
             }
-            workOut.setConvertSalary(convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
+            workOut.setConvertSalary(Common.convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
         }
         return workOutList;
     }
@@ -41,18 +42,11 @@ public class WorkImpl implements WorkService {
         workOut.setLocations(locationRepository.getLocationsWork(workOut.getLocation()));
         workOut.setSkills(skillFieldRepository.getSkillFieldsWork(workOut.getWorkId()));
 //        workOut.setUrlAvatar(minioUtils.getUrlFile(workOut.getCompanyId(), workOut.getAvatar()));
-        workOut.setConvertSalary(convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
+        workOut.setConvertSalary(Common.convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
         return workOut;
     }
 
-    private String convertMoney(long min, long max){
-        if (min == 0 && max == 0) {return "Thỏa thuận";}
-        String s =  "%.1f triệu".formatted((float) min / 1_000_000);
-        if (max > 0){
-            s += " - %.1f triệu".formatted((float) max / 1_000_000);
-        }
-        return s;
-    }
+
 
     @Override
     public void createWork(WorkCreateIn workCreateIn) {

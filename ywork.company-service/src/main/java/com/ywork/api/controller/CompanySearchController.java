@@ -24,5 +24,27 @@ public class CompanySearchController {
             return ResponseEntity.ok(apiResult);
     }
 
+    @PostMapping("/company/apply")
+    public ResponseEntity<ApiResult> companyApply(@RequestBody CompanyGetIn companyGetIn) {
+        log.info("/company-search/company/apply");
+        ApiResult apiResult = new ApiResult();
+        companySearchService.companyApply(companyGetIn);
+        apiResult.setObject(null);
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PostMapping("/company/change-status/apply")
+    public ResponseEntity<ApiResult> companyApplyChangeStatus(@RequestBody CompanyGetIn companyGetIn) {
+        log.info("/company/change-status/apply");
+        ApiResult apiResult = new ApiResult();
+        companySearchService.companyApplyChangeStatus(companyGetIn);
+        apiResult.setObject(null);
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+
+
+
 
 }

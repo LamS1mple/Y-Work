@@ -38,6 +38,26 @@ const CompanyApi = {
     candidateChangeStatus(data){
         const url = urlBase + "/candidate/status"
         return axiosClient.post(url, data)
+    },
+    applyCompany(data){
+        const url = urlBase + "/company-search/company/apply"
+        return axiosClient.post(url, data)
+    },
+    companyChangeStatusApply(data){
+        const url = urlBase + "/company/change-status/apply"
+        return axiosClient.post(url, data)
+    },
+    candidateApplyCompany(data){
+        const url = urlBase + "/candidate/list/apply-company"
+        return axiosClient.get(url,{
+            params: {
+                companyId: data,
+            }
+        })
+    },
+    candidateChangeStatusCompany(data){
+        const url = urlBase + "/candidate/apply-company/status"
+        return axiosClient.post(url, data)
     }
 }
 

@@ -12,7 +12,17 @@ const CompanyList = props => {
             })
             .catch(err => console.log(err))
     }, []);
-
+    const handleChangeStatus = (idCompany) =>{
+        const update = listCompany.map(data =>{
+            if (data.idCompany === idCompany){
+                return ({
+                    ...data,
+                    status: 2
+                })
+            }else return data;
+        })
+        setListCompany(update)
+    }
     return (
         <div>
             <div style={{
@@ -21,7 +31,7 @@ const CompanyList = props => {
                 gap: '16px'
             }}>
                 {listCompany.map((item, index) => (
-                    <CompanyCard company={item} key={item.idCompany}/>
+                    <CompanyCard company={item} key={item.idCompany} handleChangeStatus={handleChangeStatus} />
                 ))}
             </div>
         </div>

@@ -59,6 +59,10 @@ const WorkApi = {
                 workId: workId
             }
         })
+    },
+    candidateJobApply(){
+        const  url = urlBase +"/candidate/list/apply-job"
+        return axiosClient.get(url)
     }
 }
 

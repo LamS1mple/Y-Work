@@ -9,4 +9,6 @@ public class CandidateIn {
 
     private String candidateId;
     private Integer status;
+    private String companyManagerId;
+    private String roleId;
 }

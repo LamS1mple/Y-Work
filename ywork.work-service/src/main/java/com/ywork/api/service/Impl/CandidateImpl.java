@@ -5,11 +5,15 @@ import com.ywork.api.model.UserOut;
 import com.ywork.api.responsitory.ApplyRepository;
 import com.ywork.api.responsitory.WorkRepository;
 import com.ywork.api.service.CandidateService;
+import com.ywork.common.Common;
+import com.ywork.config.MinioConfig;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -28,5 +32,17 @@ public class CandidateImpl implements CandidateService {
         UserOut userOut =(UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         applyRepository.createCandidateFile(userOut.getUserId(),workId, objectName);
 
+    }
+
+    @Override
+    public List<WorkOut> getListApplyJob() {
+        UserOut userOut = (UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<WorkOut> workOutList = applyRepository.listApplyJob(userOut.getUserId())
+                .stream().peek(workOut -> {
+                    workOut.setUrlAvatar(minioUtils.getUrlFile(workOut.getCompanyId(), workOut.getAvatar()));
+                    workOut.setUrlFile(minioUtils.getUrlFile(workOut.getCompanyId(), workOut.getFile()));
+                    workOut.setConvertSalary(Common.convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
+                }).toList();
+        return workOutList;
     }
 }

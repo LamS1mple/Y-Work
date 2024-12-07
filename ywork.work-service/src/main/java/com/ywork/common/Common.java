@@ -29,4 +29,13 @@ public class Common {
     public static String subString(List<KeyValue> keyValues){
         return keyValues.stream().map(KeyValue::getValue).collect(Collectors.joining(","));
     }
+
+    public static String convertMoney(long min, long max){
+        if (min == 0 && max == 0) {return "Thỏa thuận";}
+        String s =  "%.1f triệu".formatted((float) min / 1_000_000);
+        if (max > 0){
+            s += " - %.1f triệu".formatted((float) max / 1_000_000);
+        }
+        return s;
+    }
 }

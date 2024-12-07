@@ -1,5 +1,6 @@
 package com.ywork.api.service.Impl;
 
+import com.ywork.api.dto.in.CompanyGetIn;
 import com.ywork.api.dto.out.CompanyOut;
 import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.responsitory.CompanySearchRepository;
@@ -22,5 +23,18 @@ public class CompanySearchImpl implements CompanySearchService {
         companyOutList.forEach(companyOut -> companyOut.setUrlAvatar(
                 minioUtils.getUrlFile(companyOut.getIdCompany(), companyOut.getAvatar())));
         return companyOutList;
+    }
+
+    @Override
+    public void companyApply(CompanyGetIn companyGetIn) {
+        UserOut userOut =(UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        companySearchRepository.applyCompany(userOut.getUserId(), companyGetIn.getCompanyId());
+
+    }
+
+    @Override
+    public void companyApplyChangeStatus(CompanyGetIn companyGetIn) {
+        UserOut userOut =(UserOut) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        companySearchRepository.applyCompanyChangeStatus(userOut.getUserId(), companyGetIn.getCompanyId(), companyGetIn.getStatus());
     }
 }
