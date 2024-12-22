@@ -75,9 +75,9 @@ const Header = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div><a href="#hoso">Hồ sơ & CV</a></div>
-                    <div><a href="#congcu">Công cụ</a></div>
-                    <div><a href="#camnang">Cẩm nang nghề nghiệp</a></div>
+                    <div style={{marginRight:"20px"}} onClick={()=>handleNavigate("/cv")}>Hồ sơ & CV</div>
+                    <div style={{marginRight:"20px"}}>Công cụ</div>
+                    <div style={{marginRight:"20px"}}>Cẩm nang nghề nghiệp</div>
                 </nav>
             </div>
             {!isUser ? (

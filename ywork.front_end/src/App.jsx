@@ -22,6 +22,9 @@ import CompanyPostJob from "./features/CompanyInManager/Components/CompanyPostJo
 import CandidateCV from "./features/CompanyInManager/Components/CandidateCV";
 import JobApply from "./features/JobApply";
 import Cv1 from "./components/Resume/CV1/index";
+import Resume from "./components/Resume";
+import CVView from "./features/CVView";
+import CVEdit from "./features/CVEdit";
 
 // import { Switch } from '@mui/material';
 
@@ -31,11 +34,15 @@ function App() {
     return (
         <div>
             <Routes>
+                <Route path={'/view-cv/:cvId'} element={<CVView />} />
+                <Route path={'/edit-cv/:cvId'} element={<CVEdit />} />
                 <Route path='/login' Component={LoginFeature}/>
                 <Route path='/' element={<HomeUser/>}>
                     <Route path={'/'} element={<WorkList/>}/>
                     <Route path='/job/:companyId/:idJob' element={<JobDetail/>}/>
                     <Route path='/job/apply' element={<JobApply/>}/>
+                    <Route path={"/cv"} element={<Resume />} />
+                    <Route path={"/save-cv/1"} element={<Cv1/>}/>
                 </Route>
 
 

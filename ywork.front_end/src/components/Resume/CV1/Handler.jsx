@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import userApi from "../../../api/userApi";
 
 const useFormHandlers = () => {
+
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '',
@@ -21,7 +23,13 @@ const useFormHandlers = () => {
         languages: [],
         photo: '',
     });
-
+    // console.log(data)
+    // if (!loading){
+    //     setFormData(
+    //         data
+    //     );
+    //     console.log(formData)
+    // }
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -160,7 +168,10 @@ const useFormHandlers = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted', formData);
+        userApi.saveCv({...formData, typeCV:1})
+            .then((res) => {})
+            .catch(error=>console.log(error))
+        console.log('Form submitted', {...formData, typeCV:1});
     };
 
     return {

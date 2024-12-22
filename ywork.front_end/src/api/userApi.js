@@ -25,6 +25,26 @@ const userApi = {
     locationProvinceDistrict() {
         const url = urlBase + "/public/location/list-province-district"
         return axiosClient.get(url)
+    },
+    saveCv(data){
+        const url = urlBase + "/user/save-cv"
+        return axiosClient.post(url, data)
+    },
+    listCV(){
+        const url = urlBase + "/user/cv/list"
+        return axiosClient.get(url)
+    },
+    cvView(cvId){
+        const url = urlBase + "/user/cv/detail"
+        return axiosClient.get(url,{
+            params:{
+                cvId
+            }
+        })
+    },
+    changeStatusCV(data) {
+        const url = urlBase + "/user/cv/status"
+        return axiosClient.post(url, data)
     }
 }
 

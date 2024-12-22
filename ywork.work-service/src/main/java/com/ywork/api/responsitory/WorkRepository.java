@@ -77,4 +77,11 @@ public class WorkRepository {
             throw new RuntimeException("Fail work status");
         }
     }
+
+    public List<WorkOut> getListWorkRecommend(String resultRecommend) {
+        var out_put = proceduceCall.callOneRefCursor("work_recommend",
+                List.of(ProcedureParameter.inputParam("in_data", String.class, resultRecommend),
+                        ProcedureParameter.refCursorParam("out_cur")), WorkOut.class);
+        return (List<WorkOut>) out_put.get("out_cur");
+    }
 }

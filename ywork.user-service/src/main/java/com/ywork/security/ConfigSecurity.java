@@ -1,5 +1,6 @@
 package com.ywork.security;
 
+import com.nimbusds.jose.shaded.gson.Gson;
 import com.ywork.filter.JwtTokenFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

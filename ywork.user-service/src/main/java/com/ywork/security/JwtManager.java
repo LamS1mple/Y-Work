@@ -46,7 +46,8 @@ public class JwtManager {
             return claims.getExpiration().after(new Date());
 
         } catch (Exception e) {
-            throw new AccessDeniedException(e.getMessage());
+
+            throw new RuntimeException(e.getMessage());
         }
 
     }

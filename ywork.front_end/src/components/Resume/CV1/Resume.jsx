@@ -4,9 +4,9 @@ import html2canvas from 'html2canvas';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Resume.css';
 
-const Resume = ({ resumeData }) => {
+const Resume = ({ resumeData, submit }) => {
     const resumeRef = useRef();
-
+    // console.log(resumeData)
     const handleDownload = () => {
         const input = resumeRef.current;
         html2canvas(input, { scale: 2 }).then(canvas => {
@@ -124,9 +124,9 @@ const Resume = ({ resumeData }) => {
                 <button className="download-button" onClick={handleDownload}>
                     <i className="fas fa-download"></i> Download Resume
                 </button>
-                <button className="download-button" onClick={handleDownload}>
-                    <i className="fas fa-download"></i> Download Resume
-                </button>
+                {submit && (<button className="download-button" onClick={submit}>
+                    <i className="fas fa-download"></i> Lưu thông tin CV
+                </button>)}
             </div>
         </div>
     );

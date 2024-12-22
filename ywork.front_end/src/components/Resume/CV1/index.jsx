@@ -5,6 +5,8 @@ import Form from "./Form";
 import Resume from "./Resume";
 import './index.css'
 const Cv1 = props => {
+    const data = props.data
+    // console.log(data)
     const {
         formData: formData1,
         handleChange: handleChange1,
@@ -36,7 +38,7 @@ const Cv1 = props => {
                 />
             </div>
             <div className="resume-wrapper">
-                <Resume resumeData={formData1}/>
+                <Resume resumeData={formData1} submit={handleSubmit1}/>
             </div>
         </div>
     );

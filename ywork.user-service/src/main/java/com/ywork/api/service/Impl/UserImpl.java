@@ -1,7 +1,10 @@
 package com.ywork.api.service.Impl;
 
-import com.ywork.api.dto.in.RegisterAccount;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.ywork.api.dto.in.CVIn;
 import com.ywork.api.dto.in.UserIn;
+import com.ywork.api.dto.out.CVOut;
 import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.model.User;
 import com.ywork.api.responsitory.UserResponsitory;
@@ -12,10 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,6 +27,7 @@ public class UserImpl implements UserService {
     private final UserResponsitory userResponsitory;
     private final JwtManager jwtManager;
     private final MinioUtils minioUtils;
+    private final Gson gson;
     @Override
     public void createUser(UserIn userIn) {
         userResponsitory.insertUser(userIn);
@@ -65,6 +68,41 @@ public class UserImpl implements UserService {
         }
         String token = jwtManager.generateToken(userOut);
         return Map.of("token", token);
+    }
+
+    @Override
+    public void saveCV(CVIn cv) {
+        User userOut = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userResponsitory.saveCV(cv, userOut.getUserId());
+
+    }
+
+    @Override
+    public List<CVOut> listCV() {
+        User userOut = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<CVOut> list = userResponsitory.listCV(userOut.getUserId());
+        return list;
+    }
+
+    @Override
+    public List<String> getCVRecommend() {
+        User userOut = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<String> list = userResponsitory.getCVRecommend(userOut.getUserId()).stream().map(cvOut -> {
+            JsonObject jsonObject = gson.fromJson(cvOut.getInfo(), JsonObject.class);
+            return jsonObject.get("title").getAsString();
+        }).toList();
+        return list;
+    }
+
+    @Override
+    public CVOut getCV(String cvId) {
+        CVOut cvOut = userResponsitory.getCVDetail(cvId);
+        return cvOut;
+    }
+
+    @Override
+    public void changeStatus(CVIn cv) {
+        userResponsitory.changeStatusCV(cv);
     }
 
 

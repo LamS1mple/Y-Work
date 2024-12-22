@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MinioConfig {
+
     @Value("${spring.minio.url}")
     private String url = "http://localhost:9000";
     @Value("${spring.minio.access-key}")
