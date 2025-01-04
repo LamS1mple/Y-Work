@@ -21,13 +21,7 @@ const Resume = ({ resumeData, submit }) => {
 
     return (
         <div>
-            <div className="button-container">
-                <Link to="/">
-                    <button className="home-button">
-                        <i className="fas fa-arrow-left" style={{marginRight: "10px"}}></i> Home
-                    </button>
-                </Link>
-            </div>
+
             <div id="resume" className="resume-container" ref={resumeRef}>
                 <div className="header1">
                     <h1>{resumeData.name || 'Your Name'}</h1>

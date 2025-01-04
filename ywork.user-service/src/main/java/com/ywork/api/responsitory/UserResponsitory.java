@@ -72,14 +72,16 @@ public class UserResponsitory  implements UserDetailsService{
         return userOutList.get(0);
     }
 
-    public void saveCV(CVIn cv, String userId) {
+    public String saveCV(CVIn cv, String userId) {
         String json = gson.toJson(cv);
         var out = proceduceCall.callNoRefCursor("resume_save",
                 List.of(ProcedureParameter.inputParam("in_info", String.class, json),
                         ProcedureParameter.inputParam("in_user_id",String.class, userId),
-                        ProcedureParameter.outputParam("out_result", String.class)));
+                        ProcedureParameter.outputParam("out_result", String.class),
+                        ProcedureParameter.outputParam("out_cv_id", String.class)));
         String outResult = (String) out.get("out_result");
         if (!DataStatus.SUCCESS.equals(outResult)){throw new RuntimeException("Fail save cv");}
+        return (String) out.get("out_cv_id");
     }
 
     public List<CVOut> listCV(String userId) {

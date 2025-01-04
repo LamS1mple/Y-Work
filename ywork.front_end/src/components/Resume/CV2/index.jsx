@@ -4,6 +4,7 @@ import useFormHandlers2 from "./Handler2";
 import Form2 from "./Form2";
 import Resume2 from "./Resume2";
 import './index.css'
+import Notification from "../../../features/Notification";
 const Cv2 = props => {
     const data = props.data
     const {
@@ -18,7 +19,8 @@ const Cv2 = props => {
         handleAddExperience: handleAddExperience2,
         handleDelete: handleDelete2,
         handleSubmit: handleSubmit2,
-        handleFileChange: handleFileChange2
+        handleFileChange: handleFileChange2,
+        notification
     } = useFormHandlers2(); // Destructure the returned object from useFormHandlers2
     return (
         <div className="form-and-resume">
@@ -39,8 +41,14 @@ const Cv2 = props => {
                 />
             </div>
             <div className="resume-wrapper">
-                <Resume2 resumeData={formData2}/>
+                <Resume2 resumeData={formData2} submit={handleSubmit2}/>
             </div>
+            {notification && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                />
+            )}
         </div>
     );
 };

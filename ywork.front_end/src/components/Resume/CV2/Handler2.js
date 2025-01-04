@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import userApi from "../../../api/userApi";
+import {useParams} from "react-router-dom";
 
 const useFormHandlers2 = () => {
-    const [loading, setLoading] = useState(true);
-    const [formData, setFormData] = useState({
+    let formCV = {
         name: '',
         title: '',
         contact: {
@@ -20,8 +21,24 @@ const useFormHandlers2 = () => {
         certificates: [],
         languages: [],
         photo: '',
-    });
-
+    }
+    const [loading, setLoading] = useState(true);
+    const [formData, setFormData] = useState(formCV);
+    const {act} = useParams()
+    const [status, setStatus] = useState(true);
+    const [notification, setNotification] = useState(null); // Quản lý thông báo
+    useEffect(() => {
+        if(status && act !== 'save'){
+            const fetchApi = async () =>{
+                const cvDetail = await userApi.cvView(act)
+                const data = cvDetail.object
+                console.log(JSON.parse(data.info));
+                setFormData({...formCV, ...JSON.parse(data.info)})
+                setStatus(false)
+            }
+            fetchApi()
+        }
+    }, []);
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -171,9 +188,26 @@ const useFormHandlers2 = () => {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form submitted', formData);
+    const handleSubmit = async (e) => {
+        try {
+            if (act === 'save') {
+                await userApi.saveCv({ ...formData, typeCV: 2 });
+            } else {
+                await userApi.changeCv({ ...formData, typeCV: 2, cvId: act });
+            }
+            setNotification({
+                type: "success",
+                message: "Lưu hồ sơ thành công",
+            });
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setNotification({
+                type: "error",
+                message: "Đã xảy ra lỗi khi ứng tuyển. Vui lòng thử lại.",
+            });
+        } finally {
+            setTimeout(() => setNotification(null), 3000); // Ẩn thông báo sau 3 giây
+        }
     };
 
     return {
@@ -189,7 +223,8 @@ const useFormHandlers2 = () => {
         handleAddExperience,
         handleDelete,
         handleSubmit,
-        handleFileChange
+        handleFileChange,
+        notification
     };
 };
 

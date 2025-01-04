@@ -4,7 +4,7 @@ import { jsPDF } from 'jspdf';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import html2canvas from 'html2canvas';
 
-const Resume2 = ({ resumeData }) => {
+const Resume2 = ({ resumeData , submit}) => {
     const { name, title, contact, photo, profileText, skills, education, experience, languages, certificates } = resumeData;
     const resumeRef = useRef();
 
@@ -27,21 +27,15 @@ const Resume2 = ({ resumeData }) => {
 
     return (
         <div>
-         <div className="button-container">
-                <Link to="/">
-                    <button className="home-button">
-                        <i className="fas fa-arrow-left" style={{marginRight: "10px"}}></i> Home 
-                    </button>
-                </Link>
-            </div>
-            <div className="resume2" ref={resumeRef}>
+
+            <div className="resume2 resume-container" ref={resumeRef}>
                 <div className="resume-header">
                     <div className="profile-image">
-                        {photo && <img src={photo} alt="Profile" />}
+                        {photo && <img src={photo} alt="Profile"/>}
                     </div>
                     <div className="header-text">
                         <h1>{name}</h1>
-                        <h3>{title}</h3>
+                        <h3 className={'.h3'}>{title}</h3>
                     </div>
                 </div>
                 <div className="resume-body">
@@ -56,7 +50,7 @@ const Resume2 = ({ resumeData }) => {
                                 <div key={index} className="skill">
                                     <span>{skill.name}</span>
                                     <div className="skill-bar">
-                                        <div className="skill-level" style={{ width: `${skill.percentage}%` }}></div>
+                                        <div className="skill-level" style={{width: `${skill.percentage}%`}}></div>
                                     </div>
                                 </div>
                             ))}
@@ -75,69 +69,70 @@ const Resume2 = ({ resumeData }) => {
                                 <div key={index} className="language">
                                     <span>{language.name}</span>
                                     <div className="language-bar">
-                                        <div className="language-level" style={{ width: `${language.percentage}%` }}></div>
+                                        <div className="language-level"
+                                             style={{width: `${language.percentage}%`}}></div>
                                     </div>
                                 </div>
                             ))}
                         </section>
                     </div>
                     <div className="main-content">
-                    <section className="Work-experience">
-    <h3><i className="fas fa-briefcase"></i> Work Experience</h3>
-    {experience.map((exp, index) => (
-        <div key={index} className="Experience-item">
-            <div className="Experience-duration">
-                <span>{exp.startYear}  - {exp.endYear} </span>
-            </div>
-            <div className="Experience-details">
-                <div className="Experience-header">
-                    <h4> {exp.company}</h4>
-                </div>
-                <div className="Experience-content">
-                <p>{exp.startMonth} - {exp.endMonth} </p>
-                <p>{exp.position} </p>
-                    <p>{exp.location}</p>
-                    <p>{exp.internships}</p>
-                    
-                </div>
-            </div>
-        </div>
-    ))}
-</section>
+                        <section className="Work-experience">
+                            <h3><i className="fas fa-briefcase"></i> Work Experience</h3>
+                            {experience.map((exp, index) => (
+                                <div key={index} className="Experience-item">
+                                    <div className="Experience-duration">
+                                        <span>{exp.startYear} - {exp.endYear} </span>
+                                    </div>
+                                    <div className="Experience-details">
+                                        <div className="Experience-header">
+                                            <h4> {exp.company}</h4>
+                                        </div>
+                                        <div className="Experience-content">
+                                            <p>{exp.startMonth} - {exp.endMonth} </p>
+                                            <p>{exp.position} </p>
+                                            <p>{exp.location}</p>
+                                            <p>{exp.internships}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
 
 
+                        <section className="Education">
+                            <h3><i className="fas fa-graduation-cap"></i> Education</h3>
+                            {education.map((edu, index) => (
+                                <div key={index} className="Education-item">
+                                    <div className="Education-duration">
+                                        <span>{edu.startYear} - {edu.endYear}</span>
+                                    </div>
+                                    <div className="Education-details">
+                                        <div className="Education-header">
+                                            <h4>{edu.degree}</h4>
+                                        </div>
+                                        <div className="Education-content">
+                                            <p>{edu.institution}</p>
+                                            <p>Vị trí : {edu.location}</p>
+                                            <p>Nghành: {edu.branch}</p> {/* Display branch */}
+                                            <p>Điểm số
+                                                : {edu.cgpa} {edu.cgpaType === 'percentage' ? 'Thang 10' : 'Thang 4'}</p> {/* Display CGPA with type */}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
 
-<section className="Education">
-    <h3><i className="fas fa-graduation-cap"></i> Education</h3>
-    {education.map((edu, index) => (
-        <div key={index} className="Education-item">
-            <div className="Education-duration">
-                <span>{edu.startYear} - {edu.endYear}</span>
-            </div>
-            <div className="Education-details">
-                <div className="Education-header">
-                    <h4>{edu.degree}</h4>
-                </div>
-                <div className="Education-content">
-                    <p>{edu.institution}</p>
-                    <p>Location : {edu.location}</p>
-                    <p>Branch: {edu.branch}</p> {/* Display branch */}
-                    <p>Marks : {edu.cgpa} {edu.cgpaType === 'percentage' ? 'Percentage' : 'CGPA'}</p> {/* Display CGPA with type */}
-                </div>
-            </div>
-        </div>
-    ))}
-</section>
-                
-                
-                  <section className="awards">
-    <h3><i className="fas fa-award"></i> Awards</h3>
-    {certificates.map((cert, index) => (
-        <div key={index} className="award-item">
-            <h6 key={index}>{cert}</h6>
-        </div>
-    ))}
-</section>
+
+                        <section className="awards">
+                            <h3><i className="fas fa-award"></i> Awards</h3>
+                            {certificates.map((cert, index) => (
+                                <div key={index} className="award-item">
+                                    <h6 key={index}>{cert}</h6>
+                                </div>
+                            ))}
+                        </section>
 
                     </div>
                 </div>
@@ -147,6 +142,11 @@ const Resume2 = ({ resumeData }) => {
                     <i className="fas fa-download"></i> Download Resume
                 </button>
             </div>
+            {submit &&(<div className="download-button-container">
+                <button className="download-button" onClick={submit}>
+                    <i className="fas fa-download"></i> Lưu thông tin CV
+                </button>
+            </div>)}
         </div>
     );
 };

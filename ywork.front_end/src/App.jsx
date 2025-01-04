@@ -47,7 +47,7 @@ function App() {
                     <Route path='/job/apply' element={<JobApply/>}/>
                     <Route path={"/cv"} element={<Resume />} />
                     <Route path={"/save-cv/:act/1"} element={<Cv1/>}/>
-                    <Route path={"/save-cv/2"} element={<Cv2/>}/>
+                    <Route path={"/save-cv/:act/2"} element={<Cv2/>}/>
                     <Route path={"/company/detail/:companyId"} element={<CompanyDetail/>}/>
                     <Route path={"/danh-sach-cong-ty"} element={<CompanyListPublic />} />
                 </Route>

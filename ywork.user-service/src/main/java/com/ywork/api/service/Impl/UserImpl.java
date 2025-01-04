@@ -6,6 +6,7 @@ import com.ywork.api.dto.in.CVIn;
 import com.ywork.api.dto.in.UserIn;
 import com.ywork.api.dto.out.CVOut;
 import com.ywork.api.dto.out.UserOut;
+import com.ywork.api.model.MultipartFileConvert;
 import com.ywork.api.model.User;
 import com.ywork.api.responsitory.UserResponsitory;
 import com.ywork.api.service.UserService;
@@ -17,6 +18,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -73,8 +78,16 @@ public class UserImpl implements UserService {
     @Override
     public void saveCV(CVIn cv) {
         User userOut = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userResponsitory.saveCV(cv, userOut.getUserId());
+        String photoData = cv.getPhoto();
+        cv.setPhoto(null);
+        String cvId = userResponsitory.saveCV(cv, userOut.getUserId());
 
+        if (cv.getTypeCV() == 2 && photoData!= null && !photoData.isEmpty()) {
+            if (!photoData.contains("image/jpeg")) throw new RuntimeException("File không hợp lệ");
+            byte[] photo = Base64.getDecoder().decode(photoData.split(",")[1]);
+            MultipartFileConvert multipartFileConvert = new MultipartFileConvert(photo, "image/jpeg");
+            minioUtils.uploadFile("user", cvId +".jpg", multipartFileConvert);
+        }
     }
 
     @Override
@@ -97,6 +110,17 @@ public class UserImpl implements UserService {
     @Override
     public CVOut getCV(String cvId) {
         CVOut cvOut = userResponsitory.getCVDetail(cvId);
+        JsonObject jsonObject = gson.fromJson(cvOut.getInfo(), JsonObject.class);
+        if (jsonObject.get("typeCV").getAsInt() == 2){
+            try {
+                String urlPhoto = minioUtils.getUrlFile("user", cvOut.getCvId() + ".jpg");
+                jsonObject.addProperty("photo",urlPhoto);
+                cvOut.setInfo(gson.toJson(jsonObject));
+            } catch (Exception e) {
+                log.error("Not found photo");
+            }
+
+        }
         return cvOut;
     }
 
@@ -107,7 +131,16 @@ public class UserImpl implements UserService {
 
     @Override
     public void changeCV(CVIn cv) {
+        String photoData = cv.getPhoto();
+        cv.setPhoto(null);
         userResponsitory.changeCV1(cv);
+        if (cv.getTypeCV() == 2 && photoData!= null && !photoData.isEmpty()) {
+            if (photoData.contains("image/jpeg")) {
+                byte[] photo = Base64.getDecoder().decode(photoData.split(",")[1]);
+                MultipartFileConvert multipartFileConvert = new MultipartFileConvert(photo, "image/jpeg");
+                minioUtils.uploadFile("user", cv.getCvId() + ".jpg", multipartFileConvert);
+            }
+        }
     }
 
 

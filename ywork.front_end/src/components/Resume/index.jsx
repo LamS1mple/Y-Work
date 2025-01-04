@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import Resume1Image from './CV1.jpg';
-import Resume2Image from './CV1.jpg';
+import Resume2Image from './CV2.png';
 import './index.css';
 import { Table, Button, Switch } from 'antd';
 import userApi from '../../api/userApi';
@@ -192,10 +192,10 @@ const Resume = () => {
                 </div>
                 <div className="buttons">
                     <Link to="/save-cv/save/1">
-                        <button className="primary-btn">First Resume</button>
+                        <button className="primary-btn">Chọn CV1</button>
                     </Link>
                     <Link to="/save-cv/save/2">
-                        <button className="primary-btn">Second Resume</button>
+                        <button className="primary-btn">Chọn CV2</button>
                     </Link>
                 </div>
                 {zoomedPicture && (

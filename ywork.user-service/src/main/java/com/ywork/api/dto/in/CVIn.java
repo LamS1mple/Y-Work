@@ -16,6 +16,7 @@ public class CVIn {
     private Object experience;
     private Object languages;
     private String photo;
+    private Object certificates;
 
     private Integer status;
     private String cvId;

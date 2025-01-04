@@ -23,10 +23,8 @@ const useFormHandlers = () => {
         photo: '',
     }
     const {act} = useParams()
-    const [status, setStatus] = useState(true);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState(formCV);
-    const [notification, setNotification] = useState(null); // Quản lý thông báo
 
     // console.log(data)
     // if (!loading){
@@ -42,6 +40,8 @@ const useFormHandlers = () => {
     //
     //     return () => clearTimeout(timer);
     // }, []);
+    const [status, setStatus] = useState(true);
+    const [notification, setNotification] = useState(null); // Quản lý thông báo
     useEffect(() => {
         if(status && act !== 'save'){
             const fetchApi = async () =>{
@@ -54,9 +54,7 @@ const useFormHandlers = () => {
             fetchApi()
         }
     }, []);
-    useEffect(() => {
-        console.log("useEffect chỉ chạy một lần khi component mount.");
-    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -221,7 +219,8 @@ const useFormHandlers = () => {
         handleAddExperience,
         handleDelete,
         handleSubmit,
-        handleFileChange
+        handleFileChange,
+        notification
     };
 };
 
