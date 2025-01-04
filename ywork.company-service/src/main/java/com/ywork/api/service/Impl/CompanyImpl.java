@@ -44,4 +44,13 @@ public class CompanyImpl implements CompanyService {
         companyOut.setUrlAvatar(urlAvatar);
         return companyOut;
     }
+
+    @Override
+    public List<CompanyOut> getAllCompaniesPublic() {
+        return companyRepository.getAllConpaniesPublic().stream().map(companyOut ->{
+            String urlAvatar = minioUtils.getUrlFile(companyOut.getIdCompany(),companyOut.getAvatar());
+            companyOut.setUrlAvatar(urlAvatar);
+            return companyOut;
+        } ).toList();
+    }
 }

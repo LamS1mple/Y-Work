@@ -69,7 +69,7 @@ function LoginFeature() {
                   fullWidth
                   variant="outlined"
                   label="Email"
-                  placeholder="Email"
+                  placeholder="Tài khoản"
                   onChange={handleEmail}
               />
             </Box>
@@ -103,39 +103,15 @@ function LoginFeature() {
               Đăng nhập
             </Button>
 
-            <Typography variant="subtitle1" align="center" gutterBottom>
-              Hoặc đăng nhập bằng
-            </Typography>
 
-            <Grid container spacing={1} justifyContent="center">
-              <Grid item>
-                <Button variant="outlined" startIcon={<GoogleIcon />} color="error">
-                  Google
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button variant="outlined" startIcon={<FacebookIcon />} style={{ color: '#3b5998' }}>
-                  Facebook
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button variant="outlined" startIcon={<LinkedInIcon />} style={{ color: '#0077b5' }}>
-                  LinkedIn
-                </Button>
-              </Grid>
-            </Grid>
 
-            <FormControlLabel
-                control={<Checkbox color="primary" />}
-                label="Bằng việc đăng nhập bằng tài khoản mạng xã hội, tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của YWork"
-            />
 
             <Typography variant="body2" align="center" style={{ marginTop: '1rem' }}>
               Bạn chưa có tài khoản? <Button color="primary">Đăng ký ngay</Button>
             </Typography>
 
             <Typography variant="body2" align="center" color="textSecondary" style={{ marginTop: '1rem' }}>
-              Bạn gặp khó khăn khi tạo tài khoản? Vui lòng gọi tới số (024) 6680 5588 (giờ hành chính).
+              Bạn gặp khó khăn khi tạo tài khoản? Vui lòng gọi tới số (024) 32148262 (giờ hành chính).
             </Typography>
           </Grid>
 

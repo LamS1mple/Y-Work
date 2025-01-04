@@ -126,7 +126,7 @@ ul {
     outline: none; /* Remove default underline */
 }
 a:-webkit-any-link {
-    color: -webkit-link;
+    /*color: -webkit-link;*/
     cursor: pointer;
     text-decoration: none;
 }

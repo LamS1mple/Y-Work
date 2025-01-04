@@ -14,7 +14,7 @@ JobDetail.propTypes = {};
 
 
 function JobDetail(props) {
-    const [isUser, setIsUser] = useState(true);
+    const [isUser, setIsUser] = useState(JSON.parse(localStorage.getItem("isUser")));
     // const [userDetail, setUserDetail] = useState({})
     const navigate = useNavigate()
     // useEffect(() => {

@@ -61,4 +61,11 @@ public class CompanyRepository {
         }
         return companyOutList.get(0);
     }
+
+    public List<CompanyOut> getAllConpaniesPublic() {
+        var out_put = proceduceCall.callOneRefCursor("company_list_public",
+                List.of(ProcedureParameter.refCursorParam("out_cur")),
+                CompanyOut.class);
+        return (List<CompanyOut>) out_put.get("out_cur");
+    }
 }

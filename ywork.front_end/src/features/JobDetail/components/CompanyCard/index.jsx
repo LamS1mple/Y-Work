@@ -2,6 +2,7 @@ import React from "react";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import {Link} from "react-router-dom";
 
 const CompanyCard = (props) => {
     const companyDetail = props.companyDetail
@@ -38,12 +39,10 @@ const CompanyCard = (props) => {
                         Thành phố {companyDetail.nameProvince}
                     </p>
                 </div>
-                <a
-                    href="#"
-                    style={styles.link}
-                >
+
+                <Link to={`/company/detail/${companyDetail.idCompany}`} style={styles.link}>
                     Xem trang công ty
-                </a>
+                </Link>
             </div>
         </div>
     );

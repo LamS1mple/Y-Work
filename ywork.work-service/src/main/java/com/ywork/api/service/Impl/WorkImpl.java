@@ -40,11 +40,15 @@ public class WorkImpl implements WorkService {
             List<String> list = gson.fromJson(jsonObject.get("object").getAsJsonArray(), List.class);
             if (list == null || list.isEmpty()) throw new RuntimeException();
             String resultRecommend = apiCall.getIdWorkRecommend(list);
-             workOutList = workRepository.getListWorkRecommend(resultRecommend);
+            workOutList = workRepository.getListWorkRecommend(resultRecommend);
         } catch (Exception e) {
 //            log.error(e.getMessage().substring(0, 100));
             workOutList = workRepository.getListWork();
         }
+       setDetailWork(workOutList);
+        return workOutList;
+    }
+    private void setDetailWork(List<WorkOut> workOutList){
         for (WorkOut workOut : workOutList) {
             workOut.setLocations(locationRepository.getLocationsWork(workOut.getLocation()));
             workOut.setSkills(skillFieldRepository.getSkillFieldsWork(workOut.getWorkId()));
@@ -54,7 +58,6 @@ public class WorkImpl implements WorkService {
             }
             workOut.setConvertSalary(Common.convertMoney(workOut.getSalaryMin(), workOut.getSalaryMax()));
         }
-        return workOutList;
     }
 
     @Override
@@ -77,5 +80,12 @@ public class WorkImpl implements WorkService {
     @Override
     public void changeStatus(String workId) {
         workRepository.changeStatusWork(workId);
+    }
+
+    @Override
+    public List<WorkOut> getListWorkCompany(String companyId) {
+        List<WorkOut> workOutList = workRepository.getListWorkCompany(companyId);
+        setDetailWork(workOutList);
+        return workOutList;
     }
 }

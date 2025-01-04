@@ -29,4 +29,8 @@ public class CompanyOut {
     private int status;
     private String urlAvatar;
     private String urlCoverPhoto;
+    @Col("quantity_work")
+    private Long quantityWork;
+    @Col("field")
+    private String field;
 }

@@ -24,4 +24,12 @@ public class CompanyUserController {
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }
+    @GetMapping("/list/company")
+    public ResponseEntity<ApiResult> listCompany(){
+        log.info("/public/company-user/list/company");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(companyService.getAllCompaniesPublic());
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
 }

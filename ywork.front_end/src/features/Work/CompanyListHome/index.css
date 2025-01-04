@@ -1,0 +1,69 @@
+.app {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.category {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category:hover {
+    background-color: #e0e0e0;
+}
+
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.company-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.company-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.company-name {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.company-industry {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.company-jobs {
+    font-weight: bold;
+    color: #007BFF;
+}

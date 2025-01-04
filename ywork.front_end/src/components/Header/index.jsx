@@ -25,59 +25,80 @@ const Header = (props) => {
         <header className="header">
             <div className="header-left">
                 <span className="header-logo">Tiếp lợi thế - Nối thành công</span>
-                <nav className="header-nav" style={{display:"flex"}}>
-                    <div className="dropdown" style={{marginRight:"20px"}}>
-                        <div><span onClick={() => handleNavigate('/')}>Việc làm</span></div>
-                        <div className="dropdown-content">
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/')}
-                            >
-                                <FaSearch className="icon"/> Tìm việc làm
-                            </div>
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/viec-lam-phu-hop')}
-                            >
-                                <FaCheckSquare className="icon"/> Việc làm phù hợp
-                            </div>
-                            {isUser && (
-                                <div
-                                    className="dropdown-item"
-                                    onClick={() => handleNavigate('/job/apply')}
-                                >
-                                    <FaCheckSquare className="icon"/> Việc đã ứng tuyển
-                                </div>
-                            )}
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/viec-lam-it')}
-                            >
-                                <FaLaptopCode className="icon"/> Việc làm IT
-                            </div>
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/viec-lam-senior')}
-                            >
-                                <FaAward className="icon"/> Việc làm Senior
-                            </div>
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/danh-sach-cong-ty')}
-                            >
-                                <FaBuilding className="icon"/> Danh sách công ty
-                            </div>
-                            <div
-                                className="dropdown-item"
-                                onClick={() => handleNavigate('/top-cong-ty')}
-                            >
-                                <FaStar className="icon"/> Top công ty
-                            </div>
+                <nav className="header-nav" style={{display: "flex"}}>
+                    {/*<div className="dropdown" style={{marginRight: "20px"}}>*/}
+                    {/*    <div><span onClick={() => handleNavigate('/')}>Việc làm</span></div>*/}
+                    {/*    <div><span onClick={() => handleNavigate('/danh-sach-cong ty')}>Danh sách công ty</span></div>*/}
+                    {/*    {isUser && (*/}
+                    {/*        <div*/}
+                    {/*            className="dropdown-item"*/}
+                    {/*            onClick={() => handleNavigate('/job/apply')}*/}
+                    {/*        >*/}
+                    {/*            <FaCheckSquare className="icon"/> Việc đã ứng tuyển*/}
+                    {/*        </div>*/}
+                    {/*    )}*/}
+                    {/*    /!*<div className="dropdown-content">*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaSearch className="icon"/> Tìm việc làm*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/viec-lam-phu-hop')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaCheckSquare className="icon"/> Việc làm phù hợp*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*    {isUser && (*!/*/}
+                    {/*    /!*        <div*!/*/}
+                    {/*    /!*            className="dropdown-item"*!/*/}
+                    {/*    /!*            onClick={() => handleNavigate('/job/apply')}*!/*/}
+                    {/*    /!*        >*!/*/}
+                    {/*    /!*            <FaCheckSquare className="icon"/> Việc đã ứng tuyển*!/*/}
+                    {/*    /!*        </div>*!/*/}
+                    {/*    /!*    )}*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/viec-lam-it')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaLaptopCode className="icon"/> Việc làm IT*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/viec-lam-senior')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaAward className="icon"/> Việc làm Senior*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/danh-sach-cong-ty')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaBuilding className="icon"/> Danh sách công ty*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*    <div*!/*/}
+                    {/*    /!*        className="dropdown-item"*!/*/}
+                    {/*    /!*        onClick={() => handleNavigate('/top-cong-ty')}*!/*/}
+                    {/*    /!*    >*!/*/}
+                    {/*    /!*        <FaStar className="icon"/> Top công ty*!/*/}
+                    {/*    /!*    </div>*!/*/}
+                    {/*    /!*</div>*!/*/}
+                    {/*</div>*/}
+
+                    <div style={{marginRight: "20px"}}><span onClick={() => handleNavigate('/')}>Việc làm</span></div>
+                    <div style={{marginRight: "20px"}}><span onClick={() => handleNavigate('/danh-sach-cong-ty')}>Danh sách công ty</span></div>
+                    {isUser && (
+                        <div
+                            style={{marginRight: "20px"}}
+                            // className="dropdown-item"
+                            onClick={() => handleNavigate('/job/apply')}
+                        >
+                             Việc đã ứng tuyển
                         </div>
-                    </div>
-                    <div style={{marginRight:"20px"}} onClick={()=>handleNavigate("/cv")}>Hồ sơ & CV</div>
-                    <div style={{marginRight:"20px"}}>Công cụ</div>
-                    <div style={{marginRight:"20px"}}>Cẩm nang nghề nghiệp</div>
+                    )}
+                    <div style={{marginRight: "20px"}} onClick={() => handleNavigate("/cv")}>Hồ sơ & CV</div>
+                    {/*<div style={{marginRight:"20px"}}>Công cụ</div>*/}
+                    {/*<div style={{marginRight:"20px"}}>Cẩm nang nghề nghiệp</div>*/}
                 </nav>
             </div>
             {!isUser ? (

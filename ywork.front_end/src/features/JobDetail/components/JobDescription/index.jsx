@@ -14,7 +14,7 @@ function JobDescription(props) {
         <div className="job-details-container">
             <div className="job-details-header">
                 <h2>Chi tiết tin tuyển dụng</h2>
-                <button className="job-alert-button">Gửi tôi việc làm tương tự</button>
+
             </div>
 
             {/* Job Categories */}
@@ -88,7 +88,6 @@ function JobDescription(props) {
             <div className="button-container">
                 <button className="apply-button" style={{background: configColor}} onClick={onOpen}>Ứng tuyển ngay
                 </button>
-                <button className="save-button">Lưu tin</button>
             </div>
 
             {/* Report Section */}

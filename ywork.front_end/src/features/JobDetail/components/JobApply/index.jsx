@@ -129,11 +129,11 @@ function JobApply({onClose, workDetail}) {
                     </div>
                 </div>
 
-                <div className="modal-section">
-                    <h3>Thư giới thiệu:</h3>
-                    <textarea placeholder="Nhập thư giới thiệu ngắn gọn..."
-                              defaultValue="Em tên là Nguyễn Công Lâm, sinh viên năm 4 trường Học viện công nghệ Bưu chính Viễn Thông chuyên ngành công nghệ phần mềm..."></textarea>
-                </div>
+                {/*<div className="modal-section">*/}
+                {/*    <h3>Thư giới thiệu:</h3>*/}
+                {/*    <textarea placeholder="Nhập thư giới thiệu ngắn gọn..."*/}
+                {/*              defaultValue="Em tên là Nguyễn Công Lâm, sinh viên năm 4 trường Học viện công nghệ Bưu chính Viễn Thông chuyên ngành công nghệ phần mềm..."></textarea>*/}
+                {/*</div>*/}
 
                 <div className="modal-buttons">
                     <button className="cancel-button" onClick={onClose}>Hủy</button>

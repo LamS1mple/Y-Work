@@ -44,4 +44,13 @@ public class WorkController {
         log.info("Success");
         return  ResponseEntity.ok(new ApiResult());
     }
+    @GetMapping("/company/list")
+    public ResponseEntity<ApiResult> getListWorkCompany(@RequestParam String companyId){
+        log.info("/work/company/list");
+        var result =  workService.getListWorkCompany(companyId);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(result);
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
 }

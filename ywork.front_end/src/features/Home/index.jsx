@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import WorkList from "../Work/WorkList";
 import userApi from "../../api/userApi";
 import {Outlet} from "react-router-dom";
+import Footer from "../../components/Footer";
 
 HomeUser.prototype = {
     workList: ProTypes.array,
@@ -22,7 +23,11 @@ function HomeUser() {
             .then(data => {
                 setUserDetail(data.object)
                 setIsUser(true)
+                localStorage.setItem('isUser', JSON.stringify(true));
+
             }).catch(error => {
+            localStorage.setItem('isUser', JSON.stringify(false));
+
             setIsUser(false)
         })
     }, []);
@@ -31,6 +36,7 @@ function HomeUser() {
         <div>
             <Header isUser={isUser} userDetail={userDetail}/>
             <Outlet/>
+            <Footer />
         </div>
     )
 }

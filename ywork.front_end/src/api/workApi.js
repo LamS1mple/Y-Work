@@ -63,6 +63,15 @@ const WorkApi = {
     candidateJobApply(){
         const  url = urlBase +"/candidate/list/apply-job"
         return axiosClient.get(url)
+    },
+
+    jobCompanyPublic(companyId){
+        const url = urlBase + "/public/work/company/list"
+        return axiosClient.get(url, {
+            params:{
+                companyId: companyId
+            }
+        })
     }
 }
 

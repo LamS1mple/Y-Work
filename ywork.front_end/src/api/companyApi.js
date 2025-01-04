@@ -58,6 +58,11 @@ const CompanyApi = {
     candidateChangeStatusCompany(data){
         const url = urlBase + "/candidate/apply-company/status"
         return axiosClient.post(url, data)
+    },
+
+    publicListCompany(){
+        const url = urlBase + "/public/company-user/list/company"
+        return axiosClient.get(url)
     }
 }
 

@@ -84,4 +84,16 @@ public class WorkRepository {
                         ProcedureParameter.refCursorParam("out_cur")), WorkOut.class);
         return (List<WorkOut>) out_put.get("out_cur");
     }
+
+    public List<WorkOut> getListWorkCompany(String companyId) {
+        var out_put = proceduceCall.callOneRefCursor("work_company_public",
+                List.of(ProcedureParameter.inputParam("in_company_id", String.class, companyId),
+                        ProcedureParameter.outputParam("out_result", String.class),
+                        ProcedureParameter.refCursorParam("out_cur")), WorkOut.class);
+        String result = (String) out_put.get("out_result");
+        if (!DataStatus.SUCCESS.equals(result)) {
+
+        }
+        return (List<WorkOut>) out_put.get("out_cur");
+    }
 }

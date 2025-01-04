@@ -67,9 +67,7 @@ function JobOverview(props) {
             <div className="button-container">
                 <button className="apply-button" style={{background: configColor}} onClick={onOpen}>Ứng tuyển ngay
                 </button>
-                <button className="save-button">
-                    <AiOutlineHeart/> Lưu tin
-                </button>
+
             </div>
         </div>
     );

@@ -13,4 +13,6 @@ public interface WorkService {
     void createWork(WorkCreateIn workCreateIn);
 
     void changeStatus(String workId);
+
+    List<WorkOut> getListWorkCompany(String companyId);
 }

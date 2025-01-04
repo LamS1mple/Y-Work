@@ -10,4 +10,6 @@ public interface CompanyService {
     List<CompanyOut> getAllCompanies();
 
     Object detailCompany(String companyId);
+
+    List<CompanyOut> getAllCompaniesPublic();
 }

@@ -17,7 +17,6 @@ import CompanyJob from "./features/CompanyInManager/Components/CompanyJob";
 import CompanyStaff from "./features/CompanyInManager/Components/CompanyStaff";
 import CompanyCandidate from "./features/CompanyInManager/Components/CompanyCandidate";
 import CompanyInManager from "./features/CompanyInManager";
-import Test from "./test";
 import CompanyPostJob from "./features/CompanyInManager/Components/CompanyPostJob";
 import CandidateCV from "./features/CompanyInManager/Components/CandidateCV";
 import JobApply from "./features/JobApply";
@@ -25,6 +24,10 @@ import Cv1 from "./components/Resume/CV1/index";
 import Resume from "./components/Resume";
 import CVView from "./features/CVView";
 import CVEdit from "./features/CVEdit";
+import CompanyDetail from "./features/Company/CompanyDetail";
+import JobCardCompany from "./features/Company/JobCardCompany";
+import Test from "./test";
+import CompanyListPublic from "./features/CompanyListPublic";
 
 // import { Switch } from '@mui/material';
 
@@ -43,6 +46,8 @@ function App() {
                     <Route path='/job/apply' element={<JobApply/>}/>
                     <Route path={"/cv"} element={<Resume />} />
                     <Route path={"/save-cv/1"} element={<Cv1/>}/>
+                    <Route path={"/company/detail/:companyId"} element={<CompanyDetail/>}/>
+                    <Route path={"/danh-sach-cong-ty"} element={<CompanyListPublic />} />
                 </Route>
 
 
@@ -61,7 +66,7 @@ function App() {
                     <Route path={"post"} element={<CompanyPostJob/>}/>
                     <Route path={"cv/:workId"} element={<CandidateCV />} />
                 </Route>
-                <Route path={"/test"} element={<Cv1/>}/>
+                <Route path={"/test"} element={<Test/>}/>
             </Routes>
             {/* < WorkList workList={workList}/> */}
         </div>
