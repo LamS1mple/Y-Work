@@ -11,9 +11,7 @@ import com.ywork.api.responsitory.helper.ProceduceCall;
 import com.ywork.api.responsitory.helper.ProcedureParameter;
 import com.ywork.common.DataStatus.DataStatus;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -119,5 +117,15 @@ public class UserResponsitory  implements UserDetailsService{
         );
         String result = (String) out.get("out_result");
         if (!DataStatus.SUCCESS.equals(result)) throw new RuntimeException("Fail change status CV");
+    }
+
+    public void changeCV1(CVIn cv) {
+        String json = gson.toJson(cv);
+        var out = proceduceCall.callNoRefCursor("resume_change",
+                List.of(ProcedureParameter.inputParam("in_info", String.class, json),
+                        ProcedureParameter.inputParam("in_cv_id",String.class, cv.getCvId()),
+                        ProcedureParameter.outputParam("out_result", String.class)));
+        String outResult = (String) out.get("out_result");
+        if (!DataStatus.SUCCESS.equals(outResult)){throw new RuntimeException("Fail change cv");}
     }
 }

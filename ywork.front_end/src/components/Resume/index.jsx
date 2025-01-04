@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Resume1Image from './CV1.jpg';
 import Resume2Image from './CV1.jpg';
 import './index.css';
@@ -14,6 +14,7 @@ const Resume = () => {
     const [data, setData] = useState([]); // Dữ liệu gốc từ API
     const [tableData, setTableData] = useState([]); // Dữ liệu hiển thị trong bảng
     const [selectedCV, setSelectedCV] = useState(null); // Dữ liệu cho bảng chi tiết
+    const navi = useNavigate()
 
     // Lấy dữ liệu từ API khi component được mount
     useEffect(() => {
@@ -116,7 +117,7 @@ const Resume = () => {
                         Xem
                     </Button>
                     <Button type="default"
-                            onClick={() => window.open(`/edit-cv/${record.key}`, '_blank')}>Chỉnh sửa</Button>
+                            onClick={() => navi(`/save-cv/${record.key}/${record.typeCV}`)}>Chỉnh sửa</Button>
                     <Button type="danger">Xóa</Button>
                 </div>
             ),
@@ -190,10 +191,10 @@ const Resume = () => {
                     )}
                 </div>
                 <div className="buttons">
-                    <Link to="/save-cv/1">
+                    <Link to="/save-cv/save/1">
                         <button className="primary-btn">First Resume</button>
                     </Link>
-                    <Link to="/resume/2">
+                    <Link to="/save-cv/save/2">
                         <button className="primary-btn">Second Resume</button>
                     </Link>
                 </div>

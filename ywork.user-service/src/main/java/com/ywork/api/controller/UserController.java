@@ -32,6 +32,14 @@ public class UserController {
         return ResponseEntity.ok(Collections.emptyMap());
     }
 
+    @PostMapping("/change/cv")
+    public ResponseEntity<?> changeCV(@RequestBody CVIn cv){
+        log.info("/user/change/cv");
+        userService.changeCV(cv);
+        log.info("success");
+        return ResponseEntity.ok(Collections.emptyMap());
+    }
+
     @GetMapping("/cv/list")
     public ResponseEntity<?> listCV(){
         log.info("/user/cv/list");

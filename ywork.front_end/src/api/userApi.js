@@ -30,6 +30,10 @@ const userApi = {
         const url = urlBase + "/user/save-cv"
         return axiosClient.post(url, data)
     },
+    changeCv(data){
+        const url = urlBase + "/user/change/cv"
+        return axiosClient.post(url, data)
+    },
     listCV(){
         const url = urlBase + "/user/cv/list"
         return axiosClient.get(url)

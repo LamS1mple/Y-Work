@@ -4,9 +4,9 @@ import useFormHandlers from "./Handler";
 import Form from "./Form";
 import Resume from "./Resume";
 import './index.css'
+import Notification from "../../../features/Notification";
 const Cv1 = props => {
     const data = props.data
-    // console.log(data)
     const {
         formData: formData1,
         handleChange: handleChange1,
@@ -19,6 +19,7 @@ const Cv1 = props => {
         handleAddExperience: handleAddExperience1,
         handleDelete: handleDelete1,
         handleSubmit: handleSubmit1,
+        notification
     } = useFormHandlers();
     return (
         <div className="form-and-resume">
@@ -40,6 +41,13 @@ const Cv1 = props => {
             <div className="resume-wrapper">
                 <Resume resumeData={formData1} submit={handleSubmit1}/>
             </div>
+
+            {notification && (
+                <Notification
+                    type={notification.type}
+                    message={notification.message}
+                />
+            )}
         </div>
     );
 };

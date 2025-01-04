@@ -25,4 +25,6 @@ public interface UserService {
     CVOut getCV(String cvId);
 
     void changeStatus(CVIn cv);
+
+    void changeCV(CVIn cv);
 }

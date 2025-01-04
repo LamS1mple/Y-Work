@@ -105,5 +105,10 @@ public class UserImpl implements UserService {
         userResponsitory.changeStatusCV(cv);
     }
 
+    @Override
+    public void changeCV(CVIn cv) {
+        userResponsitory.changeCV1(cv);
+    }
+
 
 }

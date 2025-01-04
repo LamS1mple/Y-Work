@@ -1,67 +1,179 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './index.css';
-import {configColor} from "../../../../ConfigColor";
+import { configColor } from "../../../../ConfigColor";
 import workApi from "../../../../api/workApi";
+import Notification from "../../../Notification";
+import userApi from "../../../../api/userApi";
 
-function JobApply({onClose, workDetail}) {
+function JobApply({ onClose, workDetail }) {
     const [selectedOption, setSelectedOption] = useState('1');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedLibraryCv, setSelectedLibraryCv] = useState('');
+    const [hoveredCv, setHoveredCv] = useState('');
+    const [dragActive, setDragActive] = useState(false);
+    const [notification, setNotification] = useState(null); // Quản lý thông báo
+    const [listCV, setListCV]= useState([])
 
-    // Hàm xử lý khi thay đổi lựa chọn
+    useEffect(() => {
+        userApi.listCV()
+            .then((res) => {
+                const result = res.object;
+                const parsedData = result.map((element) => ({
+                    ...element,
+                    cv: JSON.parse(element.info),
+                }));
+
+                setListCV(parsedData.map((element) => ({
+                    key: element.cvId,
+                    name: element.cv.title,
+                    createdDate: element.createCV,
+                    modifiedDate: element.updateCV,
+                    status: element.status === 1,
+                    typeCV: element.cv.typeCV,
+                })));
+            })
+            .catch((error) => {
+                console.error('Error fetching CV data:', error);
+            });
+    }, []);
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
-    const applyCv = (e) => {
-        // e.preventDefault();
+    const handleLibraryCvChange = (cv) => {
+        setSelectedLibraryCv(cv);
+    };
+
+    const applyCv = () => {
         const form = new FormData();
-        form.append("file", selectedFile)
-        form.append("workId", workDetail.workId)
-        form.append("optionUpload", selectedOption)
-        console.log(form)
-        const postData = async (form) => {
-            console.log(form)
-            try {
-                await workApi.createCandidate(form)
-                onClose()
-            } catch (err) {
-
-            }
+        if (selectedOption === '2') {
+            form.append("file", selectedFile);
+        } else {
+            form.append("libraryCv", selectedLibraryCv);
         }
-        postData(form)
-    }
+        form.append("workId", workDetail.workId);
+        form.append("optionUpload", selectedOption);
 
-    const [selectedFile, setSelectedFile] = useState(null);
+        const postData = async (form) => {
+            try {
+                const response = await workApi.createCandidate(form);
+                if (response && response.messages === 'ok') {
+
+                    setNotification({
+                        type: "success",
+                        message: "Ứng tuyển thành công!",
+                    });
+                    setTimeout(() =>{
+                        onClose();
+                        setNotification(null)
+                    } , 2000); // Tự động ẩn thông báo sau 2 giây
+
+                }
+            } catch (err) {
+                console.error(err);
+                setNotification({
+                    type: "error",
+                    message: "Đã xảy ra lỗi khi ứng tuyển. Vui lòng thử lại.",
+                });
+                setTimeout(() => setNotification(null), 3000); // Tự động ẩn thông báo sau 3 giây
+            }
+        };
+        postData(form);
+    };
 
     const handleFileChange = (event) => {
         setSelectedOption('2');
+        setSelectedFile(event.target.files[0]);
+    };
 
-        setSelectedFile(event.target.files[0]); // Lưu tệp đã chọn
+    const handleDragOver = (event) => {
+        event.preventDefault();
+        setDragActive(true);
+    };
+
+    const handleDragLeave = () => {
+        setDragActive(false);
+    };
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        setDragActive(false);
+
+        if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+            setSelectedOption('2');
+            setSelectedFile(event.dataTransfer.files[0]);
+        }
     };
 
     return (
         <div className="modal-overlay">
-            <div style={{overflow: "scroll", height: "500px"}} className="modal-content">
+            <div style={{ overflow: "scroll", height: "500px" }} className="modal-content">
                 <button className="close-button" onClick={onClose}>×</button>
-                <h2 style={{color: configColor}}>{workDetail.nameWork}</h2>
+                <h2 style={{ color: configColor }}>{workDetail.nameWork}</h2>
 
                 <div className="modal-section">
                     <h3>Chọn CV để ứng tuyển</h3>
                     <div className="cv-options">
-                        {/*<label>*/}
-                        {/*    <input type="radio" name="cvOption" defaultChecked/>*/}
-                        {/*    CV ứng tuyển gần nhất: CV*/}
-                        {/*    <button className="view-button">Xem</button>*/}
-                        {/*</label>*/}
+                        {/* Thư viện CV */}
                         <div className="upload-option">
                             <label>
-                                <input type="radio" name="cvOption" value={'1'} checked={selectedOption === '1'}
-                                       onChange={handleOptionChange}/>
+                                <input
+                                    type="radio"
+                                    name="cvOption"
+                                    value="1"
+                                    checked={selectedOption === '1'}
+                                    onChange={handleOptionChange}
+                                />
                                 <p>Chọn CV khác trong thư viện CV của tôi</p>
                             </label>
+
+                            {selectedOption === '1' && (
+                                <div style={{ marginTop: "10px" }}>
+                                    <h4>Danh sách CV trong thư viện:</h4>
+                                    <ul className="cv-list">
+                                        {listCV.map((cv, index) => (
+                                            <li
+                                                key={cv.key}
+                                                className="cv-item"
+                                                onMouseEnter={() => setHoveredCv(cv.key)}
+                                                onMouseLeave={() => setHoveredCv('')}
+                                            >
+                                                <span style={{maxWidth:"260px"}}>{cv.name}</span>
+                                                {hoveredCv === cv.key && (
+                                                    <span className="view-link" onClick={()=>{
+                                                        window.open(`/view-cv/${cv.key}`, '_blank')
+                                                    }}>Xem</span>
+                                                )}
+                                                <button
+                                                    className={`select-button ${
+                                                        selectedLibraryCv === cv.key ? 'selected' : ''
+                                                    }`}
+                                                    onClick={() => handleLibraryCvChange(cv.key)}
+                                                >
+                                                    Chọn CV
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
-                        <div className="upload-option">
-                            <input type="radio" id={'2'} value={'2'} checked={selectedOption === '2'} name="cvOption"
-                                   onChange={handleOptionChange}/>
+
+                        {/* Tải lên CV */}
+                        <div
+                            className={`upload-option drop-zone ${dragActive ? 'active' : ''}`}
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLeave}
+                            onDrop={handleDrop}
+                        >
+                            <input
+                                type="radio"
+                                id="2"
+                                value="2"
+                                checked={selectedOption === '2'}
+                                name="cvOption"
+                                onChange={handleOptionChange}
+                            />
                             <label
                                 htmlFor="fileUpload"
                                 style={{
@@ -72,68 +184,38 @@ function JobApply({onClose, workDetail}) {
                                     cursor: "pointer",
                                 }}
                             >
-                                <span style={{fontWeight: "bold"}}>
-                                  Tải lên CV từ máy tính, chọn hoặc kéo thả
+                                <span style={{ fontWeight: "bold" }}>
+                                    Kéo và thả CV vào đây hoặc chọn từ máy tính
                                 </span>
-                                <button
-                                    type="button"
-                                    className="upload-button"
-                                    style={{
-                                        marginLeft: "10px",
-                                        background: "#2ba64b",
-                                        color: "#fff",
-                                        border: "none",
-                                        padding: "5px 10px",
-                                        borderRadius: "4px",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Chọn CV
-                                </button>
-                                <p style={{marginTop: "10px", fontSize: "14px", color: "#666"}}>
+                                <p style={{ marginTop: "10px", fontSize: "14px", color: "#666" }}>
                                     Hỗ trợ định dạng .doc, .docx, pdf có kích thước dưới 5MB
                                 </p>
 
-                                {/* Input file */}
                                 <input
                                     id="fileUpload"
                                     type="file"
                                     accept=".doc,.docx,.pdf"
-                                    style={{display: "none"}} // Ẩn input file
+                                    style={{ display: "none" }}
                                     onChange={handleFileChange}
                                 />
                             </label>
 
-                            {/* Hiển thị tên tệp đã chọn */}
                             {selectedFile && (
-                                <div style={{marginTop: "15px", fontSize: "14px"}}>
+                                <div style={{ marginTop: "15px", fontSize: "14px" }}>
                                     <strong>Tệp đã chọn:</strong> {selectedFile.name}
                                 </div>
                             )}
-
-                            {/*<div className="details-form">*/}
-                            {/*    <h4>Vui lòng nhập đầy đủ thông tin chi tiết:</h4>*/}
-                            {/*    <span>(* Thông tin bắt buộc)</span>*/}
-                            {/*    <div className="form-group">*/}
-                            {/*        <label htmlFor="fullName">Họ và tên *</label>*/}
-                            {/*        <input type="text" id="fullName" value="Nguyễn Công Lâm"/>*/}
-                            {/*    </div>*/}
-                            {/*    <div className="form-group">*/}
-                            {/*        <label htmlFor="email">Email *</label>*/}
-                            {/*        <input type="email" id="email" value="lamlinhkhang0022@gmail.com"/>*/}
-                            {/*        <label htmlFor="phone">Số điện thoại *</label>*/}
-                            {/*        <input type="text" id="phone" value="0974206832"/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
 
-                {/*<div className="modal-section">*/}
-                {/*    <h3>Thư giới thiệu:</h3>*/}
-                {/*    <textarea placeholder="Nhập thư giới thiệu ngắn gọn..."*/}
-                {/*              defaultValue="Em tên là Nguyễn Công Lâm, sinh viên năm 4 trường Học viện công nghệ Bưu chính Viễn Thông chuyên ngành công nghệ phần mềm..."></textarea>*/}
-                {/*</div>*/}
+                {notification && (
+                    <Notification
+                        type={notification.type}
+                        message={notification.message}
+                        onClose={() => setNotification(null)}
+                    />
+                )}
 
                 <div className="modal-buttons">
                     <button className="cancel-button" onClick={onClose}>Hủy</button>
@@ -144,4 +226,4 @@ function JobApply({onClose, workDetail}) {
     );
 }
 
-export default JobApply
+export default JobApply;

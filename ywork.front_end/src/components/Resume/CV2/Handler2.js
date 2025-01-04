@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import userApi from "../../../api/userApi";
-import {useParams} from "react-router-dom";
 
-const useFormHandlers = () => {
-    let formCV = {
+const useFormHandlers2 = () => {
+    const [loading, setLoading] = useState(true);
+    const [formData, setFormData] = useState({
         name: '',
         title: '',
         contact: {
@@ -21,42 +20,16 @@ const useFormHandlers = () => {
         certificates: [],
         languages: [],
         photo: '',
-    }
-    const {act} = useParams()
-    const [status, setStatus] = useState(true);
-    const [loading, setLoading] = useState(true);
-    const [formData, setFormData] = useState(formCV);
-    const [notification, setNotification] = useState(null); // Quản lý thông báo
+    });
 
-    // console.log(data)
-    // if (!loading){
-    //     setFormData(
-    //         data
-    //     );
-    //     console.log(formData)
-    // }
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setLoading(false);
-    //     }, 3000);
-    //
-    //     return () => clearTimeout(timer);
-    // }, []);
     useEffect(() => {
-        if(status && act !== 'save'){
-            const fetchApi = async () =>{
-                const cvDetail = await userApi.cvView(act)
-                const data = cvDetail.object
-                console.log(JSON.parse(data.info));
-                setFormData({...formCV, ...JSON.parse(data.info)})
-                setStatus(false)
-            }
-            fetchApi()
-        }
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
     }, []);
-    useEffect(() => {
-        console.log("useEffect chỉ chạy một lần khi component mount.");
-    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -99,7 +72,27 @@ const useFormHandlers = () => {
         }
     };
 
+   const handleArrayChange = (e, index, field, subField = null) => {
+    const newValue = e.target.value;
+    const newArray = [...formData[field]]; // Create a copy of the array to avoid mutating state directly
 
+    if (subField !== null) {
+        // If subField is provided, update a specific property within an object in the array
+        newArray[index] = {
+            ...newArray[index],
+            [subField]: newValue,
+        };
+    } else {
+        // If no subField is provided, update a simple array of strings
+        newArray[index] = newValue;
+    }
+
+    // Update the formData state with the new array
+    setFormData({
+        ...formData,
+        [field]: newArray,
+    });
+};
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -131,27 +124,17 @@ const useFormHandlers = () => {
     const addSkill = () => {
         setFormData({
             ...formData,
-            skills: [...formData.skills, ''],  // Initialize with an empty string
+            skills: [...formData.skills, { name: '', percentage: 0 }],
         });
     };
-
-    const handleArrayChange = (e, index, field, subField = null) => {
-        const newValue = e.target.value;
-        const newArray = [...formData[field]];
-        newArray[index] = newValue;  // Update the value directly if it's an array of strings
-
-        setFormData({
-            ...formData,
-            [field]: newArray,
-        });
-    };
-
-
 
     const addEducation = () => {
         setFormData({
             ...formData,
-            education: [...formData.education, { degree: '', institution: '', startYear: '', endYear: '' }],
+            education: [
+                ...formData.education,
+                { degree: '', institution: '', branch: '', cgpa: '', cgpaType: 'percentage', startYear: '', endYear: '', location: '' }
+            ],
         });
     };
 
@@ -165,14 +148,17 @@ const useFormHandlers = () => {
     const addLanguage = () => {
         setFormData({
             ...formData,
-            languages: [...formData.languages, ''],  // Initialize with an empty string
+            languages: [...formData.languages, { name: '', percentage: 0 }],
         });
     };
 
     const handleAddExperience = () => {
         setFormData({
             ...formData,
-            experience: [...formData.experience, { position: '', company: '', startMonth: '', startYear: '', endMonth: '', endYear: '', internships: '' }],
+            experience: [
+                ...formData.experience,
+                { position: '', company: '', location: '', startMonth: '', startYear: '', endMonth: '', endYear: '', internships: '' }
+            ],
         });
     };
 
@@ -185,27 +171,9 @@ const useFormHandlers = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            if (act === 'save') {
-                await userApi.saveCv({ ...formData, typeCV: 1 });
-            } else {
-                await userApi.changeCv({ ...formData, typeCV: 1, cvId: act });
-            }
-            setNotification({
-                type: "success",
-                message: "Lưu hồ sơ thành công",
-            });
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            setNotification({
-                type: "error",
-                message: "Đã xảy ra lỗi khi ứng tuyển. Vui lòng thử lại.",
-            });
-        } finally {
-            setTimeout(() => setNotification(null), 3000); // Ẩn thông báo sau 3 giây
-        }
+        console.log('Form submitted', formData);
     };
 
     return {
@@ -225,4 +193,4 @@ const useFormHandlers = () => {
     };
 };
 
-export default useFormHandlers;
+export default useFormHandlers2;
