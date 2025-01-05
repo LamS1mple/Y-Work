@@ -16,7 +16,7 @@ import {
 import userApi from "../../api/userApi";
 import {useNavigate} from "react-router-dom";
 
-const RegistrationFormCompany = () => {
+const Register = () => {
 
     const navigate = useNavigate()
 
@@ -31,7 +31,7 @@ const RegistrationFormCompany = () => {
         // location: "",
         // district: "",
         gender: "1",
-        roleStatus: 2,
+        roleStatus: 1,
         agreed: false,
     });
 
@@ -76,7 +76,7 @@ const RegistrationFormCompany = () => {
                 .then(response => {
                     const data = response
                     if (data.messages === 'ok') {
-                        navigate("/login/company")
+                        navigate("/login")
                     }
                 })
                 .catch(error => {
@@ -109,7 +109,7 @@ const RegistrationFormCompany = () => {
                 }}
             >
                 <Typography variant="h4" gutterBottom>
-                    Đăng ký tài khoản Nhà tuyển dụng
+                    Đăng ký tài khoản ứng viên
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
                     Cùng tạo dựng lợi thế cho doanh nghiệp bằng trải nghiệm công nghệ
@@ -153,7 +153,7 @@ const RegistrationFormCompany = () => {
                         }
                     />
                     <Typography variant="h6" mt={2}>
-                        Thông tin nhà tuyển dụng
+                        Thông tin ứng viên
                     </Typography>
                     <TextField
                         fullWidth
@@ -265,7 +265,7 @@ const RegistrationFormCompany = () => {
                         Hoàn tất
                     </Button>
                     <Typography align="center" sx={{mt: 2}}>
-                        Đã có tài khoản? <a href="/login/company">Đăng nhập ngay</a>
+                        Đã có tài khoản? <a href="/login">Đăng nhập ngay</a>
                     </Typography>
                 </form>
             </Box>
@@ -280,7 +280,7 @@ const RegistrationFormCompany = () => {
                 }}
             >
                 <img
-                    src="/logo2.webp"
+                    src="/logo1.webp"
                     alt="Track your funnel with Report"
                     style={{width: "100%", borderRadius: "8px"}}
                 />
@@ -289,4 +289,4 @@ const RegistrationFormCompany = () => {
     );
 };
 
-export default RegistrationFormCompany;
+export default Register;

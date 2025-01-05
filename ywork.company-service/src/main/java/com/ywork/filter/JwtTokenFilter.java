@@ -45,10 +45,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String methob = request.getMethod();
         switch (methob) {
             case "POST":
+                if (requestPath.endsWith("/company/create-company")) break;
                 byte[] byteArray = request.getInputStream().readAllBytes();
                 String requestBody = new String(byteArray);
                 body = requestBody;
-                JsonObject jsonObject = gson.fromJson(requestBody, JsonObject.class);
+                JsonObject jsonObject = null;
+
+                try {
+                    jsonObject = gson.fromJson(requestBody, JsonObject.class);
+                }catch (Exception e){
+                    break;
+                }
 //                if (jsonObject.has("companyManagerId")){
 //                    checkRole = jsonObject.get("companyManagerId").getAsString();
 //                }
@@ -83,6 +90,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         switch (methob) {
             case "POST":
+                if (requestPath.endsWith("/company/create-company")) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+
                 filterChain.doFilter(new RequestWrapper(request, body), response);
                 break;
             case "GET":

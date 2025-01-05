@@ -106,23 +106,23 @@ function LoginFeature() {
                         Hoặc đăng nhập bằng
                     </Typography>
 
-                    <Grid container spacing={1} justifyContent="center">
-                        <Grid item>
-                            <Button variant="outlined" startIcon={<GoogleIcon />} color="error">
-                                Google
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="outlined" startIcon={<FacebookIcon />} style={{ color: '#3b5998' }}>
-                                Facebook
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="outlined" startIcon={<LinkedInIcon />} style={{ color: '#0077b5' }}>
-                                LinkedIn
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    {/*<Grid container spacing={1} justifyContent="center">*/}
+                    {/*    <Grid item>*/}
+                    {/*        <Button variant="outlined" startIcon={<GoogleIcon />} color="error">*/}
+                    {/*            Google*/}
+                    {/*        </Button>*/}
+                    {/*    </Grid>*/}
+                    {/*    <Grid item>*/}
+                    {/*        <Button variant="outlined" startIcon={<FacebookIcon />} style={{ color: '#3b5998' }}>*/}
+                    {/*            Facebook*/}
+                    {/*        </Button>*/}
+                    {/*    </Grid>*/}
+                    {/*    <Grid item>*/}
+                    {/*        <Button variant="outlined" startIcon={<LinkedInIcon />} style={{ color: '#0077b5' }}>*/}
+                    {/*            LinkedIn*/}
+                    {/*        </Button>*/}
+                    {/*    </Grid>*/}
+                    {/*</Grid>*/}
 
                     <FormControlLabel
                         control={<Checkbox color="primary" />}

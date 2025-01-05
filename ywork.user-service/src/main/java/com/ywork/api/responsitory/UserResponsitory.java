@@ -3,6 +3,7 @@ package com.ywork.api.responsitory;
 import com.google.gson.Gson;
 import com.ywork.api.dto.in.CVIn;
 import com.ywork.api.dto.in.UserIn;
+import com.ywork.api.dto.in.UserUpdate;
 import com.ywork.api.dto.out.CVOut;
 import com.ywork.api.dto.out.RoleOut;
 import com.ywork.api.dto.out.UserOut;
@@ -129,5 +130,23 @@ public class UserResponsitory  implements UserDetailsService{
                         ProcedureParameter.outputParam("out_result", String.class)));
         String outResult = (String) out.get("out_result");
         if (!DataStatus.SUCCESS.equals(outResult)){throw new RuntimeException("Fail change cv");}
+    }
+
+    public void updateUser(UserUpdate user, String userId) {
+        var out = proceduceCall.callNoRefCursor("user_update",
+                List.of(ProcedureParameter.inputParam("in_user_id", String.class, userId),
+                        ProcedureParameter.inputParam("in_email",String.class, user.getEmail()),
+                        ProcedureParameter.inputParam("in_name_account", String.class, user.getFullName()),
+                        ProcedureParameter.inputParam("in_phone_number", String.class, user.getPhone()),
+                        ProcedureParameter.inputParam("in_avatar", String.class, user.getAvatar())));
+    }
+
+    public void cvDelete(String cvId) {
+        var out = proceduceCall.callNoRefCursor("resume_delete",
+                List.of(ProcedureParameter.inputParam("in_cv_id", String.class, cvId),
+                        ProcedureParameter.outputParam("out_result", String.class))
+        );
+        String outResult = (String) out.get("out_result");
+        if (!DataStatus.SUCCESS.equals(outResult)){throw new RuntimeException("Fail delete cv");}
     }
 }

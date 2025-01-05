@@ -29,6 +29,8 @@ import JobCardCompany from "./features/Company/JobCardCompany";
 import Test from "./test";
 import CompanyListPublic from "./features/CompanyListPublic";
 import Cv2 from "./components/Resume/CV2";
+import Register from "./features/Register";
+import UserProfile from "./features/UserProfile";
 
 // import { Switch } from '@mui/material';
 
@@ -41,6 +43,7 @@ function App() {
                 <Route path={'/view-cv/:cvId'} element={<CVView />} />
                 <Route path={'/edit-cv/:cvId'} element={<CVEdit />} />
                 <Route path='/login' Component={LoginFeature}/>
+                <Route path={"/register"} element={<Register />} />
                 <Route path='/' element={<HomeUser/>}>
                     <Route path={'/'} element={<WorkList/>}/>
                     <Route path='/job/:companyId/:idJob' element={<JobDetail/>}/>
@@ -50,6 +53,7 @@ function App() {
                     <Route path={"/save-cv/:act/2"} element={<Cv2/>}/>
                     <Route path={"/company/detail/:companyId"} element={<CompanyDetail/>}/>
                     <Route path={"/danh-sach-cong-ty"} element={<CompanyListPublic />} />
+                    <Route path={"/profile-user"} element={<UserProfile />} />
                 </Route>
 
 

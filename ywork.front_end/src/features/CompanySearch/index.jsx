@@ -13,7 +13,7 @@ const CompanySearch = () => {
     return (
         <div className="app-container">
             <HeaderCompanySearch/>
-            <main className="content" style={{marginLeft: "250px"}}>
+            <main className="content" style={{marginLeft: "250px", display:"block"}}>
                 <Box
                     sx={{
                         display: 'flex',

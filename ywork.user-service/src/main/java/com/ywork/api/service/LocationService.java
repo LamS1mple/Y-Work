@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface LocationService {
     List<LocationOut> getProvinceAndDistricts();
+
+    List<LocationOut> getDistrict(String provinceId);
+
+    List<LocationOut> getWard(String districtId);
+
+    List<LocationOut> getProvince();
 }

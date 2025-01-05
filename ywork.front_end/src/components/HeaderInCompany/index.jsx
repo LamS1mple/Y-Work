@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const HeaderInCompany = () => {
     return (
         <div className="app-container" style={{position: "fixed", marginRight: "250px"}}>
-            <aside className="sidebar">
+            <aside className="sidebar-company">
                 <div className="app-logo">YWork</div>
                 <ul className="menu">
                     <li><Link to={''}>Quản lý đăng tin</Link></li>

@@ -49,7 +49,40 @@ const userApi = {
     changeStatusCV(data) {
         const url = urlBase + "/user/cv/status"
         return axiosClient.post(url, data)
-    }
+    },
+    updateUser(data) {
+        const url = urlBase + "/user/update"
+        return axiosClient.postForm(url, data, {
+            headers: {
+                'x-device-id': 'stuff',
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    },
+    deleteCV(key) {
+        const url = urlBase + "/user/cv/delete"
+        return axiosClient.post(url, {cvId: key})
+    },
+    getProvince() {
+        const url = urlBase + "/public/location/province"
+        return axiosClient.get(url)
+    },
+    getDistrictsByCity(provinceId) {
+        const url = urlBase + "/public/location/district"
+        return axiosClient.get(url,{
+            params:{
+                provinceId
+            }
+        })
+    },
+    getWardsByDistrict(districtId) {
+        const url = urlBase + "/public/location/ward"
+        return axiosClient.get(url, {
+            params:{
+                districtId
+            }
+        })
+    },
 }
 
 export default userApi;

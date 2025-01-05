@@ -2,6 +2,7 @@ package com.ywork.api.service;
 
 import com.ywork.api.dto.in.CVIn;
 import com.ywork.api.dto.in.UserIn;
+import com.ywork.api.dto.in.UserUpdate;
 import com.ywork.api.dto.out.CVOut;
 
 import java.util.List;
@@ -27,4 +28,8 @@ public interface UserService {
     void changeStatus(CVIn cv);
 
     void changeCV(CVIn cv);
+
+    void updateUser(UserUpdate user);
+
+    void cvDelete(String cvId);
 }

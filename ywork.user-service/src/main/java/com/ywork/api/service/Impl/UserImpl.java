@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ywork.api.dto.in.CVIn;
 import com.ywork.api.dto.in.UserIn;
+import com.ywork.api.dto.in.UserUpdate;
 import com.ywork.api.dto.out.CVOut;
 import com.ywork.api.dto.out.UserOut;
 import com.ywork.api.model.MultipartFileConvert;
@@ -141,6 +142,22 @@ public class UserImpl implements UserService {
                 minioUtils.uploadFile("user", cv.getCvId() + ".jpg", multipartFileConvert);
             }
         }
+    }
+
+    @Override
+    public void updateUser(UserUpdate user) {
+        User userOut = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String avatar = userOut.getUserId() + ".jpg";
+        user.setAvatar(avatar);
+        if (user.getFile() != null){
+            minioUtils.uploadFile("user", avatar, user.getFile());
+        }
+        userResponsitory.updateUser(user, userOut.getUserId());
+    }
+
+    @Override
+    public void cvDelete(String cvId) {
+        userResponsitory.cvDelete(cvId);
     }
 
 

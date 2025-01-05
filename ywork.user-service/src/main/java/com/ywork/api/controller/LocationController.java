@@ -24,4 +24,30 @@ public class LocationController {
         log.info("success");
         return ResponseEntity.ok(apiResult);
     }
+
+    @GetMapping("/province")
+    public ResponseEntity<ApiResult> getProvince() {
+        log.info("/location/province");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(locationService.getProvince());
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @GetMapping("/district")
+    public ResponseEntity<ApiResult> getDistrict(String provinceId) {
+        log.info("/location/district");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(locationService.getDistrict(provinceId));
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+    @GetMapping("/ward")
+    public ResponseEntity<ApiResult> getWard( String districtId) {
+        log.info("/location/ward");
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(locationService.getWard(districtId));
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
 }

@@ -1,67 +1,154 @@
 import React, { useState } from "react";
+import {
+    Container,
+    Box,
+    TextField,
+    Button,
+    Typography,
+    Avatar,
+    Badge,
+} from "@mui/material";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
-export default function Test() {
-    const [isOpen, setIsOpen] = useState(false);
+const Test = () => {
+    const [user, setUser] = useState({
+        name: "Nguyễn Công Lâm",
+        phone: "",
+        email: "lamlinkhang2002@gmail.com",
+        avatar: "",
+    });
 
-    const toggleDropdown = () => setIsOpen(!isOpen);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: value,
+        }));
+    };
+
+    const handleSave = () => {
+        // Lưu thông tin người dùng (có thể gọi API tại đây)
+        console.log("User data saved:", user);
+    };
+
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setUser((prevUser) => ({ ...prevUser, avatar: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     return (
-        <div className="relative w-full max-w-2xl mx-auto mt-5">
-            {/* Search Bar */}
-            <div className="flex items-center bg-white border border-gray-300 rounded-md shadow-sm">
-                <button
-                    className="flex items-center px-4 py-2 bg-green-500 text-white rounded-l-md"
-                    onClick={toggleDropdown}
-                >
-                    Danh mục Nghề
-                </button>
-                <input
-                    type="text"
-                    className="flex-1 px-4 py-2 border-none outline-none"
-                    placeholder="Vị trí tuyển dụng, tên công ty"
-                />
-                <button className="px-4 py-2 bg-green-500 text-white rounded-r-md">
-                    Tìm kiếm
-                </button>
-            </div>
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    bgcolor: "#f9f9f9",
+                    p: 4,
+                    borderRadius: 2,
+                    boxShadow: 2,
+                }}
+            >
+                {/* Thông tin người dùng */}
+                <Box sx={{ flex: 1 }}>
+                    <Typography variant="h5" fontWeight="bold" mb={2}>
+                        Cài đặt thông tin cá nhân
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" mb={3}>
+                        (*) Các thông tin bắt buộc
+                    </Typography>
+                    <TextField
+                        label="Họ và tên *"
+                        variant="outlined"
+                        fullWidth
+                        name="name"
+                        value={user.name}
+                        onChange={handleInputChange}
+                        sx={{ mb: 2 }}
+                    />
+                    <TextField
+                        label="Số điện thoại"
+                        variant="outlined"
+                        fullWidth
+                        name="phone"
+                        value={user.phone}
+                        onChange={handleInputChange}
+                        sx={{ mb: 2 }}
+                    />
+                    <TextField
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        name="email"
+                        value={user.email}
+                        disabled
+                        sx={{ mb: 3 }}
+                    />
+                    <Button
+                        variant="contained"
+                        color="success"
+                        size="large"
+                        onClick={handleSave}
+                    >
+                        Lưu
+                    </Button>
+                </Box>
 
-            {/* Dropdown */}
-            {isOpen && (
-                <div className="absolute top-12 left-0 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10">
-                    <div className="flex p-4">
-                        {/* Category List */}
-                        <div className="w-1/3 border-r">
-                            <ul className="space-y-2">
-                                <li className="text-green-500 font-bold cursor-pointer">
-                                    Kinh doanh/Bán hàng
-                                </li>
-                                <li className="cursor-pointer">Marketing/PR/Quảng cáo</li>
-                                <li className="cursor-pointer">Chăm sóc khách hàng</li>
-                                <li className="cursor-pointer">Nhân sự/Hành chính</li>
-                                <li className="cursor-pointer">Tài chính/Ngân hàng</li>
-                            </ul>
-                        </div>
-
-                        {/* Job Subcategories */}
-                        <div className="w-2/3 pl-4">
-                            <ul className="space-y-2">
-                                <li className="cursor-pointer">Sales Xuất nhập khẩu/Logistics</li>
-                                <li className="cursor-pointer">Sales Bất động sản/Xây dựng</li>
-                                <li className="cursor-pointer">Sales Giáo dục/Khoa học</li>
-                                <li className="cursor-pointer">Sales Admin/Sales Support</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    {/* Bottom Actions */}
-                    <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-t">
-                        <button className="text-blue-500">Bỏ chọn tất cả</button>
-                        <button className="px-4 py-2 bg-green-500 text-white rounded-md">
-                            Chọn
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
+                {/* Avatar */}
+                <Box sx={{ ml: { xs: 0, md: 4 }, textAlign: "center" }}>
+                    <Badge
+                        overlap="circular"
+                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                        badgeContent={
+                            <label htmlFor="avatar-upload">
+                                <CameraAltIcon
+                                    color="primary"
+                                    sx={{
+                                        cursor: "pointer",
+                                        bgcolor: "white",
+                                        borderRadius: "50%",
+                                        p: 0.5,
+                                    }}
+                                />
+                                <input
+                                    type="file"
+                                    id="avatar-upload"
+                                    accept="image/*"
+                                    style={{ display: "none" }}
+                                    onChange={handleAvatarChange}
+                                />
+                            </label>
+                        }
+                    >
+                        <Avatar
+                            src={user.avatar || "https://via.placeholder.com/150"}
+                            alt="Avatar"
+                            sx={{ width: 100, height: 100, mb: 1 }}
+                        />
+                    </Badge>
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                    >
+                        {user.name}
+                        <VerifiedIcon color="primary" sx={{ ml: 1 }} />
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Tài khoản đã xác thực
+                    </Typography>
+                </Box>
+            </Box>
+        </Container>
     );
-}
+};
+
+export default Test;

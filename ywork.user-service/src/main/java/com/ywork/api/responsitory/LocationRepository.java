@@ -17,4 +17,22 @@ public class LocationRepository {
                 List.of(ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
         return (List<LocationOut>) out_put.get("out_cur");
     }
+
+    public List<LocationOut> getDistrict(String provinceId) {
+        var out_put = proceduceCall.callOneRefCursor("location_district",
+                List.of(ProcedureParameter.inputParam("in_province_id", String.class, provinceId),
+                        ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
+        return (List<LocationOut>) out_put.get("out_cur");
+    }
+    public List<LocationOut> getWard(String districtId) {
+        var out_put = proceduceCall.callOneRefCursor("location_ward",
+                List.of(ProcedureParameter.inputParam("in_district_id", String.class, districtId),
+                        ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
+        return (List<LocationOut>) out_put.get("out_cur");
+    }
+    public List<LocationOut> getProvince() {
+        var out_put = proceduceCall.callOneRefCursor("location_province",
+                List.of(ProcedureParameter.refCursorParam("out_cur")), LocationOut.class);
+        return (List<LocationOut>) out_put.get("out_cur");
+    }
 }

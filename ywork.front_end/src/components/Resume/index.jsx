@@ -15,7 +15,7 @@ const Resume = () => {
     const [tableData, setTableData] = useState([]); // Dữ liệu hiển thị trong bảng
     const [selectedCV, setSelectedCV] = useState(null); // Dữ liệu cho bảng chi tiết
     const navi = useNavigate()
-
+    const [deleteCV, setDeleteCV] = useState(false)
     // Lấy dữ liệu từ API khi component được mount
     useEffect(() => {
         userApi.listCV()
@@ -35,11 +35,12 @@ const Resume = () => {
                     status: element.status === 1,
                     typeCV: element.cv.typeCV,
                 })));
+                setDeleteCV(false)
             })
             .catch((error) => {
                 console.error('Error fetching CV data:', error);
             });
-    }, []);
+    }, [deleteCV]);
 
     // Xử lý bật/tắt trạng thái của CV
     const handleSwitchChange = (checked, recordKey) => {
@@ -118,7 +119,10 @@ const Resume = () => {
                     </Button>
                     <Button type="default"
                             onClick={() => navi(`/save-cv/${record.key}/${record.typeCV}`)}>Chỉnh sửa</Button>
-                    <Button type="danger">Xóa</Button>
+                    <Button onClick={async ()=>{
+                        await userApi.deleteCV(record.key);
+                        setDeleteCV(true)
+                    } } type="danger">Xóa</Button>
                 </div>
             ),
         },

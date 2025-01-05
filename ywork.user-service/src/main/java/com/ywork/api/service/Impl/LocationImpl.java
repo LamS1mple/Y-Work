@@ -16,4 +16,19 @@ public class LocationImpl implements LocationService {
     public List<LocationOut> getProvinceAndDistricts() {
         return locationRepository.getProvinceAndDistrict();
     }
+
+    @Override
+    public List<LocationOut> getDistrict(String provinceId) {
+        return locationRepository.getDistrict(provinceId);
+    }
+
+    @Override
+    public List<LocationOut> getWard(String districtId) {
+        return locationRepository.getWard(districtId);
+    }
+
+    @Override
+    public List<LocationOut> getProvince() {
+        return locationRepository.getProvince();
+    }
 }

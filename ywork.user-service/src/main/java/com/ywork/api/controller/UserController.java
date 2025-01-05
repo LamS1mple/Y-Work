@@ -2,6 +2,7 @@ package com.ywork.api.controller;
 
 import com.ywork.api.dto.ApiResult;
 import com.ywork.api.dto.in.CVIn;
+import com.ywork.api.dto.in.UserUpdate;
 import com.ywork.api.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +64,8 @@ public class UserController {
         log.info("/user/cv/detail");
         ApiResult apiResult = new ApiResult();
         apiResult.setObject(userService.getCV(cvId));
+        log.info("success");
+
         return ResponseEntity.ok(apiResult);
     }
     @PostMapping("/cv/status")
@@ -70,7 +73,27 @@ public class UserController {
         log.info("/user/cv/status");
         ApiResult apiResult = new ApiResult();
         userService.changeStatus(cv);
+        log.info("success");
+
         return ResponseEntity.ok(apiResult);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> updateUser( UserUpdate user){
+        log.info("/user/update");
+        ApiResult apiResult = new ApiResult();
+        userService.updateUser(user);
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+
+    @PostMapping("/cv/delete")
+    public ResponseEntity<?> deleteCV(@RequestBody CVIn cv){
+        log.info("/user/cv/delete");
+        ApiResult apiResult = new ApiResult();
+        userService.cvDelete(cv.getCvId());
+        log.info("success");
+
+        return ResponseEntity.ok(apiResult);
+    }
 }
