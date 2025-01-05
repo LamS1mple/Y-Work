@@ -48,8 +48,10 @@ function JobApply({ onClose, workDetail }) {
         const form = new FormData();
         if (selectedOption === '2') {
             form.append("file", selectedFile);
+
         } else {
             form.append("libraryCv", selectedLibraryCv);
+
         }
         form.append("workId", workDetail.workId);
         form.append("optionUpload", selectedOption);

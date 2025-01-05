@@ -63,4 +63,8 @@ public class WorkOut {
     @Col("file")
     private String file;
     private String urlFile;
+    @Col("infor")
+    private String infor;
+    @Col("cv_id")
+    private String cvId;
 }

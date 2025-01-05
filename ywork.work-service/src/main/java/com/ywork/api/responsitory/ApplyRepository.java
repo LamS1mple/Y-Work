@@ -25,6 +25,13 @@ public class ApplyRepository {
         }
     }
 
+    public void createCandidateCV(String userId, String workId, String cvId){
+        var out_put = proceduceCall.callNoRefCursor("create_cv_candidate",
+                List.of(ProcedureParameter.inputParam("in_user_id",String.class, userId),
+                        ProcedureParameter.inputParam("in_work_id", String.class, workId),
+                        ProcedureParameter.inputParam("in_cv_id", String.class, cvId)));
+    }
+
     public List<WorkOut> listApplyJob(String userId){
         var out_put = proceduceCall.callOneRefCursor("candidate_list_apply",
                 List.of(ProcedureParameter.inputParam("in_user_id",String.class, userId),

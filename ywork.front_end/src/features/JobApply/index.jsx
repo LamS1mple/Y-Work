@@ -127,7 +127,15 @@ const JobApply = () => {
                                 {job.convertSalary}
                             </Typography>
                             <Button
-                                onClick={() => window.open(job.urlFile, "_blank")}
+                                onClick={() =>{
+                                    if (job.urlFile !== null) {
+                                        window.open(job.urlFile, "_blank")
+                                    }else {
+                                        localStorage.setItem("infor", job.infor)
+                                        window.open('/view-cv/view', "_blank")
+
+                                    }
+                                } }
                                 variant="contained"
                                 size="small"
                                 sx={{

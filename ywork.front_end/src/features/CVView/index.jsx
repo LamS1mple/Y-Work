@@ -9,14 +9,18 @@ const CVView = props => {
     const {cvId} = useParams();
     const [data, setdata] = React.useState({typeCV:0});
     useEffect(() => {
-        userApi.cvView(cvId)
-            .then(res=>{
-                const data = res.object;
-                console.log(data)
-                setdata(JSON.parse(data.info))
+        if (cvId === 'view'){
+            setdata(JSON.parse(localStorage.getItem("infor")))
+        }else{
+            userApi.cvView(cvId)
+                .then(res=>{
+                    const data = res.object;
+                    console.log(data)
+                    setdata(JSON.parse(data.info))
 
-            })
-            .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
+        }
     }, []);
     return (
         <div>

@@ -17,9 +17,10 @@ public class CandidateController {
     @PostMapping("/create")
     public ResponseEntity<ApiResult> createUser(@RequestPart(required = false) MultipartFile file,
                                                 @RequestPart String workId,
-                                                @RequestPart String optionUpload) {
+                                                @RequestPart String optionUpload,
+                                                @RequestPart(required = false) String libraryCv) {
         log.info("/candidate/create");
-        candidateService.applyCandidate(file, workId, optionUpload);
+        candidateService.applyCandidate(file, workId, optionUpload,  libraryCv);
         ApiResult apiResult = new ApiResult();
         apiResult.setObject(null);
         log.info("Success");
