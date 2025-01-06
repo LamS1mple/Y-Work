@@ -31,6 +31,7 @@ import CompanyListPublic from "./features/CompanyListPublic";
 import Cv2 from "./components/Resume/CV2";
 import Register from "./features/Register";
 import UserProfile from "./features/UserProfile";
+import ThongKe from "./features/CompanyInManager/Components/ThongKe";
 
 // import { Switch } from '@mui/material';
 
@@ -70,6 +71,7 @@ function App() {
                     <Route path={"staff"} element={<CompanyStaff/>}/>
                     <Route path={"candidate"} element={<CompanyCandidate/>}/>
                     <Route path={"post"} element={<CompanyPostJob/>}/>
+                    <Route path={"thong-ke"} element={<ThongKe /> } />
                     <Route path={"cv/:workId"} element={<CandidateCV />} />
                 </Route>
                 <Route path={"/test"} element={<Test/>}/>

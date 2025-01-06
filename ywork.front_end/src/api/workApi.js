@@ -72,6 +72,14 @@ const WorkApi = {
                 companyId: companyId
             }
         })
+    },
+    statisticJob(companyId){
+        const url = urlBase + "/statistic/job-company"
+        return axiosClient.get(url, {
+            params:{
+                companyId: companyId
+            }
+        })
     }
 }
 
