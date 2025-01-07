@@ -53,7 +53,7 @@ const WorkApi = {
     },
 
     workChangeStatus(workId){
-        const url = urlBase + "/work/status"
+        const url = urlBase + "/public/work/status"
         return axiosClient.get(url, {
             params:{
                 workId: workId
@@ -78,6 +78,14 @@ const WorkApi = {
         return axiosClient.get(url, {
             params:{
                 companyId: companyId
+            }
+        })
+    },
+    deleteWork(workId){
+        const url = urlBase + "/company/job/delete"
+        return axiosClient.get(url,{
+            params:{
+                workId: workId
             }
         })
     }

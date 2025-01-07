@@ -141,6 +141,10 @@ const CompanyJob = () => {
                                     variant="contained"
                                     size="small"
                                     style={{backgroundColor: "#28a745", color: "#fff"}}
+                                    onClick={async ()=>{
+                                        await workApi.deleteWork(job.workId)
+                                        window.location.reload()
+                                    }}
                                 >
                                     Xóa
                                 </Button>

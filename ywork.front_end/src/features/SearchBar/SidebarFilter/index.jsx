@@ -1,64 +1,86 @@
-import React, { useState } from 'react';
 import {
     Box,
-    Typography,
     Button,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
     Radio,
     RadioGroup,
-    FormControl,
-    FormLabel,
-    FormControlLabel,
     TextField,
-    Grid,
-} from '@mui/material';
+    Typography
+} from "@mui/material";
 
-const Test = () => {
-    const [selectedExperience, setSelectedExperience] = useState('Tất cả');
-    const [selectedSalary, setSelectedSalary] = useState('Tất cả');
-    const [selectedLevel, setSelectedLevel] = useState('Tất cả');
-    const [selectedWorkType, setSelectedWorkType] = useState('Tất cả');
-    const [salaryRange, setSalaryRange] = useState({ from: '', to: '' });
-
+const SidebarFilter = ({ filters, setFilters }) => {
     const handleSalaryChange = (value) => {
+        const newSalaryRange = { from: '', to: '' };
         switch (value) {
             case 'Dưới 10 triệu':
-                setSalaryRange({ from: '', to: '10' });
+                newSalaryRange.to = '10';
                 break;
             case '10 - 15 triệu':
-                setSalaryRange({ from: '10', to: '15' });
+                newSalaryRange.from = '10';
+                newSalaryRange.to = '15';
                 break;
             case '15 - 20 triệu':
-                setSalaryRange({ from: '15', to: '20' });
+                newSalaryRange.from = '15';
+                newSalaryRange.to = '20';
                 break;
             case '20 - 25 triệu':
-                setSalaryRange({ from: '20', to: '25' });
+                newSalaryRange.from = '20';
+                newSalaryRange.to = '25';
                 break;
             case '25 - 30 triệu':
-                setSalaryRange({ from: '25', to: '30' });
+                newSalaryRange.from = '25';
+                newSalaryRange.to = '30';
                 break;
             case '30 - 50 triệu':
-                setSalaryRange({ from: '30', to: '50' });
+                newSalaryRange.from = '30';
+                newSalaryRange.to = '50';
                 break;
             case 'Trên 50 triệu':
-                setSalaryRange({ from: '50', to: '' });
-                break;
-            default:
-                setSalaryRange({ from: '', to: '' });
+                newSalaryRange.from = '50';
                 break;
         }
-        setSelectedSalary(value);
+        setFilters((prev) => ({
+            ...prev,
+            salary: { ...newSalaryRange },
+            selectedSalary: value,
+        }));
+    };
+
+    const handleReset = () => {
+        setFilters({
+            experience: 'Tất cả',
+            salary: { from: '', to: '' },
+            level: 'Tất cả',
+            workType: 'Tất cả',
+        });
     };
 
     return (
-        <Box width="300px" p={2} borderRight={1} borderColor="grey.300" sx={{ backgroundColor: 'white' }}>
-            <Typography variant="h6" fontWeight="bold" mb={2}>Lọc nâng cao</Typography>
+        <Box
+            width="300px"
+            p={2}
+            borderRight={1}
+            borderColor="grey.300"
+            sx={{
+                backgroundColor: 'white',
+                height: '100vh',
+                overflowY: 'auto',
+            }}
+        >
+            <Typography variant="h6" fontWeight="bold" mb={2}>
+                Lọc nâng cao
+            </Typography>
 
             {/* Kinh nghiệm */}
             <FormControl component="fieldset" margin="normal">
                 <FormLabel component="legend">Kinh nghiệm</FormLabel>
                 <RadioGroup
-                    value={selectedExperience}
-                    onChange={(e) => setSelectedExperience(e.target.value)}
+                    value={filters.experience}
+                    onChange={(e) =>
+                        setFilters((prev) => ({ ...prev, experience: e.target.value }))
+                    }
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
                     <FormControlLabel value="Không yêu cầu" control={<Radio />} label="Không yêu cầu" />
@@ -75,7 +97,7 @@ const Test = () => {
             <FormControl component="fieldset" margin="normal">
                 <FormLabel component="legend">Mức lương</FormLabel>
                 <RadioGroup
-                    value={selectedSalary}
+                    value={filters.selectedSalary}
                     onChange={(e) => handleSalaryChange(e.target.value)}
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
@@ -91,14 +113,24 @@ const Test = () => {
                     <TextField
                         label="Từ"
                         size="small"
-                        value={salaryRange.from}
-                        onChange={(e) => setSalaryRange({ ...salaryRange, from: e.target.value })}
+                        value={filters.salary.from}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                salary: { ...prev.salary, from: e.target.value },
+                            }))
+                        }
                     />
                     <TextField
                         label="Đến"
                         size="small"
-                        value={salaryRange.to}
-                        onChange={(e) => setSalaryRange({ ...salaryRange, to: e.target.value })}
+                        value={filters.salary.to}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                salary: { ...prev.salary, to: e.target.value },
+                            }))
+                        }
                     />
                     <Typography variant="body2">triệu</Typography>
                 </Box>
@@ -108,8 +140,10 @@ const Test = () => {
             <FormControl component="fieldset" margin="normal">
                 <FormLabel component="legend">Cấp bậc</FormLabel>
                 <RadioGroup
-                    value={selectedLevel}
-                    onChange={(e) => setSelectedLevel(e.target.value)}
+                    value={filters.level}
+                    onChange={(e) =>
+                        setFilters((prev) => ({ ...prev, level: e.target.value }))
+                    }
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
                     <FormControlLabel value="Nhân viên" control={<Radio />} label="Nhân viên" />
@@ -127,8 +161,10 @@ const Test = () => {
             <FormControl component="fieldset" margin="normal">
                 <FormLabel component="legend">Hình thức làm việc</FormLabel>
                 <RadioGroup
-                    value={selectedWorkType}
-                    onChange={(e) => setSelectedWorkType(e.target.value)}
+                    value={filters.workType}
+                    onChange={(e) =>
+                        setFilters((prev) => ({ ...prev, workType: e.target.value }))
+                    }
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
                     <FormControlLabel value="Toàn thời gian" control={<Radio />} label="Toàn thời gian" />
@@ -138,23 +174,11 @@ const Test = () => {
             </FormControl>
 
             {/* Nút Xóa lọc */}
-            <Button
-                variant="outlined"
-                color="error"
-                fullWidth
-                onClick={() => {
-                    setSelectedExperience('Tất cả');
-                    setSelectedSalary('Tất cả');
-                    setSelectedLevel('Tất cả');
-                    setSelectedWorkType('Tất cả');
-                    setSalaryRange({ from: '', to: '' });
-                }}
-                sx={{ mt: 2 }}
-            >
+            <Button variant="outlined" color="error" fullWidth onClick={handleReset} sx={{ mt: 2 }}>
                 Xóa lọc
             </Button>
         </Box>
     );
 };
 
-export default Test;
+export default SidebarFilter;

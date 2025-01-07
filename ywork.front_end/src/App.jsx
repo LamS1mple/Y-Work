@@ -32,6 +32,7 @@ import Cv2 from "./components/Resume/CV2";
 import Register from "./features/Register";
 import UserProfile from "./features/UserProfile";
 import ThongKe from "./features/CompanyInManager/Components/ThongKe";
+import SearchBar from "./features/SearchBar";
 
 // import { Switch } from '@mui/material';
 
@@ -55,6 +56,7 @@ function App() {
                     <Route path={"/company/detail/:companyId"} element={<CompanyDetail/>}/>
                     <Route path={"/danh-sach-cong-ty"} element={<CompanyListPublic />} />
                     <Route path={"/profile-user"} element={<UserProfile />} />
+                    <Route path={"/search-bar"} element={<SearchBar />}/>
                 </Route>
 
 
