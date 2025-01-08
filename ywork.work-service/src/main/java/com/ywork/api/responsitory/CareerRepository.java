@@ -1,6 +1,7 @@
 package com.ywork.api.responsitory;
 
 import com.ywork.api.dto.out.CareerOut;
+import com.ywork.api.dto.out.JobCatalogOut;
 import com.ywork.api.responsitory.helper.ProceduceCall;
 import com.ywork.api.responsitory.helper.ProcedureParameter;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,23 @@ public class CareerRepository {
                 List.of(ProcedureParameter.inputParam("in_career_id", String.class, careerId),
                         ProcedureParameter.refCursorParam("out_cur")), CareerOut.class);
         return (List<CareerOut>) out_put.get("out_cur");
+    }
+
+    public List<JobCatalogOut> getListSearchCareer() {
+        var out_put = proceduceCall.callOneRefCursor("career_list_search",
+                List.of(ProcedureParameter.refCursorParam("out_cur")), JobCatalogOut.class);
+        return (List<JobCatalogOut>) out_put.get("out_cur");
+    }
+    public List<JobCatalogOut> getListSearchField(String careerId) {
+        var out_put = proceduceCall.callOneRefCursor("field_list_search",
+                List.of(ProcedureParameter.inputParam("in_career_id", String.class, careerId),
+                        ProcedureParameter.refCursorParam("out_cur")), JobCatalogOut.class);
+        return (List<JobCatalogOut>) out_put.get("out_cur");
+    }
+    public List<JobCatalogOut> getListSearchSkill(String skillId) {
+        var out_put = proceduceCall.callOneRefCursor("skill_list_search",
+                List.of(ProcedureParameter.inputParam("in_field_id", String.class, skillId),
+                        ProcedureParameter.refCursorParam("out_cur")), JobCatalogOut.class);
+        return (List<JobCatalogOut>) out_put.get("out_cur");
     }
 }

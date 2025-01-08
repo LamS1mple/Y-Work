@@ -1,6 +1,7 @@
 package com.ywork.api.service;
 
 import com.ywork.api.dto.in.WorkCreateIn;
+import com.ywork.api.dto.out.JobCatalog;
 import com.ywork.api.dto.out.WorkOut;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface WorkService {
     void deleteJob(String workId);
 
     List<WorkOut> getListWorkSearch(String key);
+
+    List<JobCatalog> getJobCatalog();
 }

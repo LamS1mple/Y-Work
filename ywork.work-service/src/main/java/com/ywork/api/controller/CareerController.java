@@ -32,5 +32,13 @@ public class CareerController {
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }
-
+    @GetMapping("/job-catalog")
+    public ResponseEntity<ApiResult> getJobCatalog(){
+        log.info("/public/work/job-catalog");
+        var result = careerService.getJobCatalog();
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(result);
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+    }
 }

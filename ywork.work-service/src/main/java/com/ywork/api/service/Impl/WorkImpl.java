@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ywork.api.dto.in.KeyValue;
 import com.ywork.api.dto.in.WorkCreateIn;
+import com.ywork.api.dto.out.JobCatalog;
 import com.ywork.api.dto.out.WorkOut;
 import com.ywork.api.responsitory.LocationRepository;
 import com.ywork.api.responsitory.SkillFieldRepository;
@@ -109,5 +110,11 @@ public class WorkImpl implements WorkService {
         }
         setDetailWork(workOutList);
         return workOutList;
+    }
+
+    @Override
+    public List<JobCatalog> getJobCatalog() {
+
+        return List.of();
     }
 }
