@@ -7,12 +7,15 @@ import {
     List,
     ListItem,
     ListItemText,
+    Button,
+    TextField,
 } from '@mui/material';
 
 const JobCatalog = ({ selectedState, setSelectedState }) => {
     const [selectedGroup, setSelectedGroup] = useState(selectedState.selectedGroup || null);
     const [selectedJob, setSelectedJob] = useState(selectedState.selectedJob || null);
     const [selectedSubJobsMap, setSelectedSubJobsMap] = useState(selectedState.selectedSubJobsMap || {});
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleGroupSelection = (group) => {
         setSelectedGroup(group);
@@ -36,6 +39,21 @@ const JobCatalog = ({ selectedState, setSelectedState }) => {
                     : [...currentSubJobs, subJob],
             };
         });
+    };
+
+    const handleSelectAll = () => {
+        if (selectedJob) {
+            const allSubJobs = jobCategories
+                .find((category) => category.group === selectedGroup)
+                .jobs.find((job) => job.name === selectedJob).subJobs;
+            setSelectedSubJobsMap((prev) => ({ ...prev, [selectedJob]: allSubJobs }));
+        }
+    };
+
+    const handleDeselectAll = () => {
+        if (selectedJob) {
+            setSelectedSubJobsMap((prev) => ({ ...prev, [selectedJob]: [] }));
+        }
     };
 
     React.useEffect(() => {
@@ -79,6 +97,13 @@ const JobCatalog = ({ selectedState, setSelectedState }) => {
             ],
         },
     ];
+
+    const filteredSubJobs = selectedJob
+        ? jobCategories
+            .find((category) => category.group === selectedGroup)
+            .jobs.find((job) => job.name === selectedJob)
+            .subJobs.filter((subJob) => subJob.toLowerCase().includes(searchQuery.toLowerCase()))
+        : [];
 
     return (
         <Box
@@ -175,41 +200,56 @@ const JobCatalog = ({ selectedState, setSelectedState }) => {
                         Vị trí chuyên môn
                     </Typography>
                     {selectedJob && (
-                        <List dense>
-                            {jobCategories
-                                .find((category) => category.group === selectedGroup)
-                                .jobs.find((job) => job.name === selectedJob)
-                                .subJobs.map((subJob, subIdx) => (
-                                    <ListItem
-                                        key={subIdx}
-                                        disableGutters
-                                        sx={{
-                                            '&:hover': {
-                                                backgroundColor: '#f0f0f0',
-                                            },
-                                        }}
-                                    >
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    size="small"
-                                                    checked={
-                                                        selectedSubJobsMap[selectedJob]?.includes(subJob) || false
-                                                    }
-                                                    onChange={() => handleSubJobToggle(subJob)}
-                                                />
-                                            }
-                                            label={
-                                                <ListItemText
-                                                    primary={subJob}
-                                                    primaryTypographyProps={{ fontSize: '0.8rem' }}
-                                                />
-                                            }
-                                        />
-                                    </ListItem>
-                                ))}
-                        </List>
+                        <Box mb={2}>
+                            <TextField
+                                fullWidth
+                                variant="outlined"
+                                size="small"
+                                placeholder="Tìm vị trí chuyên môn..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <Box display="flex" justifyContent="space-between" mt={1}>
+                                <Button size="small" variant="outlined" color="primary" onClick={handleSelectAll}>
+                                    Chọn tất cả
+                                </Button>
+                                <Button size="small" variant="outlined" color="secondary" onClick={handleDeselectAll}>
+                                    Bỏ chọn tất cả
+                                </Button>
+                            </Box>
+                        </Box>
                     )}
+                    <List dense>
+                        {filteredSubJobs.map((subJob, subIdx) => (
+                            <ListItem
+                                key={subIdx}
+                                disableGutters
+                                sx={{
+                                    '&:hover': {
+                                        backgroundColor: '#f0f0f0',
+                                    },
+                                }}
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            size="small"
+                                            checked={
+                                                selectedSubJobsMap[selectedJob]?.includes(subJob) || false
+                                            }
+                                            onChange={() => handleSubJobToggle(subJob)}
+                                        />
+                                    }
+                                    label={
+                                        <ListItemText
+                                            primary={subJob}
+                                            primaryTypographyProps={{ fontSize: '0.8rem' }}
+                                        />
+                                    }
+                                />
+                            </ListItem>
+                        ))}
+                    </List>
                 </Box>
             </Box>
         </Box>

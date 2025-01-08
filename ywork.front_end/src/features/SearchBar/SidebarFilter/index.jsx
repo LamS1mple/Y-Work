@@ -83,12 +83,15 @@ const SidebarFilter = ({ filters, setFilters }) => {
                     }
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
-                    <FormControlLabel value="Không yêu cầu" control={<Radio />} label="Không yêu cầu" />
+                    <FormControlLabel value="Không yêu cầu kinh nghiệm" control={<Radio />} label="Không yêu cầu kinh nghiệm" />
                     <FormControlLabel value="Dưới 1 năm" control={<Radio />} label="Dưới 1 năm" />
-                    <FormControlLabel value="1 năm" control={<Radio />} label="1 năm" />
+                    <FormControlLabel value="1-2 năm" control={<Radio />} label="1-2 năm" />
                     <FormControlLabel value="2 năm" control={<Radio />} label="2 năm" />
+                    <FormControlLabel value="2-3 năm" control={<Radio />} label="2-3 năm" />
                     <FormControlLabel value="3 năm" control={<Radio />} label="3 năm" />
-                    <FormControlLabel value="5 năm" control={<Radio />} label="5 năm" />
+                    <FormControlLabel value="3-4 năm" control={<Radio />} label="3-4 năm" />
+                    <FormControlLabel value="4 năm" control={<Radio />} label="4 năm" />
+                    <FormControlLabel value="4-5 năm" control={<Radio />} label="4-5 năm" />
                     <FormControlLabel value="Trên 5 năm" control={<Radio />} label="Trên 5 năm" />
                 </RadioGroup>
             </FormControl>
@@ -148,8 +151,10 @@ const SidebarFilter = ({ filters, setFilters }) => {
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
                     <FormControlLabel value="Nhân viên" control={<Radio />} label="Nhân viên" />
                     <FormControlLabel value="Trưởng nhóm" control={<Radio />} label="Trưởng nhóm" />
-                    <FormControlLabel value="Trưởng/Phó phòng" control={<Radio />} label="Trưởng/Phó phòng" />
-                    <FormControlLabel value="Quản lý / Giám sát" control={<Radio />} label="Quản lý / Giám sát" />
+                    <FormControlLabel value="Trưởng phòng" control={<Radio />} label="Trưởng phòng" />
+                    <FormControlLabel value="Phó phòng" control={<Radio />} label="Phó phòng" />
+                    <FormControlLabel value="Quản lý" control={<Radio />} label="Quản lý" />
+                    <FormControlLabel value="Giám sát" control={<Radio />} label="Giám sát" />
                     <FormControlLabel value="Trưởng chi nhánh" control={<Radio />} label="Trưởng chi nhánh" />
                     <FormControlLabel value="Phó giám đốc" control={<Radio />} label="Phó giám đốc" />
                     <FormControlLabel value="Giám đốc" control={<Radio />} label="Giám đốc" />
@@ -167,9 +172,8 @@ const SidebarFilter = ({ filters, setFilters }) => {
                     }
                 >
                     <FormControlLabel value="Tất cả" control={<Radio />} label="Tất cả" />
-                    <FormControlLabel value="Toàn thời gian" control={<Radio />} label="Toàn thời gian" />
-                    <FormControlLabel value="Bán thời gian" control={<Radio />} label="Bán thời gian" />
-                    <FormControlLabel value="Thực tập" control={<Radio />} label="Thực tập" />
+                    <FormControlLabel value="Full-time" control={<Radio />} label="Toàn thời gian" />
+                    <FormControlLabel value="Part-time" control={<Radio />} label="Bán thời gian" />
                 </RadioGroup>
             </FormControl>
 

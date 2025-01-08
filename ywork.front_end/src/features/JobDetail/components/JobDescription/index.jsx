@@ -18,11 +18,11 @@ function JobDescription(props) {
             </div>
 
             {/* Job Categories */}
-            <div className="job-categories">
-                <span>Kế toán nội bộ</span>
-                <span>Logistic / Vận tải</span>
-                <span>Xuất nhập khẩu / Hải quan</span>
-            </div>
+            {/*<div className="job-categories">*/}
+            {/*    <span>Kế toán nội bộ</span>*/}
+            {/*    <span>Logistic / Vận tải</span>*/}
+            {/*    <span>Xuất nhập khẩu / Hải quan</span>*/}
+            {/*</div>*/}
 
             {/* Job Description */}
             <div className="job-section">

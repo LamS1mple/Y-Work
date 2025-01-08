@@ -88,6 +88,14 @@ const WorkApi = {
                 workId: workId
             }
         })
+    },
+    searchWork(key){
+        const url = urlBase + "/public/work/search"
+        return axiosClient.get(url,{
+            params:{
+                key:key
+            }
+        })
     }
 }
 

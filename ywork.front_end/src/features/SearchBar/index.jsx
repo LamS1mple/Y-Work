@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -12,6 +12,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import JobCatalog from './JobCatalog';
 import LocationFilter from './LocationFilter';
 import SidebarFilter from './SidebarFilter';
+import workApi from "../../api/workApi";
+import WorkItem from "../Work/WorkItem";
 
 const SearchBar = () => {
     const [jobCatalogAnchorEl, setJobCatalogAnchorEl] = useState(null);
@@ -24,6 +26,18 @@ const SearchBar = () => {
         level: 'Tất cả',
         workType: 'Tất cả',
     });
+
+    const [locations, setLocations] = useState([]);
+    const [listWork, setWorkList] = useState([]);
+
+    useEffect(() => {
+        // Fetch data from the API
+        fetch('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json')
+            .then((response) => response.json())
+            .then((data) => setLocations(data))
+            .catch((error) => console.error('Error fetching location data:', error));
+    }, []);
+
     const [searchKeyword, setSearchKeyword] = useState('');
 
     const handleOpenJobCatalog = (event) => {
@@ -55,10 +69,47 @@ const SearchBar = () => {
             filters: filters,
         };
 
-        console.log('Search parameters:', searchParams);
+        const callApi = async ()=>{
+            const response = await workApi.searchWork(searchKeyword)
+            const data = response.object
+            setWorkList(data)
+        }
+        callApi()
         // Gửi `searchParams` qua API hoặc xử lý tại đây.
     };
 
+    useEffect(() => {
+        const callApi = async ()=>{
+            const response = await workApi.searchWork(searchKeyword)
+            const data = response.object
+            setWorkList(data)
+        }
+        callApi()
+    }, []);
+    const valuesArray = Object.values(selectedLocations).flat(); // Flatten into a single array
+
+    let currentList = [];
+    if (valuesArray.length > 0) {
+        // Step 2: Filter listWork based on matches with valuesArray
+        currentList = listWork.filter((item) => {
+                const matchesLocation = item.locationSearch.some((location) => valuesArray.includes(location));
+                return matchesLocation
+            }
+        );
+    }else{
+        currentList = listWork
+    }
+    currentList = currentList.filter((item) => {
+        const matchesExperience = filters.experience === "Tất cả" || item.experience === filters.experience
+        const matchesPosition = filters.level === "Tất cả" || item.position === filters.level;
+        const matchesTypeWork = filters.workType === "Tất cả" || item.workType === filters.workType
+        return matchesExperience && matchesPosition && matchesTypeWork
+        }
+    );
+    currentList = currentList.filter((item) => (filters.salary.from === '' && filters.salary.to === '') ||
+        (filters.salary.from === '' && item.salaryMax <= (filters.salary.to * 1000000)) ||
+        (filters.salary.to === '' && item.salaryMin >= (filters.salary.from * 1000000)) ||
+        (item.salaryMin >= ((filters.salary.from || 0) * 1000000) && item.salaryMax <= (filters.salary.to * 1000000)));
     return (
         <div>
             <Box
@@ -67,7 +118,7 @@ const SearchBar = () => {
                 borderRadius={2}
                 boxShadow={1}
                 p={1}
-                sx={{ backgroundColor: 'white' }}
+                sx={{backgroundColor: 'white'}}
             >
                 {/* Danh mục Nghề */}
                 <Box
@@ -76,10 +127,10 @@ const SearchBar = () => {
                     borderRight={1}
                     borderColor="grey.300"
                     pr={2}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{cursor: 'pointer'}}
                     onClick={handleOpenJobCatalog}
                 >
-                    <MenuIcon sx={{ mr: 1 }} />
+                    <MenuIcon sx={{mr: 1}}/>
                     <Typography variant="body1">Danh mục Nghề</Typography>
                 </Box>
 
@@ -90,7 +141,7 @@ const SearchBar = () => {
                         fullWidth
                         value={searchKeyword}
                         onChange={(e) => setSearchKeyword(e.target.value)}
-                        inputProps={{ 'aria-label': 'search job or company' }}
+                        inputProps={{'aria-label': 'search job or company'}}
                     />
                 </Box>
 
@@ -102,10 +153,10 @@ const SearchBar = () => {
                     borderRight={1}
                     borderColor="grey.300"
                     px={2}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{cursor: 'pointer'}}
                     onClick={handleOpenLocationFilter}
                 >
-                    <LocationOnIcon sx={{ mr: 1 }} />
+                    <LocationOnIcon sx={{mr: 1}}/>
                     <Typography variant="body1">Địa điểm</Typography>
                 </Box>
 
@@ -114,8 +165,8 @@ const SearchBar = () => {
                     <Button
                         variant="contained"
                         color="success"
-                        startIcon={<SearchIcon />}
-                        sx={{ borderRadius: 50, textTransform: 'none', px: 3 }}
+                        startIcon={<SearchIcon/>}
+                        sx={{borderRadius: 50, textTransform: 'none', px: 3}}
                         onClick={handleSearch}
                     >
                         Tìm kiếm
@@ -127,11 +178,11 @@ const SearchBar = () => {
                     open={isJobCatalogOpen}
                     anchorEl={jobCatalogAnchorEl}
                     onClose={handleCloseJobCatalog}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                    transformOrigin={{vertical: 'top', horizontal: 'left'}}
                 >
-                    <Box p={2} sx={{ maxHeight: '400px', overflow: 'auto' }}>
-                        <JobCatalog selectedState={selectedState} setSelectedState={setSelectedState} />
+                    <Box p={2} sx={{maxHeight: '400px', overflow: 'auto'}}>
+                        <JobCatalog selectedState={selectedState} setSelectedState={setSelectedState}/>
                     </Box>
                 </Popover>
 
@@ -140,18 +191,27 @@ const SearchBar = () => {
                     open={isLocationFilterOpen}
                     anchorEl={locationFilterAnchorEl}
                     onClose={handleCloseLocationFilter}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                    transformOrigin={{vertical: 'top', horizontal: 'right'}}
                 >
-                    <Box p={2} sx={{ maxHeight: '550px', overflow: 'auto' }}>
+                    <Box p={2} sx={{maxHeight: '550px', overflow: 'auto'}}>
                         <LocationFilter
                             selectedLocations={selectedLocations}
                             setSelectedLocations={setSelectedLocations}
+                            locations={locations}
                         />
                     </Box>
                 </Popover>
             </Box>
-            <SidebarFilter filters={filters} setFilters={setFilters} />
+            <div style={{display:"flex"}}>
+                <SidebarFilter filters={filters} setFilters={setFilters}/>
+                <div >
+                    {currentList.map((job, index) => (
+                        <WorkItem key={index} job={job}/>
+                    ))}
+                </div>
+            </div>
+
         </div>
     );
 };

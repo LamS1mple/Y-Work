@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Typography,
@@ -10,40 +10,31 @@ import {
     Button
 } from '@mui/material';
 
-const LocationFilter = ({ selectedLocations, setSelectedLocations }) => {
+const LocationFilter = ({ selectedLocations, setSelectedLocations, locations }) => {
     const [selectedCity, setSelectedCity] = useState(null);
-    const [locations, setLocations] = useState([]);
 
-    useEffect(() => {
-        // Fetch data from the API
-        fetch('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json')
-            .then((response) => response.json())
-            .then((data) => setLocations(data))
-            .catch((error) => console.error('Error fetching location data:', error));
-    }, []);
-
-    const handleCitySelect = (cityId) => {
-        setSelectedCity(cityId);
-        if (!selectedLocations[cityId]) {
-            setSelectedLocations((prev) => ({ ...prev, [cityId]: [] }));
+    const handleCitySelect = (cityName) => {
+        setSelectedCity(cityName);
+        if (!selectedLocations[cityName]) {
+            setSelectedLocations((prev) => ({ ...prev, [cityName]: [] }));
         }
     };
 
-    const handleDistrictToggle = (districtId) => {
+    const handleDistrictToggle = (districtName) => {
         setSelectedLocations((prev) => {
             const currentDistricts = prev[selectedCity] || [];
-            const updatedDistricts = currentDistricts.includes(districtId)
-                ? currentDistricts.filter((d) => d !== districtId)
-                : [...currentDistricts, districtId];
+            const updatedDistricts = currentDistricts.includes(districtName)
+                ? currentDistricts.filter((d) => d !== districtName)
+                : [...currentDistricts, districtName];
             return { ...prev, [selectedCity]: updatedDistricts };
         });
     };
 
     const handleSelectAllDistricts = () => {
         if (selectedCity) {
-            const allDistrictIds = locations
-                .find((location) => location.Id === selectedCity)?.Districts.map((district) => district.Id) || [];
-            setSelectedLocations((prev) => ({ ...prev, [selectedCity]: allDistrictIds }));
+            const allDistrictNames = locations
+                .find((location) => location.Name === selectedCity)?.Districts.map((district) => district.Name) || [];
+            setSelectedLocations((prev) => ({ ...prev, [selectedCity]: allDistrictNames }));
         }
     };
 
@@ -51,17 +42,17 @@ const LocationFilter = ({ selectedLocations, setSelectedLocations }) => {
         <Box>
             <Box display="flex" p={2} sx={{ maxHeight: '400px' }}>
                 {/* Cities */}
-                <Box  sx={{ overflow: 'auto'}} borderRight={1} borderColor="grey.300" pr={2}>
+                <Box sx={{ overflow: 'auto' }} borderRight={1} borderColor="grey.300" pr={2}>
                     <List>
                         {locations.map((location) => (
                             <ListItem
-                                key={location.Id}
+                                key={location.Name}
                                 sx={{ cursor: 'pointer' }}
-                                onClick={() => handleCitySelect(location.Id)}
+                                onClick={() => handleCitySelect(location.Name)}
                             >
                                 <Typography
                                     variant="body2"
-                                    fontWeight={selectedCity === location.Id ? 'bold' : 'normal'}
+                                    fontWeight={selectedCity === location.Name ? 'bold' : 'normal'}
                                 >
                                     {location.Name}
                                 </Typography>
@@ -71,7 +62,7 @@ const LocationFilter = ({ selectedLocations, setSelectedLocations }) => {
                 </Box>
 
                 {/* Districts */}
-                <Box width="50%" pl={2} sx={{ overflow: 'auto'}} >
+                <Box width="50%" pl={2} sx={{ overflow: 'auto' }}>
                     {selectedCity && (
                         <>
                             <Typography variant="body2" fontWeight="bold" mb={1}>
@@ -79,16 +70,16 @@ const LocationFilter = ({ selectedLocations, setSelectedLocations }) => {
                             </Typography>
                             <List>
                                 {locations
-                                    .find((location) => location.Id === selectedCity)?.Districts.map((district) => (
-                                        <ListItem key={district.Id} disableGutters>
+                                    .find((location) => location.Name === selectedCity)?.Districts.map((district) => (
+                                        <ListItem key={district.Name} disableGutters>
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
                                                         size="small"
                                                         checked={
-                                                            selectedLocations[selectedCity]?.includes(district.Id) || false
+                                                            selectedLocations[selectedCity]?.includes(district.Name) || false
                                                         }
-                                                        onChange={() => handleDistrictToggle(district.Id)}
+                                                        onChange={() => handleDistrictToggle(district.Name)}
                                                     />
                                                 }
                                                 label={
