@@ -96,6 +96,10 @@ const WorkApi = {
                 key:key
             }
         })
+    },
+    jobCategory(){
+        const url = urlBase + "/public/career/job-catalog"
+        return axiosClient.get(url)
     }
 }
 

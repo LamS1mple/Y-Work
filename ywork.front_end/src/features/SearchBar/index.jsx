@@ -26,10 +26,8 @@ const SearchBar = () => {
         level: 'Tất cả',
         workType: 'Tất cả',
     });
-
     const [locations, setLocations] = useState([]);
     const [listWork, setWorkList] = useState([]);
-
     useEffect(() => {
         // Fetch data from the API
         fetch('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json')
@@ -37,6 +35,8 @@ const SearchBar = () => {
             .then((data) => setLocations(data))
             .catch((error) => console.error('Error fetching location data:', error));
     }, []);
+
+
 
     const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -86,8 +86,17 @@ const SearchBar = () => {
         }
         callApi()
     }, []);
+    const [jobCategories, setJobCategories] = useState([]);
+    useEffect(() => {
+        const callApi = async ()=>{
+            const response = await workApi.jobCategory()
+            const data = response.object
+            setJobCategories(data)
+        }
+        callApi()
+    }, []);
     const valuesArray = Object.values(selectedLocations).flat(); // Flatten into a single array
-
+    const valuesArrayJob = Object.values(selectedState?.selectedSubJobsMap || {}).flat(); // Flatten into a single array
     let currentList = [];
     if (valuesArray.length > 0) {
         // Step 2: Filter listWork based on matches with valuesArray
@@ -99,6 +108,11 @@ const SearchBar = () => {
     }else{
         currentList = listWork
     }
+    if (valuesArrayJob.length > 0) {
+        // Step 2: Filter listWork based on matches with valuesArray
+        currentList = currentList.filter(item => item.skills.some(skill => valuesArrayJob.includes(skill.skillName)));
+    }
+
     currentList = currentList.filter((item) => {
         const matchesExperience = filters.experience === "Tất cả" || item.experience === filters.experience
         const matchesPosition = filters.level === "Tất cả" || item.position === filters.level;
@@ -182,7 +196,7 @@ const SearchBar = () => {
                     transformOrigin={{vertical: 'top', horizontal: 'left'}}
                 >
                     <Box p={2} sx={{maxHeight: '400px', overflow: 'auto'}}>
-                        <JobCatalog selectedState={selectedState} setSelectedState={setSelectedState}/>
+                        <JobCatalog selectedState={selectedState} setSelectedState={setSelectedState} jobCategories={jobCategories}/>
                     </Box>
                 </Popover>
 

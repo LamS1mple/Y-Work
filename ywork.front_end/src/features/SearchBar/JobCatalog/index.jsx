@@ -11,7 +11,7 @@ import {
     TextField,
 } from '@mui/material';
 
-const JobCatalog = ({ selectedState, setSelectedState }) => {
+const JobCatalog = ({ selectedState, setSelectedState, jobCategories }) => {
     const [selectedGroup, setSelectedGroup] = useState(selectedState.selectedGroup || null);
     const [selectedJob, setSelectedJob] = useState(selectedState.selectedJob || null);
     const [selectedSubJobsMap, setSelectedSubJobsMap] = useState(selectedState.selectedSubJobsMap || {});
@@ -64,45 +64,45 @@ const JobCatalog = ({ selectedState, setSelectedState }) => {
         });
     }, [selectedGroup, selectedJob, selectedSubJobsMap]);
 
-    const jobCategories = [
-        {
-            group: 'Kinh doanh/Bán hàng',
-            jobs: [
-                {
-                    name: 'Sales Xuất nhập khẩu/Logistics',
-                    subJobs: ['Sales Logistics', 'Sales Xuất nhập khẩu/Logistics khác'],
-                },
-                {
-                    name: 'Sales Bất động sản/Xây dựng',
-                    subJobs: [
-                        'Sales bất động sản/Môi giới bất động sản',
-                        'Kinh doanh thiết bị/vật liệu xây dựng',
-                        'Kinh doanh nội thất',
-                        'Sales Bất động sản/Xây dựng khác',
-                    ],
-                },
-            ],
-        },
-        {
-            group: 'Marketing/PR/Quảng cáo',
-            jobs: [
-                {
-                    name: 'Digital Marketing',
-                    subJobs: ['SEO Specialist', 'Content Marketing', 'Social Media Manager'],
-                },
-                {
-                    name: 'Quảng cáo truyền thông',
-                    subJobs: ['Media Buyer', 'Copywriter', 'Creative Director'],
-                },
-            ],
-        },
-    ];
+    // const jobCategories = [
+    //     {
+    //         group: 'Kinh doanh/Bán hàng',
+    //         jobs: [
+    //             {
+    //                 name: 'Sales Xuất nhập khẩu/Logistics',
+    //                 subJobs: ['Sales Logistics', 'Sales Xuất nhập khẩu/Logistics khác'],
+    //             },
+    //             {
+    //                 name: 'Sales Bất động sản/Xây dựng',
+    //                 subJobs: [
+    //                     'Sales bất động sản/Môi giới bất động sản',
+    //                     'Kinh doanh thiết bị/vật liệu xây dựng',
+    //                     'Kinh doanh nội thất',
+    //                     'Sales Bất động sản/Xây dựng khác',
+    //                 ],
+    //             },
+    //         ],
+    //     },
+    //     {
+    //         group: 'Marketing/PR/Quảng cáo',
+    //         jobs: [
+    //             {
+    //                 name: 'Digital Marketing',
+    //                 subJobs: ['SEO Specialist', 'Content Marketing', 'Social Media Manager'],
+    //             },
+    //             {
+    //                 name: 'Quảng cáo truyền thông',
+    //                 subJobs: ['Media Buyer', 'Copywriter', 'Creative Director'],
+    //             },
+    //         ],
+    //     },
+    // ];
 
     const filteredSubJobs = selectedJob
         ? jobCategories
-            .find((category) => category.group === selectedGroup)
-            .jobs.find((job) => job.name === selectedJob)
-            .subJobs.filter((subJob) => subJob.toLowerCase().includes(searchQuery.toLowerCase()))
+        .find((category) => category.group === selectedGroup)?.jobs
+        .find((job) => job.name === selectedJob)?.subJobs
+        ?.filter((subJob) => subJob.toLowerCase().includes(searchQuery.toLowerCase())) || []
         : [];
 
     return (
