@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,7 @@ public class WorkImpl implements WorkService {
             workOut.setLocations(locationRepository.getLocationsWork(workOut.getLocation()));
             workOut.setSkills(skillFieldRepository.getSkillFieldsWork(workOut.getWorkId()));
             workOut.setUrlAvatar(minioUtils.getUrlFile(workOut.getCompanyId(), workOut.getAvatar()));
+            workOut.setLocationSearch(locationRepository.getLocationSearchWork(workOut.getLocation()));
             if (workOut.getSalaryMax() != 0 || workOut.getSalaryMin() != 0) {
                 workOut.setTypeSalary(1);
             }
@@ -85,6 +87,26 @@ public class WorkImpl implements WorkService {
     @Override
     public List<WorkOut> getListWorkCompany(String companyId) {
         List<WorkOut> workOutList = workRepository.getListWorkCompany(companyId);
+        setDetailWork(workOutList);
+        return workOutList;
+    }
+
+    @Override
+    public void deleteJob(String workId) {
+        workRepository.deleteJob(workId);
+    }
+
+    @Override
+    public List<WorkOut> getListWorkSearch(String key) {
+        List<WorkOut> workOutList = null;
+        try{
+            if (key == null || key.isEmpty()) throw new RuntimeException();
+            String resultRecommend = apiCall.searchAI(key);
+            workOutList = workRepository.getListSearchWorkRecommend(resultRecommend);
+        } catch (Exception e) {
+//            log.error(e.getMessage().substring(0, 100));
+            workOutList = workRepository.getListWork();
+        }
         setDetailWork(workOutList);
         return workOutList;
     }

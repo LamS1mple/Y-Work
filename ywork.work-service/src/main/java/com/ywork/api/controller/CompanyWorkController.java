@@ -39,4 +39,14 @@ public class CompanyWorkController {
         log.info("success");
         return ResponseEntity.ok(apiResult);
     }
+    @GetMapping("/job/delete")
+    public ResponseEntity<ApiResult> deleteJob(@RequestParam("workId")String workId){
+        log.info("/company/job/delete");
+        ApiResult apiResult = new ApiResult();
+        workService.deleteJob(workId);
+        apiResult.setObject(Collections.emptyMap());
+        log.info("success");
+        return ResponseEntity.ok(apiResult);
+    }
+
 }

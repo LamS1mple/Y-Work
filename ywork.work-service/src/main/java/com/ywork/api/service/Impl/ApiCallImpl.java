@@ -43,6 +43,16 @@ public class ApiCallImpl implements ApiCall {
     }
 
     @Override
+    public String searchAI(String keyword) {
+        EntityRequest entityRequest = EntityRequest.builder()
+                .uri(UriComponentsBuilder.fromHttpUrl(HOST_AI + searchWork).build().toUri())
+                .httpMethod(HttpMethod.POST)
+                .object(List.of(keyword))
+                .build();
+        return restAPI(entityRequest);
+    }
+
+    @Override
     public String getIdWorkRecommend(List<String> list) {
         EntityRequest entityRequest = EntityRequest.builder()
                 .uri(UriComponentsBuilder.fromHttpUrl(HOST_AI + recommendWork).build().toUri())

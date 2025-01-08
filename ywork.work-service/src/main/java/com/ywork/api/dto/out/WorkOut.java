@@ -49,6 +49,7 @@ public class WorkOut {
     private List<SkillFieldOut> skills;
     private String urlAvatar;
     private int typeSalary;
+    private List<String> locationSearch;
     @Col("quantity")
     private String quantity;
     @Col("position")
@@ -67,4 +68,6 @@ public class WorkOut {
     private String infor;
     @Col("cv_id")
     private String cvId;
+    @Col("format_work")
+    private String workType;
 }

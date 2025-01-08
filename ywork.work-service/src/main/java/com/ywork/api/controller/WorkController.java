@@ -53,4 +53,15 @@ public class WorkController {
         log.info("Success");
         return  ResponseEntity.ok(apiResult);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResult> getListWorkSearch(@RequestParam String key){
+        log.info("/public/work/search");
+        var result = workService.getListWorkSearch(key);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setObject(result);
+        log.info("Success");
+        return  ResponseEntity.ok(apiResult);
+
+    }
 }

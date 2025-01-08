@@ -85,6 +85,13 @@ public class WorkRepository {
         return (List<WorkOut>) out_put.get("out_cur");
     }
 
+    public List<WorkOut> getListSearchWorkRecommend(String resultRecommend) {
+        var out_put = proceduceCall.callOneRefCursor("work_search_recommend",
+                List.of(ProcedureParameter.inputParam("in_data", String.class, resultRecommend),
+                        ProcedureParameter.refCursorParam("out_cur")), WorkOut.class);
+        return (List<WorkOut>) out_put.get("out_cur");
+    }
+
     public List<WorkOut> getListWorkCompany(String companyId) {
         var out_put = proceduceCall.callOneRefCursor("work_company_public",
                 List.of(ProcedureParameter.inputParam("in_company_id", String.class, companyId),
@@ -95,5 +102,15 @@ public class WorkRepository {
 
         }
         return (List<WorkOut>) out_put.get("out_cur");
+    }
+
+    public void deleteJob(String workId) {
+        var out_put = proceduceCall.callNoRefCursor("work_delete",
+                List.of(ProcedureParameter.inputParam("in_work_id", String.class, workId),
+                        ProcedureParameter.outputParam("out_result", String.class)));
+        String result = (String) out_put.get("out_result");
+        if (!DataStatus.SUCCESS.equals(result)) {
+            throw new RuntimeException("Fail work delete");
+        }
     }
 }

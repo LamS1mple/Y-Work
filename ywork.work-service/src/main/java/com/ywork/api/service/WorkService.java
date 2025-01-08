@@ -15,4 +15,8 @@ public interface WorkService {
     void changeStatus(String workId);
 
     List<WorkOut> getListWorkCompany(String companyId);
+
+    void deleteJob(String workId);
+
+    List<WorkOut> getListWorkSearch(String key);
 }

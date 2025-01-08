@@ -51,10 +51,17 @@ def recomment(data):
 
 app = Flask(__name__)
 
+
 CORS(app)
 
 @app.post('/recommend')
 def hello_world():
+    data = request.get_json()
+    result = recomment(data)
+    return jsonify(result)
+
+@app.post("/search")
+def search_work():
     data = request.get_json()
     result = recomment(data)
     return jsonify(result)
