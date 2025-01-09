@@ -5,6 +5,7 @@ import {
     InputBase,
     Typography,
     Popover,
+    Pagination,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -36,10 +37,7 @@ const SearchBar = () => {
             .catch((error) => console.error('Error fetching location data:', error));
     }, []);
 
-
-
     const [searchKeyword, setSearchKeyword] = useState('');
-
     const handleOpenJobCatalog = (event) => {
         setJobCatalogAnchorEl(event.currentTarget);
     };
@@ -75,7 +73,6 @@ const SearchBar = () => {
             setWorkList(data)
         }
         callApi()
-        // Gửi `searchParams` qua API hoặc xử lý tại đây.
     };
 
     useEffect(() => {
@@ -95,35 +92,50 @@ const SearchBar = () => {
         }
         callApi()
     }, []);
+
     const valuesArray = Object.values(selectedLocations).flat(); // Flatten into a single array
     const valuesArrayJob = Object.values(selectedState?.selectedSubJobsMap || {}).flat(); // Flatten into a single array
     let currentList = [];
     if (valuesArray.length > 0) {
-        // Step 2: Filter listWork based on matches with valuesArray
         currentList = listWork.filter((item) => {
                 const matchesLocation = item.locationSearch.some((location) => valuesArray.includes(location));
-                return matchesLocation
+                return matchesLocation;
             }
         );
-    }else{
-        currentList = listWork
+    } else {
+        currentList = listWork;
     }
     if (valuesArrayJob.length > 0) {
-        // Step 2: Filter listWork based on matches with valuesArray
         currentList = currentList.filter(item => item.skills.some(skill => valuesArrayJob.includes(skill.skillName)));
     }
 
     currentList = currentList.filter((item) => {
-        const matchesExperience = filters.experience === "Tất cả" || item.experience === filters.experience
-        const matchesPosition = filters.level === "Tất cả" || item.position === filters.level;
-        const matchesTypeWork = filters.workType === "Tất cả" || item.workType === filters.workType
-        return matchesExperience && matchesPosition && matchesTypeWork
+            const matchesExperience = filters.experience === "Tất cả" || item.experience === filters.experience;
+            const matchesPosition = filters.level === "Tất cả" || item.position === filters.level;
+            const matchesTypeWork = filters.workType === "Tất cả" || item.workType === filters.workType;
+            return matchesExperience && matchesPosition && matchesTypeWork;
         }
     );
     currentList = currentList.filter((item) => (filters.salary.from === '' && filters.salary.to === '') ||
         (filters.salary.from === '' && item.salaryMax <= (filters.salary.to * 1000000)) ||
         (filters.salary.to === '' && item.salaryMin >= (filters.salary.from * 1000000)) ||
         (item.salaryMin >= ((filters.salary.from || 0) * 1000000) && item.salaryMax <= (filters.salary.to * 1000000)));
+
+    // State for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; // Items per page
+
+    // Calculate total pages and paginated list
+    const totalPages = Math.ceil(currentList.length / itemsPerPage);
+    const paginatedList = currentList.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
+
     return (
         <div>
             <Box
@@ -134,7 +146,6 @@ const SearchBar = () => {
                 p={1}
                 sx={{backgroundColor: 'white'}}
             >
-                {/* Danh mục Nghề */}
                 <Box
                     display="flex"
                     alignItems="center"
@@ -148,7 +159,6 @@ const SearchBar = () => {
                     <Typography variant="body1">Danh mục Nghề</Typography>
                 </Box>
 
-                {/* Ô tìm kiếm */}
                 <Box flex={1} px={2}>
                     <InputBase
                         placeholder="Vị trí tuyển dụng, tên công ty"
@@ -159,7 +169,6 @@ const SearchBar = () => {
                     />
                 </Box>
 
-                {/* Địa điểm */}
                 <Box
                     display="flex"
                     alignItems="center"
@@ -174,7 +183,6 @@ const SearchBar = () => {
                     <Typography variant="body1">Địa điểm</Typography>
                 </Box>
 
-                {/* Nút Tìm kiếm */}
                 <Box pl={2}>
                     <Button
                         variant="contained"
@@ -187,7 +195,6 @@ const SearchBar = () => {
                     </Button>
                 </Box>
 
-                {/* Popover for Job Catalog */}
                 <Popover
                     open={isJobCatalogOpen}
                     anchorEl={jobCatalogAnchorEl}
@@ -200,7 +207,6 @@ const SearchBar = () => {
                     </Box>
                 </Popover>
 
-                {/* Popover for Location Filter */}
                 <Popover
                     open={isLocationFilterOpen}
                     anchorEl={locationFilterAnchorEl}
@@ -217,15 +223,25 @@ const SearchBar = () => {
                     </Box>
                 </Popover>
             </Box>
-            <div style={{display:"flex"}}>
+            <div style={{display: "flex"}}>
                 <SidebarFilter filters={filters} setFilters={setFilters}/>
-                <div >
-                    {currentList.map((job, index) => (
+                <div style={{flex: "3"}}>
+                    {paginatedList.map((job, index) => (
                         <WorkItem key={index} job={job}/>
                     ))}
                 </div>
-            </div>
 
+            </div>
+            <Box display="flex" justifyContent="center" mt={2}>
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                    siblingCount={1}
+                    boundaryCount={1}
+                />
+            </Box>
         </div>
     );
 };

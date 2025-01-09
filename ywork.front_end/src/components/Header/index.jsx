@@ -39,7 +39,7 @@ const Header = (props) => {
         <header className="header">
             <div className="header-left">
                 <span className="header-logo">Tiếp lợi thế - Nối thành công</span>
-                <nav className="header-nav" style={{ display: "flex" }}>
+                <nav className="header-nav" style={{display: "flex"}}>
                     {/* Dropdown chưa hoàn thiện */}
                     {/* <div className="dropdown" style={{ marginRight: "20px" }}>
                         <div><span onClick={() => handleNavigate('/')}>Việc làm</span></div>
@@ -54,21 +54,24 @@ const Header = (props) => {
                         )}
                     </div> */}
 
-                    <div style={{ marginRight: "20px" }}>
+                    <div style={{marginRight: "20px"}}>
                         <span onClick={() => handleNavigate('/')}>Việc làm</span>
                     </div>
-                    <div style={{ marginRight: "20px" }}>
+                    <div style={{marginRight: "20px"}}>
+                        <span onClick={() => handleNavigate('/search-bar')}>Tìm việc nâng cao</span>
+                    </div>
+                    <div style={{marginRight: "20px"}}>
                         <span onClick={() => handleNavigate('/danh-sach-cong-ty')}>Danh sách công ty</span>
                     </div>
                     {isUser && (
                         <div
-                            style={{ marginRight: "20px" }}
+                            style={{marginRight: "20px"}}
                             onClick={() => handleNavigate('/job/apply')}
                         >
                             Việc đã ứng tuyển
                         </div>
                     )}
-                    <div style={{ marginRight: "20px" }} onClick={() => handleNavigate("/cv")}>Hồ sơ & CV</div>
+                    <div style={{marginRight: "20px"}} onClick={() => handleNavigate("/cv")}>Hồ sơ & CV</div>
                 </nav>
             </div>
             {!isUser ? (

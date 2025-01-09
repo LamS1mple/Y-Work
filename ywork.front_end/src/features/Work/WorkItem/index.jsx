@@ -16,7 +16,7 @@ function WorkItem({job}) {
     const salary = job.typeSalary === 0 ? "Thỏa thuận" : (`${convertToMillion(job.salaryMin)} ${job.salaryMax !== 0 ? `- ${convertToMillion(job.salaryMax)}`:""}`)
     const listLocation = loction.size <= 2 ? [...loction].join(',') : `${[...loction][0]}&${loction.size - 1} nơi khác`
     return (
-        <div className="job-card">
+        <div className="job-card" >
             <img src={job.urlAvatar} alt={job.nameWork} className="job-image"/>
             <div className="job-info">
                 <h3>

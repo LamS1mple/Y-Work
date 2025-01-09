@@ -42,7 +42,7 @@ function removeVietnameseTones(str) {
     return str;
 }
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 6;
 
 function WorkList() {
     const [listWork, setWorkList] = useState([]);

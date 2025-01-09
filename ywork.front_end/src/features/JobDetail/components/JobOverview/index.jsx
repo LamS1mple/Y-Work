@@ -11,6 +11,11 @@ function JobOverview(props) {
     const location = new Set(job.locations.map(location => location.name))
     const listLocation = location.size <= 2 ? [...location].join(',') : `${[...location][0]} & ${location.size - 1} nơi khác`
 
+    // Kiểm tra hạn nộp hồ sơ và trạng thái
+    const currentDate = new Date();
+    const dueDateString = job.dueDate && typeof job.dueDate === 'string' ? job.dueDate.split(' ')[0] : null;
+    const dueDate = dueDateString ? new Date(dueDateString) : null;
+    const isDisabled = !dueDate || dueDate < currentDate || job.status === 0; // Inactive nếu không có dueDate, quá hạn hoặc status = 0
     const onOpen = props.onOpen
     return (
         <div className="job-card-container" style={{maxWidth:"700px"}}>
@@ -65,7 +70,16 @@ function JobOverview(props) {
             </div>
             {/* Action Buttons */}
             <div className="button-container">
-                <button className="apply-button" style={{background: configColor}} onClick={onOpen}>Ứng tuyển ngay
+                <button
+                    className="apply-button"
+                    style={{
+                        background: isDisabled ? '#ccc' : configColor, // Màu xám nếu nút bị inactive
+                        cursor: isDisabled ? 'not-allowed' : 'pointer'
+                    }}
+                    onClick={!isDisabled ? onOpen : null} // Chỉ cho phép click khi nút active
+                    disabled={isDisabled} // Thuộc tính disabled
+                >
+                    Ứng tuyển ngay
                 </button>
 
             </div>

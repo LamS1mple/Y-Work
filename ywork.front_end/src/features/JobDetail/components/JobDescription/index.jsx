@@ -10,6 +10,11 @@ function JobDescription(props) {
         .map((line) => line.trim()) // Loại bỏ khoảng trắng thừa
         .filter((line) => line.length > 0) // Loại bỏ dòng trống
         .map((line, index) => <li key={index}>{line}</li>);
+
+    const currentDate = new Date();
+    const dueDateString = job.dueDate && typeof job.dueDate === 'string' ? job.dueDate.split(' ')[0] : null;
+    const dueDate = dueDateString ? new Date(dueDateString) : null;
+    const isDisabled = !dueDate || dueDate < currentDate || job.status === 0; // Inactive nếu không có dueDate, quá hạn hoặc status = 0
     return (
         <div className="job-details-container">
             <div className="job-details-header">
@@ -86,7 +91,15 @@ function JobDescription(props) {
 
             {/* Action Buttons */}
             <div className="button-container">
-                <button className="apply-button" style={{background: configColor}} onClick={onOpen}>Ứng tuyển ngay
+                <button
+                    className="apply-button"
+                    style={{
+                        background: isDisabled ? '#ccc' : configColor, // Màu xám nếu nút bị inactive
+                        cursor: isDisabled ? 'not-allowed' : 'pointer'
+                    }}
+                    onClick={!isDisabled ? onOpen : null} // Chỉ cho phép click khi nút active
+                    disabled={isDisabled} // Thuộc tính disabled
+                >Ứng tuyển ngay
                 </button>
             </div>
 
