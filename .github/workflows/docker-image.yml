@@ -23,10 +23,4 @@ jobs:
           environment: production
           description: "Build image: ${{ github.sha }}"
       
-      - name: Mark deployment as successful
-        uses: chrnorm/deployment-status-action@v2
-        with:
-          token: ${{ github.token }}
-          state: success
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          description: "Build & deploy completed"
+
