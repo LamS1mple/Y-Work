@@ -1,43 +1,26 @@
-name: Deploy
+name: Docker Image CI
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  deployments: write
 
 jobs:
-  deploy:
-    name: Deploy my app
-
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      deployments: write
-    steps:
-      - uses: actions/checkout@v1
 
-      - uses: chrnorm/deployment-action@v2
-        name: Create GitHub deployment
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub deployment
+        uses: chrnorm/deployment-action@v2
         id: deployment
         with:
-          token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
+          token: ${{ secrets.GITHUB_TOKEN }}
           environment: production
-
-      - name: Deploy my app
-        run: |
-          # add your deployment code here
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          environment-url: http://my-app-url.com
+          description: "test 12345"
           state: 'success'
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: ${{ steps.deployment.outputs.environment_url }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: 'failure'
