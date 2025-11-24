@@ -19,7 +19,7 @@ jobs:
         uses: chrnorm/deployment-action@v2
         id: deployment
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           environment: production
           environment-url: http://my-app-url.com
           description: "test 12345"
