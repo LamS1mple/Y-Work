@@ -15,12 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create GitHub deployment
-        uses: chrnorm/deployment-action@v2
+      - name: Create Deployment
         id: deployment
+        uses: chrnorm/deployment-action@v2
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           environment: production
+          description: "Build image: ${{ github.sha }}"
           environment-url: http://my-app-url.com
-          description: "test 12345"
-          state: 'success'
+      
+      - name: Mark deployment as successful
+        uses: chrnorm/deployment-status-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: success
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          description: "Build & deploy completed"
