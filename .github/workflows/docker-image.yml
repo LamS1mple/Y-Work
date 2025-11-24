@@ -19,10 +19,11 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
+          description: "Deploy image tag: ${{ github.sha }}"
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           environment: production
-          description: "test 123"
+          
       - name: Deploy my app
         run: |
           # add your deployment code here
@@ -31,11 +32,11 @@ jobs:
         if: success()
         uses: chrnorm/deployment-status@v2
         with:
+          description: "Deploy image tag: ${{ github.sha }}"
           token: '${{ github.token }}'
           environment-url: http://my-app-url.com
           state: 'success'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          description: "test 123"
 
       - name: Update deployment status (failure)
         if: failure()
