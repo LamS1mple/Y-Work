@@ -19,15 +19,14 @@ jobs:
         id: deployment
         uses: chrnorm/deployment-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           environment: production
           description: "Build image: ${{ github.sha }}"
-          environment-url: http://my-app-url.com
       
       - name: Mark deployment as successful
         uses: chrnorm/deployment-status-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           state: success
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           description: "Build & deploy completed"
