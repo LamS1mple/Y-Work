@@ -22,6 +22,7 @@ jobs:
           description: "Deploy image tag: ${{ github.sha }}"
           token: '${{ github.token }}'
           environment: production
+          ref: Test
           
       - name: Deploy my app
         run: |
@@ -34,6 +35,7 @@ jobs:
           token: '${{ github.token }}'
           state: 'success'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          ref: Test
 
       - name: Update deployment status (failure)
         if: failure()
@@ -43,3 +45,4 @@ jobs:
           environment-url: http://my-app-url.com
           state: 'failure'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          ref: Test
