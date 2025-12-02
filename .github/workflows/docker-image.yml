@@ -31,14 +31,14 @@ jobs:
       
           echo "deployment_id=$(echo $DEPLOYMENT | jq '.id')" >> $GITHUB_OUTPUT
       
-      - name: Mark Deployment Success
-        run: |
-          curl -L \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ github.token }}" \
-            https://api.github.com/repos/${{ github.repository }}/deployments/${{ steps.create_deploy.outputs.deployment_id }}/statuses \
-            -d '{"state": "success"}'
+      # - name: Mark Deployment Success
+      #   run: |
+      #     curl -L \
+      #       -X POST \
+      #       -H "Accept: application/vnd.github+json" \
+      #       -H "Authorization: Bearer ${{ github.token }}" \
+      #       https://api.github.com/repos/${{ github.repository }}/deployments/${{ steps.create_deploy.outputs.deployment_id }}/statuses \
+      #       -d '{"state": "success"}'
       # - uses: chrnorm/deployment-action@v2
       #   name: Create GitHub deployment
       #   id: deployment
@@ -51,15 +51,15 @@ jobs:
       # - name: Deploy my app
       #   run: |
       #     # add your deployment code here
-      # - name: Update deployment status (success)
-      #   if: success()
-      #   uses: chrnorm/deployment-status@v2
-      #   with:
-      #     description: "Deploy image tag: ${{ github.sha }}"
-      #     token: '${{ github.token }}'
-      #     state: 'success'
-      #     deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-      #     ref: Test
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          description: "Deploy image tag: 5800955efea9f680308c870c6b0b2a7a6e4e6108"
+          token: '${{ github.token }}'
+          state: 'success'
+          deployment-id: ${{ steps.create_deploy.outputs.deployment_id }}
+          ref: 5800955efea9f680308c870c6b0b2a7a6e4e6108
 
       # - name: Update deployment status (failure)
       #   if: failure()
