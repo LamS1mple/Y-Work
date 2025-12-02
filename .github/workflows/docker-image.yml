@@ -14,7 +14,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-
+      - name: Call API create deployment
+        run: |
+          curl -L \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{github.token}}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/${{github.repository}}/deployments \
+          -d '{"ref":"test-2","payload":"{ \"deploy\": \"migrate\" }","description":"Deploy request from hubot"}'
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
         id: deployment
