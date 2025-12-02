@@ -22,35 +22,35 @@ jobs:
           -H "Authorization: Bearer ${{github.token}}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/${{github.repository}}/deployments \
-          -d '{"ref":"Test","payload":"{ \"deploy\": \"migrate\" }","description":"Deploy request from hubot"}'
-      - uses: chrnorm/deployment-action@v2
-        name: Create GitHub deployment
-        id: deployment
-        with:
-          description: "Deploy image tag: ${{ github.sha }}"
-          token: '${{ github.token }}'
-          environment: production
-          ref: Test
+          -d '{"ref":"Test","payload":"{ \"deploy\": \"migrate\" }","description":"Deploy request from hubot","auto_merge": false}'
+      # - uses: chrnorm/deployment-action@v2
+      #   name: Create GitHub deployment
+      #   id: deployment
+      #   with:
+      #     description: "Deploy image tag: ${{ github.sha }}"
+      #     token: '${{ github.token }}'
+      #     environment: production
+      #     ref: Test
           
-      - name: Deploy my app
-        run: |
-          # add your deployment code here
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@v2
-        with:
-          description: "Deploy image tag: ${{ github.sha }}"
-          token: '${{ github.token }}'
-          state: 'success'
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          ref: Test
+      # - name: Deploy my app
+      #   run: |
+      #     # add your deployment code here
+      # - name: Update deployment status (success)
+      #   if: success()
+      #   uses: chrnorm/deployment-status@v2
+      #   with:
+      #     description: "Deploy image tag: ${{ github.sha }}"
+      #     token: '${{ github.token }}'
+      #     state: 'success'
+      #     deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+      #     ref: Test
 
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ github.token }}'
-          environment-url: http://my-app-url.com
-          state: 'failure'
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          ref: Test
+      # - name: Update deployment status (failure)
+      #   if: failure()
+      #   uses: chrnorm/deployment-status@v2
+      #   with:
+      #     token: '${{ github.token }}'
+      #     environment-url: http://my-app-url.com
+      #     state: 'failure'
+      #     deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+      #     ref: Test
