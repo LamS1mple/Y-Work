@@ -5,7 +5,7 @@ on: [push, deployment]
 jobs:
   deploy:
     name: Deploy my app
-
+    environment: production
     # IMPORTANT: the workflow must have write access to deployments, otherwise the action will fail.
     permissions:
       deployments: write
