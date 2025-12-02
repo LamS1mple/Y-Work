@@ -30,7 +30,7 @@ jobs:
             "payload": {
               "deploy": "migrate"
             },
-            "state": 'success',
+            "state": "success",
             "description": "Deploy request from curl"
           }'
       # - uses: chrnorm/deployment-action@v2
