@@ -1,2 +1,1 @@
-Github action
-github_pat_11AWWB7LQ0USsOBTVCHDNW_7RP9PsKYSPyuHUMk2AEujXzsauK1B38AMAxUdSN1k54X3IBY2nIsXQIjz
+Github action a
